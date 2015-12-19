@@ -58,6 +58,7 @@ public abstract class KermekxEngine implements Runnable {
 		glEnable(GL_BLEND);
 		glEnable(GL_VERTEX_ARRAY);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		getDelta();
 
 		while (!Display.isCloseRequested()) {
 			int delta = getDelta();
@@ -75,7 +76,7 @@ public abstract class KermekxEngine implements Runnable {
 		int delta = (int) (time - lastFrame);
 		lastFrame = time;
 		
-		return (delta < 0) ? 0 : delta;
+		return delta;
 	}
 
 	public long getTime() {

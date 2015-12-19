@@ -39,7 +39,7 @@ public class GameScene extends Scene {
 		if (lastFire > 0)
 			lastFire -= delta;
 
-		if (keyPressed(Key.KEY_END)) {
+		if (lastFire <= 0 && keyPressed(Key.KEY_ENTER)) {
 			player.fire();
 			lastFire = 150;
 		}

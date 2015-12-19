@@ -17,5 +17,5 @@ public class Key {
 	public final static int KEY_UP = Keyboard.KEY_UP;
 	
 	//Miscs
-	public final static int KEY_END = Keyboard.KEY_NUMPADENTER;
+	public static final int KEY_ENTER = 28;
 }
