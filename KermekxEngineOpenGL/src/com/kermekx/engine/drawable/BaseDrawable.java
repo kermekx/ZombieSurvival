@@ -75,13 +75,13 @@ public abstract class BaseDrawable implements Drawable {
 	public void translate(float tx, float ty) {
 		double radian = Math.toRadians(angle);
 		position = Matrix.translation(position,
-				(float) (tx * Math.cos(radian) + ty * Math.sin(radian)),
+				(float) (tx * Math.cos(radian) - ty * Math.sin(radian)),
 				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
 		for (int i = 0; i < vertex.length; i++) {
 			if (texture != -1)
 				i++;
 			vertex[i] = Matrix.translation(vertex[i],
-					(float) (tx * Math.cos(radian) + ty * Math.sin(radian)),
+					(float) (tx * Math.cos(radian) - ty * Math.sin(radian)),
 					(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
 		}
 	}

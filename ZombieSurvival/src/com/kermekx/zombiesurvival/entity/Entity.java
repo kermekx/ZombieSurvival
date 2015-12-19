@@ -11,7 +11,7 @@ public abstract class Entity {
 
 	private Vector position;
 	private float rotation;
-
+	private boolean alive = true;
 	private List<Drawable> drawables = new ArrayList<Drawable>();
 
 	public List<Drawable> getDrawables() {
@@ -33,7 +33,7 @@ public abstract class Entity {
 	public void translate(float tx, float ty) {
 		double radian = Math.toRadians(rotation);
 		position = Matrix.translation(position,
-				(float) (tx * Math.cos(radian) + ty * Math.sin(radian)),
+				(float) (tx * Math.cos(radian) - ty * Math.sin(radian)),
 				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
 		for (Drawable d : getDrawables())
 			d.translate(tx, ty);
@@ -43,5 +43,19 @@ public abstract class Entity {
 		rotation += angle;
 		for (Drawable d : getDrawables())
 			d.setRotation(rotation);
+	}
+	
+	public float getRotation() {
+		return rotation;
+	}
+	
+	public void kill() {
+		alive = false;
+	}
+	
+	public void update(int delta) { }
+	
+	public boolean isAlive() {
+		return alive;
 	}
 }

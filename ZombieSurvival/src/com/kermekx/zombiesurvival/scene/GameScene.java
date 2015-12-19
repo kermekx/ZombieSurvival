@@ -1,6 +1,8 @@
 package com.kermekx.zombiesurvival.scene;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.kermekx.engine.drawable.Drawable;
@@ -8,12 +10,16 @@ import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.entity.Bullet;
+import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 
 public class GameScene extends Scene {
 
 	Player player;
 	int lastFire;
+	
+	private List<Entity> entities = new ArrayList<Entity>();
 
 	public GameScene() {
 		try {
@@ -36,12 +42,31 @@ public class GameScene extends Scene {
 	public void update(int delta) {
 		super.update(delta);
 
+		List<Entity> deadEntities = new ArrayList<Entity>();
+		for (Entity entity : entities) {
+			if(entity.isAlive())
+				entity.update(delta);
+			else {
+				for(Drawable drawable : entity.getDrawables())
+					getDrawables().remove(drawable);
+				deadEntities.add(entity);
+			}
+		}
+		entities.removeAll(deadEntities);
+
 		if (lastFire > 0)
 			lastFire -= delta;
 
 		if (lastFire <= 0 && keyPressed(Key.KEY_ENTER)) {
 			player.fire();
 			lastFire = 150;
+			try {
+				Bullet b = new Bullet(player.getPosition(), player.getRotation());
+				getDrawables().addAll(b.getDrawables());
+				entities.add(b);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		if (lastFire <= 0) {
