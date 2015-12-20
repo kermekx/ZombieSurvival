@@ -54,10 +54,6 @@ public class GameScene extends Scene {
 		entities.removeAll(deadEntities);
 
 		if (lastFire > 0) {
-			if (keyPressed(Key.KEY_Q))
-				player.rotate(delta * -0.1f);
-			if (keyPressed(Key.KEY_D))
-				player.rotate(delta * 0.1f);
 			lastFire -= delta;
 		}
 
@@ -69,23 +65,18 @@ public class GameScene extends Scene {
 			getDrawables().addAll(b.getDrawables());
 			entities.add(b);
 		}
+		
+		if (keyPressed(Key.KEY_Q))
+			player.rotate(-delta);
+		if (keyPressed(Key.KEY_D))
+			player.rotate(delta);
 
 		if (lastFire <= 0) {
-			boolean walk = false;
-			if (keyPressed(Key.KEY_Z)) {
-				player.translate(delta * 0.5f, 0);
-				walk = true;
-			}
-			if (keyPressed(Key.KEY_S)) {
-				player.translate(delta * -0.5f, 0f);
-				walk = true;
-			}
-			if (keyPressed(Key.KEY_Q))
-				player.rotate(delta * -0.1f);
-			if (keyPressed(Key.KEY_D))
-				player.rotate(delta * 0.1f);
+			if (keyPressed(Key.KEY_Z))
+				player.walk(delta);
+			if (keyPressed(Key.KEY_S))
+				player.walk(-delta);
 			getCamera().setPosition(player.getPosition());
-			player.walk(walk);
 		}
 	}
 }

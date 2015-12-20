@@ -7,10 +7,14 @@ import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.scene.GameScene;
 
 public class Player extends Entity {
 
 	public static int LIFE = 100;
+	public static float MOVEMENT_SPEED = 0.5f;
+	public static float ROTATION_SPEED = 0.1f;
+	private boolean walking = false;
 
 	public Player(Scene context, int x, int y) {
 		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
@@ -36,17 +40,34 @@ public class Player extends Entity {
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 126, 107, texturesPlayer));
 	}
 
-	public void walk(boolean walk) {
-		if (walk)
-			for (Drawable d : getDrawables()) {
-				if (d instanceof SwitchableAnimatedRectangle2D)
-					((SwitchableAnimatedRectangle2D) d).setTextureGroupe(1);
-			}
+	public void walk(float delta) {
+		for (Drawable d : getDrawables())
+			if (d instanceof SwitchableAnimatedRectangle2D)
+				((SwitchableAnimatedRectangle2D) d).setTextureGroupe(1);
+		translate(delta * MOVEMENT_SPEED, 0);
+		for(Entity entity : ((GameScene)getContext()).getEntities())
+			if(contains(entity) && entity != this)
+				translate(-delta * MOVEMENT_SPEED, 0);
+		walking = true;
+	}
+	
+	@Override
+	public void rotate(float delta) {
+		super.rotate(delta * ROTATION_SPEED);
+		for(Entity entity : ((GameScene)getContext()).getEntities())
+			if(contains(entity) && entity != this)
+				super.rotate(-delta * ROTATION_SPEED);
+	}
+
+	@Override
+	public void update(int delta) {
+		super.update(delta);
+		if (walking)
+			walking = false;
 		else
-			for (Drawable d : getDrawables()) {
+			for (Drawable d : getDrawables())
 				if (d instanceof SwitchableAnimatedRectangle2D)
 					((SwitchableAnimatedRectangle2D) d).setTextureGroupe(0);
-			}
 	}
 
 	public void fire() {

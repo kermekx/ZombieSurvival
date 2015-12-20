@@ -30,7 +30,6 @@ public class Hitbox {
 			 //verifie si les hitbox se touchent reelement
 			 Area area = new Area(bounds);
 			 area.intersect(hitbox.bounds);
-			 System.out.println(position.getX());
 			 return !area.isEmpty();
 		 }
 		 return false;
