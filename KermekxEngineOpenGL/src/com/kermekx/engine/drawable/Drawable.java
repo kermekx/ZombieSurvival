@@ -11,6 +11,7 @@ public interface Drawable {
 	public float[] getColor();
 	
 	public int getTextureId();
+	public void setTexture(int textureId);
 	
 	public float getRotation();
 	public void setRotation(float angle);

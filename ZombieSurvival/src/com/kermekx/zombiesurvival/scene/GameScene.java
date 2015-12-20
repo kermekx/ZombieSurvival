@@ -3,16 +3,15 @@ package com.kermekx.zombiesurvival.scene;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.kermekx.engine.drawable.Drawable;
-import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
-import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
+import com.kermekx.zombiesurvival.terrain.World;
+import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
 
@@ -22,17 +21,10 @@ public class GameScene extends Scene {
 	private List<Entity> entities = new ArrayList<Entity>();
 
 	public GameScene() {
-		try {
-			Random r = new Random();
-			int grass = TextureManager.getTexture("assets/textures/grass.png");
-			int dirt = TextureManager.getTexture("assets/textures/dirt.png");
-			for (int i = 0; i < 128; i++)
-				for (int j = 0; j < 128; j++)
-					addDrawable(new Rectangle2D(-64 * 128 + 128 * i, -64 * 128
-							+ 128 * j, 128, 128, (r.nextBoolean()) ? dirt : grass));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		TerrainTextures.loadTextures();
+		World world = new World(0, 0, 3, 3);
+		addDrawable(world.getDrawables());
+		
 		player = new Player();
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
