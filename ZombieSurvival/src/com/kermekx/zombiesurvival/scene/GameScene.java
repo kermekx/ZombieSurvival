@@ -16,9 +16,9 @@ import com.kermekx.zombiesurvival.entity.Player;
 
 public class GameScene extends Scene {
 
-	Player player;
-	int lastFire;
-	
+	private Player player;
+	private int lastFire;
+
 	private List<Entity> entities = new ArrayList<Entity>();
 
 	public GameScene() {
@@ -28,8 +28,8 @@ public class GameScene extends Scene {
 			int dirt = TextureManager.getTexture("assets/textures/dirt.png");
 			for (int i = 0; i < 128; i++)
 				for (int j = 0; j < 128; j++)
-					addDrawable(new Rectangle2D(-64 * 128 + 128 * i, -64 * 128
-							+ 128 * j, 128, 128, (r.nextBoolean()) ? dirt : grass));
+					addDrawable(new Rectangle2D(-64 * 128 + 128 * i, -64 * 128 + 128 * j, 128, 128,
+							(r.nextBoolean()) ? dirt : grass));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,22 +44,28 @@ public class GameScene extends Scene {
 
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
-			if(entity.isAlive())
+			if (entity.isAlive())
 				entity.update(delta);
 			else {
-				for(Drawable drawable : entity.getDrawables())
+				for (Drawable drawable : entity.getDrawables())
 					getDrawables().remove(drawable);
 				deadEntities.add(entity);
 			}
 		}
 		entities.removeAll(deadEntities);
 
-		if (lastFire > 0)
+		if (lastFire > 0) {
+			if (keyPressed(Key.KEY_Q))
+				player.rotate(delta * -0.1f);
+			if (keyPressed(Key.KEY_D))
+				player.rotate(delta * 0.1f);
 			lastFire -= delta;
+		}
 
 		if (lastFire <= 0 && keyPressed(Key.KEY_ENTER)) {
 			player.fire();
 			lastFire = 150;
+
 			try {
 				Bullet b = new Bullet(player.getPosition(), player.getRotation());
 				getDrawables().addAll(b.getDrawables());
@@ -72,11 +78,11 @@ public class GameScene extends Scene {
 		if (lastFire <= 0) {
 			boolean walk = false;
 			if (keyPressed(Key.KEY_Z)) {
-				player.translate(delta * 0.2f, 0);
+				player.translate(delta * 0.5f, 0);
 				walk = true;
 			}
 			if (keyPressed(Key.KEY_S)) {
-				player.translate(delta * -0.2f, 0f);
+				player.translate(delta * -0.5f, 0f);
 				walk = true;
 			}
 			if (keyPressed(Key.KEY_Q))

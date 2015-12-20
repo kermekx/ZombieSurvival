@@ -7,9 +7,11 @@ import java.awt.Toolkit;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.renderer.Renderer;
 import com.kermekx.engine.scene.Scene;
 
@@ -18,6 +20,7 @@ public abstract class KermekxEngine implements Runnable {
 	private final String WINDOW_NAME;
 	private final int WIDTH;
 	private final int HEIGHT;
+	private boolean fullScren = false;
 	private Renderer renderer = new Renderer();
 
 	private long lastFrame;
@@ -61,6 +64,9 @@ public abstract class KermekxEngine implements Runnable {
 		getDelta();
 
 		while (!Display.isCloseRequested()) {
+			if (Keyboard.isKeyDown(Key.KEY_F5))
+				this.setFullScreen(!fullScren);
+
 			int delta = getDelta();
 			renderer.update(delta);
 			renderer.render();
@@ -69,13 +75,21 @@ public abstract class KermekxEngine implements Runnable {
 		}
 
 		Display.destroy();
+
+	}
+
+	private void setFullScreen(boolean fullScreen) {
+		/*
+		 * try { Display.setFullscreen(fullScreen); fullScren = !fullScren; }
+		 * catch (LWJGLException e) { e.printStackTrace(); }
+		 */
 	}
 
 	public int getDelta() {
 		long time = getTime();
 		int delta = (int) (time - lastFrame);
 		lastFrame = time;
-		
+
 		return delta;
 	}
 

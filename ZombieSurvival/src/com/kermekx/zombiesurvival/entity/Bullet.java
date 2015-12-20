@@ -8,12 +8,14 @@ import com.kermekx.engine.texture.TextureManager;
 
 public class Bullet extends Entity {
 
+	private static Vector bulletSize = new Vector(32, 32);
+	private static Vector bulletHitboxSize = new Vector(32,8);
 	public int lifeTime = 0;
 
 	public Bullet(Vector position, float rotation) throws IOException {
-		addDrawable(new Rectangle2D(position.getX(), position.getY(), 32, 32,
+		super(position, bulletHitboxSize);
+		addDrawable(new Rectangle2D(position.getX(), position.getY(), bulletSize.getX(), bulletSize.getY(),
 				TextureManager.getTexture("assets/misc/bullet/bullet.png")));
-		setPosition(position);
 		rotate(rotation);
 		translate(65, 27);
 	}
