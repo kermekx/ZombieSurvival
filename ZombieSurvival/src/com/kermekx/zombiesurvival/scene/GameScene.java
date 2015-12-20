@@ -13,6 +13,8 @@ import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
+import com.kermekx.zombiesurvival.terrain.World;
+import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
 
@@ -33,11 +35,15 @@ public class GameScene extends Scene {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		TerrainTextures.loadTextures();
+		World world = new World(0, 0, 3, 3);
+		addDrawable(world.getDrawables());
+		
 		player = new Player();
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
 	}
-
+	
 	@Override
 	public void update(int delta) {
 		super.update(delta);

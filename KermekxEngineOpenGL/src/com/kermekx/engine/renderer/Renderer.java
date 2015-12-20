@@ -25,7 +25,6 @@ public class Renderer {
 			if (drawable.shouldRender(bounds)) {
 				float[] color = drawable.getColor();
 				glColor3f(color[0], color[1], color[2]);
-				glColor3f(1, 1, 1);
 
 				int texture = drawable.getTextureId();
 				if (texture != -1);

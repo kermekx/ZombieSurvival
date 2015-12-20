@@ -1,6 +1,7 @@
 package com.kermekx.engine.scene;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
@@ -16,6 +17,12 @@ public abstract class Scene {
 	public void addDrawable(Drawable drawable) {
 		drawables.add(drawable);
 	}
+	
+	public void addDrawable(Collection<Drawable> drawables) {
+		this.drawables.addAll(drawables);
+	}
+	
+	
 
 	public List<Drawable> getDrawables() {
 		return drawables;

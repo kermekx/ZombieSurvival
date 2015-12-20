@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL12;
 
+import com.kermekx.engine.log.KELogger;
+
 public class TextureManager {
 
 	private static final int BYTES_PER_PIXEL = 4;
@@ -22,6 +24,8 @@ public class TextureManager {
 	public static int getTexture(String path) throws IOException {
 		if (textures.get(path) != null)
 			return textures.get(path);
+
+		KELogger.logInfo("Loading texture " + path);
 
 		BufferedImage image = loadImage(path);
 
@@ -44,7 +48,7 @@ public class TextureManager {
 		glEnable(GL_TEXTURE_2D);
 
 		int textureID = glGenTextures();
-		
+
 		glBindTexture(GL_TEXTURE_2D, textureID);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
@@ -55,13 +59,14 @@ public class TextureManager {
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE,
 				buffer);
-		
-		//glBindTexture(GL_TEXTURE_2D, 1);
+
+		textures.put(path, new Integer(textureID));
+		KELogger.logInfo("Texture " + path + " loaded using texture ID " + textureID);
 
 		return textureID;
 	}
 
-	private static BufferedImage loadImage(String path) throws IOException {
+	private static BufferedImage loadImage(String path) throws IOException  {
 		// return ImageIO.read(KermekxEngine.class.getResource(path));
 		return ImageIO.read(new File(path));
 	}
