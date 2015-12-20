@@ -47,7 +47,6 @@ public class Quad2D extends BaseDrawable {
 		setVertex(11, p3[0], p3[1]);
 		
 		setTexture(texture);
-		setColor(new float[]{1f, 1f, 1f});
 	}
 
 }

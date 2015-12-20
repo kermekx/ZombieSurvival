@@ -2,6 +2,7 @@ package com.kermekx.engine.drawable;
 
 import java.awt.Rectangle;
 
+import com.kermekx.engine.color.ColorBuilder;
 import com.kermekx.engine.position.Matrix;
 import com.kermekx.engine.position.Vector;
 
@@ -23,6 +24,7 @@ public abstract class BaseDrawable implements Drawable {
 
 	public void setVertex(int i, float x, float y) {
 		vertex[i] = new Vector(x, y);
+		setColor(ColorBuilder.WHITE);
 	}
 
 	public float[] getColor() {

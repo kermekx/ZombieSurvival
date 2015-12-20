@@ -1,15 +1,11 @@
 package com.kermekx.zombiesurvival.scene;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.kermekx.engine.drawable.Drawable;
-import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
-import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
@@ -27,12 +23,20 @@ public class GameScene extends Scene {
 		TerrainTextures.loadTextures();
 		World world = new World(0, 0, 3, 3);
 		addDrawable(world.getDrawables());
-		
-		player = new Player();
+
+		player = new Player(this, 0, 0);
+		entities.add(player);
+		Player p = new Player(this, 500, 0);
+		entities.add(p);
+		addDrawable(p.getDrawables());
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
 	}
 	
+	public List<Entity> getEntities() {
+		return entities;
+	}
+
 	@Override
 	public void update(int delta) {
 		super.update(delta);
@@ -61,13 +65,9 @@ public class GameScene extends Scene {
 			player.fire();
 			lastFire = 150;
 
-			try {
-				Bullet b = new Bullet(player.getPosition(), player.getRotation());
-				getDrawables().addAll(b.getDrawables());
-				entities.add(b);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Bullet b = new Bullet(this, player.getPosition(), player.getRotation());
+			getDrawables().addAll(b.getDrawables());
+			entities.add(b);
 		}
 
 		if (lastFire <= 0) {
@@ -88,5 +88,4 @@ public class GameScene extends Scene {
 			player.walk(walk);
 		}
 	}
-
 }

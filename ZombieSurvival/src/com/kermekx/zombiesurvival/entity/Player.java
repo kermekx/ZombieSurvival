@@ -1,23 +1,19 @@
 package com.kermekx.zombiesurvival.entity;
 
-import java.awt.Point;
 import java.io.IOException;
 
 import com.kermekx.engine.drawable.Drawable;
-import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
 import com.kermekx.engine.position.Vector;
+import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
 
 public class Player extends Entity {
 
-	private static Vector playerSize = new Vector(216, 253);
-	private static Vector playerHitboxSize = new Vector((float) (playerSize.getY() - 98) / 2,
-			(float) (playerSize.getX() - 95) / 2);
+	public static int LIFE = 100;
 
-	public Player() {
-		super(new Vector(0, 0), playerHitboxSize);
-
+	public Player(Scene context, int x, int y) {
+		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
 		int[][] texturesPlayer = new int[3][20];
 		int[][] texturesPlayerFeet = new int[2][20];
 		for (int i = 0; i < 20; i++)
@@ -36,10 +32,8 @@ public class Player extends Entity {
 				e.printStackTrace();
 			}
 
-		addDrawable(new SwitchableAnimatedRectangle2D(0, 0, 102, 62, texturesPlayerFeet));
-		addDrawable(new SwitchableAnimatedRectangle2D(0, 0, (float) playerSize.getY() / 2,
-				(float) playerSize.getX() / 2, texturesPlayer));
-
+		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 102, 62, texturesPlayerFeet));
+		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 126, 107, texturesPlayer));
 	}
 
 	public void walk(boolean walk) {

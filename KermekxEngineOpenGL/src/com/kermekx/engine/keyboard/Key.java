@@ -19,6 +19,6 @@ public class Key {
 	// Miscs
 	public static final int KEY_ENTER = 28;
 
-	// FullScreen
-	public static final int KEY_F5 = 63;
+	// Function
+	public static final int KEY_F5 = Keyboard.KEY_F5;
 }
