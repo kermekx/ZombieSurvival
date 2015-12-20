@@ -10,6 +10,7 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.kermekx.engine.log.KELogger;
 import com.kermekx.engine.renderer.Renderer;
 import com.kermekx.engine.scene.Scene;
 
@@ -31,6 +32,7 @@ public abstract class KermekxEngine implements Runnable {
 		WIDTH = (int) screenSize.getWidth();
 		HEIGHT = (int) screenSize.getHeight();
 
+		KELogger.logInfo("Starting " + windowName);
 	}
 
 	public void run() {
@@ -44,6 +46,7 @@ public abstract class KermekxEngine implements Runnable {
 	}
 
 	public void init() throws LWJGLException {
+		KELogger.logInfo("Initializing display...");
 		Display.setDisplayMode(new DisplayMode(WIDTH / 2, HEIGHT / 2));
 		Display.setTitle(WINDOW_NAME);
 		Display.setResizable(true);
@@ -54,6 +57,7 @@ public abstract class KermekxEngine implements Runnable {
 	public abstract void launch();
 
 	private void loop() {
+		KELogger.logInfo("Initialized!");
 		glClearColor(0f, 0f, 0f, 0f);
 		glEnable(GL_BLEND);
 		glEnable(GL_VERTEX_ARRAY);
@@ -68,6 +72,8 @@ public abstract class KermekxEngine implements Runnable {
 			Display.update();
 		}
 
+		KELogger.logInfo(WINDOW_NAME + " termined!");
+		KELogger.logInfo("This game use Kermekx Engine, Developed by Kevin MESSIAEN and Paul DUMONT.");
 		Display.destroy();
 	}
 
@@ -75,7 +81,7 @@ public abstract class KermekxEngine implements Runnable {
 		long time = getTime();
 		int delta = (int) (time - lastFrame);
 		lastFrame = time;
-		
+
 		return delta;
 	}
 

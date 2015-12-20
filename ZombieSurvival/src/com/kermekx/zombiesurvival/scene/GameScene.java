@@ -29,7 +29,7 @@ public class GameScene extends Scene {
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
 	}
-
+	
 	@Override
 	public void update(int delta) {
 		super.update(delta);
