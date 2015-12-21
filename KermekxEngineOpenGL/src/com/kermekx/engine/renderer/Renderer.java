@@ -34,14 +34,13 @@ public class Renderer {
 			return;
 		
 		Rectangle bounds = scene.getCamera().getBounds();
-		
 		scene.getCamera().setViewModel();
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		for(DisplayList dl : scene.getDisplayLists())
 			if(dl.should(bounds))
 				glCallList(dl.getListID());
-		
+
 		for (Drawable drawable : scene.getDrawables()) {
 			if (drawable.shouldRender(bounds)) {
 				float[] color = drawable.getColor();

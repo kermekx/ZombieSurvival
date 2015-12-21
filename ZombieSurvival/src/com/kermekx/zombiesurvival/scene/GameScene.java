@@ -26,9 +26,9 @@ public class GameScene extends Scene {
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
 
-		player = new Player(this, 0, 0);
+		player = new Player(this, 0, 0, "Kermekx");
 		entities.add(player);
-		Player p = new Player(this, 500, 0);
+		Player p = new Player(this, 500, 0, "MrNuTruT");
 		entities.add(p);
 		addDrawable(p.getDrawables());
 		for (Drawable d : player.getDrawables())

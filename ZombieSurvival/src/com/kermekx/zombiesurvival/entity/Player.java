@@ -16,7 +16,7 @@ public class Player extends Entity {
 	public static float ROTATION_SPEED = 0.1f;
 	private boolean walking = false;
 
-	public Player(Scene context, int x, int y) {
+	public Player(Scene context, int x, int y, String name) {
 		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
 		int[][] texturesPlayer = new int[3][20];
 		int[][] texturesPlayerFeet = new int[2][20];

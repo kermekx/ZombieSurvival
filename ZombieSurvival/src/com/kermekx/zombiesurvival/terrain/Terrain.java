@@ -28,7 +28,7 @@ public class Terrain {
 	
 	public Terrain(int x, int y, int width, int height, TerrainTextures[][] datas) {
 		position = new Vector(x * Block.size.getX(), y * Block.size.getY());
-		size = new Vector(width * Block.size.getX(), height * Block.size.getY());
+		size = new Vector((1 + width) * Block.size.getX(), (1 + height) * Block.size.getY());
 		blocks = new Block[width][height];
 
 		int baseX = x - width / 2;

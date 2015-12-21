@@ -13,6 +13,7 @@ public abstract class BaseDrawable implements Drawable {
 	protected int texture = -1;
 	protected float angle = 0;
 	protected Vector position;
+	protected boolean rotate = true;
 
 	public BaseDrawable(int nbVertex) {
 		vertex = new Vector[nbVertex];
@@ -58,7 +59,7 @@ public abstract class BaseDrawable implements Drawable {
 	}
 
 	public void setRotation(float angle) {
-		this.angle = angle;
+		this.angle = (rotate) ? angle : 0;
 	}
 
 	public boolean shouldRender(Rectangle bounds) {

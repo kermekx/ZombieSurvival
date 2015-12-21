@@ -55,7 +55,6 @@ public abstract class KermekxEngine implements Runnable {
 		Display.setTitle(WINDOW_NAME);
 		Display.setResizable(true);
 		Display.create();
-		Display.sync(60);
 	}
 
 	public abstract void launch();
@@ -93,6 +92,7 @@ public abstract class KermekxEngine implements Runnable {
 			updateFPS();
 			Display.update();
 			Usages.setUse("display");
+			Display.sync(60);
 		}
 
 		KELogger.logInfo(WINDOW_NAME + " termined!");
