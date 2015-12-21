@@ -6,6 +6,10 @@ public class Matrix {
 
 	Matrix3f matrix;
 	
+	public Matrix() {
+		matrix = new Matrix3f();
+	}
+	
 	public Matrix(float[][] data) {
 		matrix = new Matrix3f();
 		setData(data);
@@ -34,7 +38,11 @@ public class Matrix {
 	}
 
 	public static Vector homothetie(Vector v, float k) {
-		Matrix m = new Matrix(new float[][] { { k, 0f, 0f }, { 0f, k, 0f }, { 0f, 0f, 1f } });
+		Matrix m = new Matrix();
+		Matrix3f m3f = m.matrix;
+		m3f.m00 = k;
+		m3f.m11 = k;
+		m3f.m22 = 1f;
 		return transform(m, v);
 	}
 
@@ -59,7 +67,13 @@ public class Matrix {
 	}
 
 	public static Vector translation(Vector v, float tx, float ty) {
-		Matrix m = new Matrix(new float[][] { { 1, 0f, tx }, { 0f, 1, ty }, { 0f, 0f, 1f } });
+		Matrix m = new Matrix();
+		Matrix3f m3f = m.matrix;
+		m3f.m20 = tx;
+		m3f.m21 = ty;
+		m3f.m00 = 1f;
+		m3f.m11 = 1f;
+		m3f.m22 = 1f;
 		return transform(m, v);
 	}
 

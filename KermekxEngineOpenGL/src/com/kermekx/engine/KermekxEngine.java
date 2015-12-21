@@ -11,6 +11,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.kermekx.engine.debbuger.Usages;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.log.KELogger;
 import com.kermekx.engine.renderer.Renderer;
@@ -68,14 +69,17 @@ public abstract class KermekxEngine implements Runnable {
 		getDelta();
 
 		while (!Display.isCloseRequested()) {
+			Usages.setNewLoop();
 			if (Keyboard.isKeyDown(Key.KEY_F5))
 				this.setFullScreen(!fullScreen);
-
 			int delta = getDelta();
 			renderer.update(delta);
+			Usages.setUse("update");
 			renderer.render();
+			Usages.setUse("render");
 			updateFPS();
 			Display.update();
+			Usages.setUse("display");
 		}
 
 		KELogger.logInfo(WINDOW_NAME + " termined!");
@@ -172,6 +176,7 @@ public abstract class KermekxEngine implements Runnable {
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Display.setTitle("FPS : " + fps);
+			Usages.log();
 			lastFPS = getTime();
 			fps = 0;
 		}
