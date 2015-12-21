@@ -1,33 +1,33 @@
 package com.kermekx.engine.position;
 
-public class Vector extends Matrix {
-	
-	@Override
-	public String toString() {
-		return "Vector [X=" + getX() + ", Y=" + getY() + "]";
-	}
+import org.lwjgl.util.vector.Vector3f;
 
+public class Vector {
+	
+	Vector3f vector;
+
+	public Vector() {
+		vector = new Vector3f();
+	}
+	
 	public Vector(float x, float y) {
-		super(3, 1);
-		setValueAt(0, 0, x);
-		setValueAt(1, 0, y);
-		setValueAt(2, 0, 1);
+		vector = new Vector3f(x, y, 1f);
 	}
 	
 	public float getX() {
-		return getValueAt(0, 0);
+		return vector.getX();
 	}
 	
 	public void setX(float x) {
-		setValueAt(0, 0, x);
+		vector.setX(x);
 	}
 	
 	public float getY() {
-		return getValueAt(1, 0);
+		return vector.getY();
 	}
 	
 	public void setY(float y) {
-		setValueAt(1, 0, y);
+		vector.setY(y);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class Vector extends Matrix {
 		if (!(object instanceof Vector))
 			return false;
 		Vector vector = (Vector) object;
-		return (vector.getX() == getX() && vector.getY() == getY());
+		return this.vector.equals(vector.vector);
 	}
 
 }

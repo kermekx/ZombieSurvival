@@ -18,6 +18,7 @@ public class Camera {
 
 	private Vector position;
 	private Vector size;
+	private boolean update = true;
 
 	public Camera() {
 		position = new Vector(0f, 0f);
@@ -30,7 +31,10 @@ public class Camera {
 	}
 
 	public void setViewModel() {
-		size = new Vector(Display.getWidth(), Display.getHeight());
+		if(!update && size.getX() == Display.getWidth() && size.getY() == Display.getHeight())
+			return;
+		size.setX(Display.getWidth());
+		size.setY(Display.getHeight());
 
 		glViewport(0, 0, (int) size.getX(), (int) size.getY());
 
@@ -41,6 +45,7 @@ public class Camera {
 		glOrtho(position.getX() - size.getX() / 2, position.getX() + size.getX() / 2, position.getY() + size.getY() / 2,
 				position.getY() - size.getY() / 2, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		update = false;
 	}
 
 	public Rectangle getBounds() {
@@ -54,6 +59,7 @@ public class Camera {
 
 	public void setPosition(Vector position) {
 		this.position = position;
+		update = true;
 	}
 
 	public Vector getSize() {
@@ -62,10 +68,12 @@ public class Camera {
 
 	public void setSize(Vector size) {
 		this.size = size;
+		update = true;
 	}
 
 	public void translate(float tx, float ty) {
 		position = Matrix.translation(position, tx, ty);
+		update = true;
 	}
 
 }

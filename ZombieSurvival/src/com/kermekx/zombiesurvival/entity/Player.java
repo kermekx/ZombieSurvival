@@ -48,6 +48,7 @@ public class Player extends Entity {
 		for(Entity entity : ((GameScene)getContext()).getEntities())
 			if(contains(entity) && entity != this)
 				translate(-delta * MOVEMENT_SPEED, 0);
+		getContext().getCamera().setPosition(getPosition());
 		walking = true;
 	}
 	

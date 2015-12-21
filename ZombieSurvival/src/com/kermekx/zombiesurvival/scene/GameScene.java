@@ -76,7 +76,6 @@ public class GameScene extends Scene {
 				player.walk(delta);
 			if (keyPressed(Key.KEY_S))
 				player.walk(-delta);
-			getCamera().setPosition(player.getPosition());
 		}
 	}
 }
