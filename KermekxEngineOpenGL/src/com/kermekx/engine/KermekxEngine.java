@@ -89,10 +89,11 @@ public abstract class KermekxEngine implements Runnable {
 			Usages.setUse("update");
 			renderer.render();
 			Usages.setUse("render");
+			Display.sync(60);
 			updateFPS();
+			Usages.setUse("wait");
 			Display.update();
 			Usages.setUse("display");
-			Display.sync(60);
 		}
 
 		KELogger.logInfo(WINDOW_NAME + " termined!");

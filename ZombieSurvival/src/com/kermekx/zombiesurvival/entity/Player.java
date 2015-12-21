@@ -15,6 +15,7 @@ public class Player extends Entity {
 	public static float MOVEMENT_SPEED = 0.5f;
 	public static float ROTATION_SPEED = 0.1f;
 	private boolean walking = false;
+	private int shoting = 0;
 
 	public Player(Scene context, int x, int y, String name) {
 		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
@@ -65,6 +66,8 @@ public class Player extends Entity {
 		super.update(delta);
 		if (walking)
 			walking = false;
+		else if (shoting >= 0)
+			shoting -= delta;
 		else
 			for (Drawable d : getDrawables())
 				if (d instanceof SwitchableAnimatedRectangle2D)
@@ -75,5 +78,6 @@ public class Player extends Entity {
 		// .get(0) == hitbox
 		((SwitchableAnimatedRectangle2D) getDrawables().get(1)).setTextureGroupe(0);
 		((SwitchableAnimatedRectangle2D) getDrawables().get(2)).setTextureGroupe(2);
+		shoting = 150;
 	}
 }
