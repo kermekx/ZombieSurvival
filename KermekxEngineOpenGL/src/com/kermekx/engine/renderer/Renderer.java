@@ -1,11 +1,27 @@
 package com.kermekx.engine.renderer;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glBindTexture;
+import static org.lwjgl.opengl.GL11.glCallList;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glFlush;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glRotatef;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import java.awt.Rectangle;
 
 import com.kermekx.engine.camera.Camera;
 import com.kermekx.engine.drawable.Drawable;
+import com.kermekx.engine.drawable.list.DisplayList;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 
@@ -21,6 +37,11 @@ public class Renderer {
 		
 		scene.getCamera().setViewModel();
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		for(DisplayList dl : scene.getDisplayLists())
+			if(dl.should(bounds))
+				glCallList(dl.getListID());
+		
 		for (Drawable drawable : scene.getDrawables()) {
 			if (drawable.shouldRender(bounds)) {
 				float[] color = drawable.getColor();

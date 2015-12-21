@@ -39,6 +39,14 @@ public class Terrain {
 				blocks[i][j] = new Block(i + baseX , j + baseY, datas[i][j]);
 	}
 
+	public Vector getPosition() {
+		return position;
+	}
+	
+	public Vector getSize() {
+		return size;
+	}
+	
 	public List<Drawable> getDrawables() {
 		List<Drawable> drawables = new ArrayList<Drawable>();
 

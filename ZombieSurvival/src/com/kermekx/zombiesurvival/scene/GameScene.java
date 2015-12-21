@@ -1,11 +1,13 @@
 package com.kermekx.zombiesurvival.scene;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
+import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
@@ -22,7 +24,7 @@ public class GameScene extends Scene {
 	public GameScene() {
 		TerrainTextures.loadTextures();
 		World world = new World(0, 0, 3, 3);
-		addDrawable(world.getDrawables());
+		addDisplayList(world.getDisplayList());
 
 		player = new Player(this, 0, 0);
 		entities.add(player);
@@ -31,8 +33,15 @@ public class GameScene extends Scene {
 		addDrawable(p.getDrawables());
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
+		
+		try {
+			TextureManager.getTexture("assets/misc/bullet/bullet.png");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	
+
 	public List<Entity> getEntities() {
 		return entities;
 	}

@@ -68,6 +68,19 @@ public abstract class KermekxEngine implements Runnable {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		getDelta();
 
+		/**
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (true) {
+					int delta = getDelta();
+					renderer.update(delta);
+					Usages.setUse("update");
+				}
+			}
+		}).start();*/
+
 		while (!Display.isCloseRequested()) {
 			Usages.setNewLoop();
 			if (Keyboard.isKeyDown(Key.KEY_F5))

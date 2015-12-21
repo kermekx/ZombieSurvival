@@ -3,7 +3,7 @@ package com.kermekx.zombiesurvival.terrain;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kermekx.engine.drawable.Drawable;
+import com.kermekx.engine.drawable.list.DisplayList;
 
 public class World {
 	
@@ -17,14 +17,14 @@ public class World {
 				chunks[i][j] = new Chunk(i + x - width / 2, j + y - height / 2);
 	}
 	
-	public List<Drawable> getDrawables() {
-		List<Drawable> drawables = new ArrayList<Drawable>();
+	public List<DisplayList> getDisplayList() {
+		List<DisplayList> dl = new ArrayList<DisplayList>();
 		
 		for (Terrain[] chunksRow : chunks)
 			for (Terrain terrain : chunksRow)
-				drawables.addAll(terrain.getDrawables());
+				dl.add(new DisplayList(terrain.getDrawables(), terrain.getPosition(), terrain.getSize()));
 		
-		return drawables;
+		return dl;
 	}
 
 }
