@@ -9,6 +9,7 @@ import com.kermekx.engine.position.Matrix;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
+import com.kermekx.zombiesurvival.ia.IA;
 
 public abstract class Entity {
 
@@ -19,6 +20,7 @@ public abstract class Entity {
 	private boolean alive = true;
 	private int life = -1;
 	private List<Drawable> drawables = new ArrayList<Drawable>();
+	private List<IA> ias = new ArrayList<IA>();
 
 	public Entity(Scene context, Vector position, Vector size) {
 		this.context = context;
@@ -46,6 +48,14 @@ public abstract class Entity {
 
 	public void addDrawable(Drawable drawable) {
 		drawables.add(drawable);
+	}
+	
+	public List<IA> getIas() {
+		return ias;
+	}
+	
+	public void addIA(IA ia) {
+		ias.add(ia);
 	}
 
 	public Vector getPosition() {
@@ -75,6 +85,15 @@ public abstract class Entity {
 	public float getRotation() {
 		return rotation;
 	}
+	
+	public void setRotation(float angle) {
+		if(rotation == angle)
+			return;
+		rotation = angle;
+		hitbox.setRotation(angle);
+		for (Drawable d : getDrawables())
+			d.setRotation(rotation);
+	}
 
 	public Hitbox getHitbox() {
 		return this.hitbox;
@@ -93,6 +112,8 @@ public abstract class Entity {
 	}
 
 	public void update(int delta) {
+		for (IA ia : ias)
+			ia.update(delta);
 	}
 
 	public boolean isAlive() {

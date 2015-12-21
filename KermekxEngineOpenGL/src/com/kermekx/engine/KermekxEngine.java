@@ -1,6 +1,12 @@
 package com.kermekx.engine;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -54,6 +60,7 @@ public abstract class KermekxEngine implements Runnable {
 		Display.setDisplayMode(new DisplayMode(WIDTH / 2, HEIGHT / 2));
 		Display.setTitle(WINDOW_NAME);
 		Display.setResizable(true);
+		Display.setVSyncEnabled(true);
 		Display.create();
 	}
 
@@ -189,7 +196,6 @@ public abstract class KermekxEngine implements Runnable {
 
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
-			Display.setTitle("FPS : " + fps);
 			Usages.log();
 			lastFPS = getTime();
 			fps = 0;

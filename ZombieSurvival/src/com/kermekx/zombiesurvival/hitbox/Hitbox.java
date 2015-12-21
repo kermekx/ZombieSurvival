@@ -57,6 +57,13 @@ public class Hitbox {
 		rotation += angle;
 		setBounds();
 	}
+	
+	public void setRotation(float angle) {
+		if(rotation == angle)
+			return;
+		rotation = angle;
+		setBounds();
+	}
 
 	public Vector getPosition() {
 		return position;

@@ -11,6 +11,8 @@ import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
+import com.kermekx.zombiesurvival.ia.IA;
+import com.kermekx.zombiesurvival.ia.LookAt;
 import com.kermekx.zombiesurvival.terrain.World;
 import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
@@ -31,6 +33,7 @@ public class GameScene extends Scene {
 		Player p = new Player(this, 500, 0, "MrNuTruT");
 		entities.add(p);
 		addDrawable(p.getDrawables());
+		p.addIA(new LookAt(p, player));
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
 		
