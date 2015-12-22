@@ -1,7 +1,5 @@
 package com.kermekx.zombiesurvival.ai;
 
-import java.awt.im.InputMethodHighlight;
-
 import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;

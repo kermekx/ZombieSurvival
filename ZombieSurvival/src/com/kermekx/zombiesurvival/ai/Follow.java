@@ -31,6 +31,6 @@ public class Follow extends BaseAI {
 
 	public void setFollow(Entity follow) {
 		this.follow = follow;
-		lookAt = new LookAt(entity, follow);
+		this.lookAt = new LookAt(entity, follow);
 	}
 }
