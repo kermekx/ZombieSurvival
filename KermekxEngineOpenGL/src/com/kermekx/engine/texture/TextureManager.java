@@ -74,7 +74,7 @@ public class TextureManager {
 				buffer);
 
 		textures.put(path, new Integer(textureID));
-		KELogger.logInfo("Texture " + path + " loaded using texture ID " + textureID);
+		KELogger.logInfo("Texture " + path + " loaded using texture ID " + textureID + " (" + (TextureLoader.getProgress() * 100) + " %)");
 
 		return textureID;
 	}

@@ -7,13 +7,16 @@ import java.util.List;
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
+import com.kermekx.engine.texture.LoadableTexturePack;
+import com.kermekx.engine.texture.TextureLoader;
 import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
-import com.kermekx.zombiesurvival.ia.IA;
 import com.kermekx.zombiesurvival.ia.LookAt;
 import com.kermekx.zombiesurvival.terrain.World;
+import com.kermekx.zombiesurvival.texture.ItemTextures;
+import com.kermekx.zombiesurvival.texture.PlayerTextures;
 import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
@@ -24,7 +27,8 @@ public class GameScene extends Scene {
 	private List<Entity> entities = new ArrayList<Entity>();
 
 	public GameScene() {
-		TerrainTextures.loadTextures();
+		TextureLoader.loadTexture(new LoadableTexturePack[] { ItemTextures.GLOCK, TerrainTextures.DIRT,
+				PlayerTextures.PLAYER_FEET_IDLE });
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
 
@@ -36,7 +40,7 @@ public class GameScene extends Scene {
 		p.addIA(new LookAt(p, player));
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
-		
+
 		try {
 			TextureManager.getTexture("assets/misc/bullet/bullet.png");
 		} catch (IOException e) {
@@ -77,7 +81,7 @@ public class GameScene extends Scene {
 			getDrawables().addAll(b.getDrawables());
 			entities.add(b);
 		}
-		
+
 		if (keyPressed(Key.KEY_Q))
 			player.rotate(-delta);
 		if (keyPressed(Key.KEY_D))

@@ -2,24 +2,23 @@ package com.kermekx.zombiesurvival.texture;
 
 import java.io.IOException;
 
-import com.kermekx.engine.log.KELogger;
 import com.kermekx.engine.texture.LoadableTexturePack;
 import com.kermekx.engine.texture.TextureManager;
 
-public enum TerrainTextures implements LoadableTexturePack {
+public enum ItemTextures implements LoadableTexturePack {
 
-	DIRT(3, "dirt"), GRASS(2, "grass");
+	/* AMMO(10, "ammo"), */GLOCK(11, "glock"), SAWEDOFF(12, "sawed_off"), AK47(13, "ak_47");
 
-	private static final String TEXTURES_PATH = "assets/textures/";
+	private static final String TEXTURES_PATH = "assets/items/";
 	private static final String IMAGE_FORMAT = ".png";
-	public static final TerrainTextures[] TEXTURES = new TerrainTextures[100];
+	public static final ItemTextures[] TEXTURES = new ItemTextures[100];
 	public static double progress = 0;
 
 	private final int id;
 	private final String name;
 	private int textureId;
 
-	private TerrainTextures(int id, String name) {
+	private ItemTextures(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -31,24 +30,23 @@ public enum TerrainTextures implements LoadableTexturePack {
 	@Override
 	public double loadTextures() {
 		double fail = 0;
-		int size = TerrainTextures.values().length;
+		int size = ItemTextures.values().length;
 		double progressPerTexture = 1.0 / size;
 		progress = 0;
-		for (TerrainTextures texture : TerrainTextures.values()) {
+		for (ItemTextures texture : ItemTextures.values())
 			try {
 				texture.textureId = TextureManager.getTexture(TEXTURES_PATH + texture.name + IMAGE_FORMAT);
-				TerrainTextures.TEXTURES[texture.id] = texture;
+				ItemTextures.TEXTURES[texture.id] = texture;
 			} catch (IOException e) {
 				fail++;
 				e.printStackTrace();
 			} finally {
 				progress += progressPerTexture;
 			}
-		}
 		progress = 1;
 		return fail / size;
 	}
-	
+
 	@Override
 	public double getProgress() {
 		return progress;
