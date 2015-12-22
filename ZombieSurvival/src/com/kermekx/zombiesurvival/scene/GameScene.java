@@ -10,10 +10,11 @@ import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.LoadableTexturePack;
 import com.kermekx.engine.texture.TextureLoader;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.ai.AIZombie;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
-import com.kermekx.zombiesurvival.ia.LookAt;
+import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.terrain.World;
 import com.kermekx.zombiesurvival.texture.ItemTextures;
 import com.kermekx.zombiesurvival.texture.PlayerTextures;
@@ -34,10 +35,15 @@ public class GameScene extends Scene {
 
 		player = new Player(this, 0, 0, "Kermekx");
 		entities.add(player);
-		Player p = new Player(this, 500, 0, "MrNuTruT");
+		Zombie p = new Zombie(this, 500, 0);
+		Zombie theo = new Zombie(this, 250, 0);
 		entities.add(p);
+		entities.add(theo);
+		addDrawable(theo.getDrawables());
 		addDrawable(p.getDrawables());
-		p.addIA(new LookAt(p, player));
+		// p.addIA(new Follow(this, p, player));
+		theo.addAI(new AIZombie(this, theo));
+		p.addAI(new AIZombie(this, p));
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
 
@@ -82,15 +88,15 @@ public class GameScene extends Scene {
 			entities.add(b);
 		}
 
-		if (keyPressed(Key.KEY_Q))
+		if (keyPressed(Key.KEY_Q) || keyPressed(Key.KEY_LEFT))
 			player.rotate(-delta);
-		if (keyPressed(Key.KEY_D))
+		if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
 			player.rotate(delta);
 
 		if (lastFire <= 0) {
-			if (keyPressed(Key.KEY_Z))
+			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
 				player.walk(delta);
-			if (keyPressed(Key.KEY_S))
+			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
 				player.walk(-delta);
 		}
 	}
