@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL12;
 
+import com.kermekx.engine.KermekxEngine;
 import com.kermekx.engine.log.KELogger;
 
 public class TextureManager {
@@ -38,6 +39,8 @@ public class TextureManager {
 		if (textures.get(path) != null)
 			return textures.get(path);
 
+		TextureLoader.update();
+		
 		KELogger.logInfo("Loading texture " + path);
 
 		BufferedImage image = loadImage(path);

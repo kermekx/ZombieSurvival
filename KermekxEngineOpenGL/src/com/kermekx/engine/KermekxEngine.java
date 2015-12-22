@@ -25,6 +25,8 @@ import com.kermekx.engine.scene.Scene;
 
 public abstract class KermekxEngine implements Runnable {
 
+	public static KermekxEngine INSTANCE;
+	
 	/**
 	 * Nom de la fenêtre
 	 */
@@ -71,6 +73,7 @@ public abstract class KermekxEngine implements Runnable {
 	 * @param windowName Nom de la denêtre
 	 */
 	public KermekxEngine(String windowName) {
+		INSTANCE = this;
 		WINDOW_NAME = windowName;
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -104,6 +107,12 @@ public abstract class KermekxEngine implements Runnable {
 		Display.setResizable(true);
 		Display.setVSyncEnabled(true);
 		Display.create();
+		
+		glClearColor(0f, 0f, 0f, 0f);
+		glEnable(GL_BLEND);
+		glEnable(GL_VERTEX_ARRAY);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		KELogger.logInfo("Initialized!");
 	}
 
 	/**
@@ -115,13 +124,9 @@ public abstract class KermekxEngine implements Runnable {
 	 * Boucle de rendue graphique et de mise à jour de la scène
 	 */
 	private void loop() {
-		KELogger.logInfo("Initialized!");
-		glClearColor(0f, 0f, 0f, 0f);
-		glEnable(GL_BLEND);
-		glEnable(GL_VERTEX_ARRAY);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		getDelta();
 
+		getDelta();
+		
 		//TODO : Mise à jour de la scène dans une autre Thread
 		/**
 		new Thread(new Runnable() {
@@ -142,9 +147,9 @@ public abstract class KermekxEngine implements Runnable {
 			if (Keyboard.isKeyDown(Key.KEY_F5))
 				this.setFullScreen(!fullScreen);
 			int delta = getDelta();
-			renderer.update(delta);
+			getRenderer().update(delta);
 			Usages.setUse("update");
-			renderer.render();
+			getRenderer().render();
 			Usages.setUse("render");
 			Display.sync(60);
 			updateFPS();
@@ -274,7 +279,11 @@ public abstract class KermekxEngine implements Runnable {
 	 * @param scene à afficher
 	 */
 	public void setScene(Scene scene) {
-		renderer.setScene(scene);
+		getRenderer().setScene(scene);
+	}
+
+	public Renderer getRenderer() {
+		return renderer;
 	}
 
 }

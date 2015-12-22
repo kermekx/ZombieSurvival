@@ -9,7 +9,7 @@ public class ColorBuilder {
 	/**
 	 * Couleur rouge
 	 */
-	static final float[] RED = { 1, 0, 0 };
+	public static final float[] RED = { 1, 0, 0 };
 	/**
 	 * Couleur verte
 	 */

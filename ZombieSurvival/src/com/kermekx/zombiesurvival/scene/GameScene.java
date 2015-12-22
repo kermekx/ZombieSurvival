@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kermekx.engine.color.ColorBuilder;
 import com.kermekx.engine.drawable.Drawable;
+import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
-import com.kermekx.engine.texture.LoadableTexturePack;
-import com.kermekx.engine.texture.TextureLoader;
 import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.ai.AIZombie;
 import com.kermekx.zombiesurvival.entity.Bullet;
@@ -16,9 +16,6 @@ import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.terrain.World;
-import com.kermekx.zombiesurvival.texture.ItemTextures;
-import com.kermekx.zombiesurvival.texture.PlayerTextures;
-import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
 
@@ -28,8 +25,7 @@ public class GameScene extends Scene {
 	private List<Entity> entities = new ArrayList<Entity>();
 
 	public GameScene() {
-		TextureLoader.loadTexture(new LoadableTexturePack[] { ItemTextures.GLOCK, TerrainTextures.DIRT,
-				PlayerTextures.PLAYER_FEET_IDLE });
+		
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
 
@@ -53,6 +49,7 @@ public class GameScene extends Scene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	public List<Entity> getEntities() {
