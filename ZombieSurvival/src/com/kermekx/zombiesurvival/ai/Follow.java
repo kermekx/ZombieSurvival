@@ -1,10 +1,10 @@
-package com.kermekx.zombiesurvival.ia;
+package com.kermekx.zombiesurvival.ai;
 
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.scene.GameScene;
 
-public class Follow extends BaseIA {
+public class Follow extends BaseAI {
 
 	private Entity follow;
 	private LookAt lookAt;

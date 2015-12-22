@@ -1,9 +1,9 @@
-package com.kermekx.zombiesurvival.ia;
+package com.kermekx.zombiesurvival.ai;
 
 import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.entity.Entity;
 
-public class LookAt extends BaseIA {
+public class LookAt extends BaseAI {
 
 	private Entity lookAt;
 

@@ -1,4 +1,4 @@
-package com.kermekx.zombiesurvival.ia;
+package com.kermekx.zombiesurvival.ai;
 
 import java.util.Random;
 
@@ -8,7 +8,7 @@ import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
 import com.kermekx.zombiesurvival.scene.GameScene;
 
-public class RandomMouvements extends BaseIA {
+public class RandomMouvements extends BaseAI {
 	private GameScene context;
 	private Hitbox hitbox;
 	private boolean inHitbox;
