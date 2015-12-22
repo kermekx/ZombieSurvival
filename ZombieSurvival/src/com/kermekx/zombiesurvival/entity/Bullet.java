@@ -41,8 +41,6 @@ public class Bullet extends Entity {
 			if(contains(entity) && entity != this) {
 				entity.damage(DAMAGE);
 				this.kill();
-			}
-				
+			}		
 	}
-
 }

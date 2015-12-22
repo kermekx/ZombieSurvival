@@ -13,7 +13,7 @@ public class Player extends Entity {
 
 	public static int LIFE = 100;
 	public static float MOVEMENT_SPEED = 0.5f;
-	public static float ROTATION_SPEED = 0.1f;
+	public static float ROTATION_SPEED = 0.2f;
 	private boolean walking = false;
 	private int shoting = 0;
 

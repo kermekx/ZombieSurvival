@@ -11,7 +11,7 @@ public class Zombie extends Entity {
 
 	
 	public static int LIFE = 200;
-	public static float MOVEMENT_SPEED = 0.3f;
+	public static float MOVEMENT_SPEED = 0.2f;
 	public static float MOVEMENT_WALK = 0.1f;
 
 	public Zombie(Scene context, int x, int y) {

@@ -21,18 +21,24 @@ public class Hitbox {
 
 	/**
 	 * verifie si la hitbox touche la hitbox en parametre
+	 * 
 	 * @param hitbox
 	 * @return vrai si ils se touchent
 	 */
 	public boolean contains(Hitbox hitbox) {
-		//verifie si il est tres probable que les hitbox se touchent
-		 if (bounds.getBounds2D().intersects(hitbox.bounds.getBounds2D())) {
-			 //verifie si les hitbox se touchent reelement
-			 Area area = new Area(bounds);
-			 area.intersect(hitbox.bounds);
-			 return !area.isEmpty();
-		 }
-		 return false;
+		// verifie si il est tres probable que les hitbox se touchent
+		if (bounds.getBounds2D().intersects(hitbox.bounds.getBounds2D())) {
+			// verifie si les hitbox se touchent reelement
+			Area area = new Area(bounds);
+			area.intersect(hitbox.bounds);
+			return !area.isEmpty();
+		}
+		return false;
+	}
+
+	public void setHitbox(Vector position, Vector size) {
+		this.position = position;
+		this.size = size;
 	}
 
 	public void setBounds() {
@@ -57,9 +63,9 @@ public class Hitbox {
 		rotation += angle;
 		setBounds();
 	}
-	
+
 	public void setRotation(float angle) {
-		if(rotation == angle)
+		if (rotation == angle)
 			return;
 		rotation = angle;
 		setBounds();
