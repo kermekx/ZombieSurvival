@@ -18,9 +18,22 @@ import com.kermekx.engine.log.KELogger;
 
 public class TextureManager {
 
+	/**
+	 * Nombre d'octet par pixel (4 pour RGBA et format PNG)
+	 */
 	private static final int BYTES_PER_PIXEL = 4;
+	
+	/**
+	 * Map contenant les chemins des fichiers avec leur identifiants de textures
+	 */
 	private static Map<String, Integer> textures = new HashMap<String, Integer>();
 
+	/**
+	 * Renvoie l'identifiant de texture à partir d'un chemin de fichier
+	 * @param path chemin du fichier
+	 * @return identifiant de la texture
+	 * @throws IOException exception lors de la lecture du fichier
+	 */
 	public static int getTexture(String path) throws IOException {
 		if (textures.get(path) != null)
 			return textures.get(path);
@@ -101,6 +114,12 @@ public class TextureManager {
 		return textureID;
 	}
 
+	/**
+	 * Ouvre une image dans un buffer
+	 * @param path chemin d fichier
+	 * @return buffer de l'image
+	 * @throws IOException erreur de lecture
+	 */
 	private static BufferedImage loadImage(String path) throws IOException  {
 		// return ImageIO.read(KermekxEngine.class.getResource(path));
 		return ImageIO.read(new File(path));

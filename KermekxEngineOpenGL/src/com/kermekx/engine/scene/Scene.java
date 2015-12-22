@@ -12,47 +12,99 @@ import com.kermekx.engine.drawable.list.DisplayList;
 
 public abstract class Scene {
 
+	/**
+	 * Camera d'affichage de la scene
+	 */
 	private Camera camera = new Camera();
+	
+	/**
+	 * liste des drawable de la scene à afficher
+	 */
 	private List<Drawable> drawables = new ArrayList<Drawable>();
+	
+	/**
+	 * liste des display de la scene à afficher
+	 */
 	private List<DisplayList> displayLists = new ArrayList<DisplayList>();
 	
+	/**
+	 * ajoute un drawable à la scene
+	 * @param drawable drawable à ajouter
+	 */
 	public void addDrawable(Drawable drawable) {
 		drawables.add(drawable);
 	}
 	
+	/**
+	 * ajoute une liste de drawables à la scene
+	 * @param drawables drawables à ajouter
+	 */
 	public void addDrawable(Collection<Drawable> drawables) {
 		this.drawables.addAll(drawables);
 	}
 	
+	/**
+	 * renvoie la liste des drawables de la scene
+	 * @return liste des drawables
+	 */
 	public List<Drawable> getDrawables() {
 		return drawables;
 	}
 	
+	/**
+	 * ajoute un display à la scene
+	 * @param dl display à ajouter
+	 */
 	public void addDisplayList(DisplayList dl) {
 		displayLists.add(dl);
 	}
 	
+	/**
+	 * ajoute une liste de displays à la scene
+	 * @param dl liste de displays à ajouter
+	 */
 	public void addDisplayList(Collection<DisplayList> dl) {
 		displayLists.addAll(dl);
 	}
 	
+	/**
+	 * renvoye la liste des displays de la scene
+	 * @return liste des displays
+	 */
 	public List<DisplayList> getDisplayLists() {
 		return displayLists;
 	}
 
+	/**
+	 * renvoye la camera de la scene
+	 * @return camera
+	 */
 	public Camera getCamera() {
 		return camera;
 	}
 
+	/**
+	 * change la camera de la scene
+	 * @param camera camera
+	 */
 	public void setCamera(Camera camera) {
 		this.camera = camera;
 	}
 
+	/**
+	 * met à jour la scene
+	 * @param delta temps en millisecondes depuis la dernière mise à jour
+	 */
 	public void update(int delta) {
 		for(Drawable d : drawables)
 			d.update(delta);
 	}
 
+	/**
+	 * renvoie si la touche est appuier
+	 * @param key touche demander
+	 * @return vrai si la touche demander est appuier, faux sinon
+	 */
 	public boolean keyPressed(int key) {
 		return Keyboard.isKeyDown(key);
 	}

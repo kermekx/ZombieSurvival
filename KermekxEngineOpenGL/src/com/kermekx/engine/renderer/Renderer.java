@@ -27,8 +27,14 @@ import com.kermekx.engine.scene.Scene;
 
 public class Renderer {
 
+	/**
+	 * Scene à afficher
+	 */
 	private Scene scene;
 
+	/**
+	 * rendue de la scene
+	 */
 	public void render() {
 		if (scene == null)
 			return;
@@ -77,12 +83,20 @@ public class Renderer {
 		glFlush();
 	}
 
+	/**
+	 * modifie la scene à afficher (null pour rien afficher)
+	 * @param scene scene à afficher
+	 */
 	public void setScene(Scene scene) {
 		if (scene.getCamera() == null)
 			scene.setCamera(new Camera());
 		this.scene = scene;
 	}
 
+	/**
+	 * Mise à jour de la scene (éléments de la scene)
+	 * @param delta temps depuis la dernière mise à jour
+	 */
 	public void update(int delta) {
 		if(scene != null)
 			scene.update(delta);

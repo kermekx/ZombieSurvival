@@ -25,16 +25,51 @@ import com.kermekx.engine.scene.Scene;
 
 public abstract class KermekxEngine implements Runnable {
 
+	/**
+	 * Nom de la fenêtre
+	 */
 	private final String WINDOW_NAME;
+	
+	/**
+	 * Largeur de l'écran
+	 */
 	private final int WIDTH;
+	
+	/**
+	 * Hauteur de l'écran
+	 */
 	private final int HEIGHT;
+	
+	/**
+	 * Vrai lorsque la fenêtre est en plein écran,
+	 * faux sinon
+	 */
 	private boolean fullScreen = false;
+	
+	/**
+	 * Classe de rendue de la fenêtre
+	 */
 	private Renderer renderer = new Renderer();
 
+	/**
+	 * Temps de la dernière frame.
+	 */
 	private long lastFrame;
+	
+	/**
+	 * Conteur de FPS
+	 */
 	private int fps;
+	
+	/**
+	 * Temps du dernier calcule de FPS
+	 */
 	private long lastFPS;
 
+	/**
+	 * Créer une instance du moteur graphique
+	 * @param windowName Nom de la denêtre
+	 */
 	public KermekxEngine(String windowName) {
 		WINDOW_NAME = windowName;
 
@@ -45,6 +80,9 @@ public abstract class KermekxEngine implements Runnable {
 		KELogger.logInfo("Starting " + windowName);
 	}
 
+	/**
+	 * Lance le moteur graphique
+	 */
 	public void run() {
 		try {
 			init();
@@ -55,6 +93,10 @@ public abstract class KermekxEngine implements Runnable {
 		}
 	}
 
+	/**
+	 * Initialise le moteur graphique
+	 * @throws LWJGLException Erreur lors de l'initialisation d'openGL
+	 */
 	public void init() throws LWJGLException {
 		KELogger.logInfo("Initializing display...");
 		Display.setDisplayMode(new DisplayMode(WIDTH / 2, HEIGHT / 2));
@@ -64,8 +106,14 @@ public abstract class KermekxEngine implements Runnable {
 		Display.create();
 	}
 
+	/**
+	 * Classe abstraite permetant de lancer le jeu après l'initialisation d'openGL
+	 */
 	public abstract void launch();
 
+	/**
+	 * Boucle de rendue graphique et de mise à jour de la scène
+	 */
 	private void loop() {
 		KELogger.logInfo("Initialized!");
 		glClearColor(0f, 0f, 0f, 0f);
@@ -74,6 +122,7 @@ public abstract class KermekxEngine implements Runnable {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		getDelta();
 
+		//TODO : Mise à jour de la scène dans une autre Thread
 		/**
 		new Thread(new Runnable() {
 
@@ -87,6 +136,7 @@ public abstract class KermekxEngine implements Runnable {
 			}
 		}).start();*/
 
+		//Mise à jour graphiquetant que la fenêtre est ouverte
 		while (!Display.isCloseRequested()) {
 			Usages.setNewLoop();
 			if (Keyboard.isKeyDown(Key.KEY_F5))
@@ -109,6 +159,10 @@ public abstract class KermekxEngine implements Runnable {
 
 	}
 
+	/**
+	 * Met la fenêtre en mode pein écran/fenêtrer
+	 * @param fullScreen vrai pour le plein écran, faux pour le fenêtrer
+	 */
 	private void setFullScreen(boolean fullScreen) {
 		try {
 			if (fullScreen)
@@ -182,6 +236,10 @@ public abstract class KermekxEngine implements Runnable {
 		}
 	}
 
+	/**
+	 * Calcule le temps entre chaque boucle de mise à jours 
+	 * @return temps d'écart en millisecondes
+	 */
 	public int getDelta() {
 		long time = getTime();
 		int delta = (int) (time - lastFrame);
@@ -190,10 +248,18 @@ public abstract class KermekxEngine implements Runnable {
 		return delta;
 	}
 
+	/**
+	 * Renvoie le temps du système
+	 * 
+	 * @return temps du système en millisecondes
+	 */
 	public long getTime() {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 
+	/**
+	 * Mise à jour du calcule de FPS
+	 */
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Usages.log();
@@ -203,6 +269,10 @@ public abstract class KermekxEngine implements Runnable {
 		fps++;
 	}
 
+	/**
+	 * Change la scene à afficher par le moteur Graphique
+	 * @param scene à afficher
+	 */
 	public void setScene(Scene scene) {
 		renderer.setScene(scene);
 	}
