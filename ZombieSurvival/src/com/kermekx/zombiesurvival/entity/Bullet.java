@@ -23,7 +23,7 @@ public class Bullet extends Entity {
 			e.printStackTrace();
 		}
 		setRotation(rotation);
-		translate(65, 27);
+		translate(65, 27, true);
 	}
 
 	@Override

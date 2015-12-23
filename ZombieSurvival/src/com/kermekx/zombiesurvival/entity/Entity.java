@@ -88,6 +88,20 @@ public abstract class Entity {
 		
 		return null;
 	}
+	
+	public Entity translate(float tx, float ty, boolean passThrow) {
+		if(!passThrow)
+			return translate(tx, ty);
+		
+		hitbox.translate(tx, ty);
+		double radian = Math.toRadians(rotation);
+		position = Matrix.translation(position, (float) (tx * Math.cos(radian) - ty * Math.sin(radian)),
+				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
+		for (Drawable d : getDrawables())
+			d.translate(tx, ty);
+		
+		return null;
+	}
 
 	public boolean rotate(float angle) {
 		hitbox.rotate(angle);
