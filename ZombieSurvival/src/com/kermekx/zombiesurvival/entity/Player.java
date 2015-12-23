@@ -7,14 +7,21 @@ import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.inventory.Inventory;
+import com.kermekx.zombiesurvival.inventory.ItemStack;
+import com.kermekx.zombiesurvival.item.Item;
+import com.kermekx.zombiesurvival.item.Item.ItemList;
 
 public class Player extends Entity {
 
 	public static int LIFE = 100;
 	public static float MOVEMENT_SPEED = 0.5f;
 	public static float ROTATION_SPEED = 0.2f;
+
+	private final Inventory inventory = new Inventory(16);
+	private int slot = 0;
 	private boolean walking = false;
-	private int shoting = 0;
+	private int using = 0;
 
 	public Player(Scene context, int x, int y, String name) {
 		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
@@ -38,9 +45,15 @@ public class Player extends Entity {
 
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 102, 62, texturesPlayerFeet));
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 126, 107, texturesPlayer));
+
+		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
+		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 16));
 	}
 
 	public void walk(float delta) {
+		if (using > 0)
+			return;
+
 		for (Drawable d : getDrawables())
 			if (d instanceof SwitchableAnimatedRectangle2D)
 				((SwitchableAnimatedRectangle2D) d).setTextureGroupe(1);
@@ -48,7 +61,7 @@ public class Player extends Entity {
 		getContext().getCamera().setPosition(getPosition());
 		walking = true;
 	}
-	
+
 	@Override
 	public boolean rotate(float delta) {
 		return super.rotate(delta * ROTATION_SPEED);
@@ -59,18 +72,28 @@ public class Player extends Entity {
 		super.update(delta);
 		if (walking)
 			walking = false;
-		else if (shoting >= 0)
-			shoting -= delta;
+		else if (using >= 0)
+			using -= delta;
 		else
 			for (Drawable d : getDrawables())
 				if (d instanceof SwitchableAnimatedRectangle2D)
 					((SwitchableAnimatedRectangle2D) d).setTextureGroupe(0);
 	}
 
+	public void use() {
+		if (using > 0)
+			return;
+		Item.items[inventory.getSlot(slot).getItemId()].use(this);
+	}
+
 	public void fire() {
 		// .get(0) == hitbox
 		((SwitchableAnimatedRectangle2D) getDrawables().get(1)).setTextureGroupe(0);
 		((SwitchableAnimatedRectangle2D) getDrawables().get(2)).setTextureGroupe(2);
-		shoting = 150;
+		using = 150;
+	}
+
+	public Inventory getInventory() {
+		return inventory;
 	}
 }

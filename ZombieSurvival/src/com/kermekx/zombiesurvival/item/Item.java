@@ -1,5 +1,6 @@
 package com.kermekx.zombiesurvival.item;
 
+import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.texture.ItemTextures;
 
 public class Item {
@@ -7,6 +8,7 @@ public class Item {
 	public static Item[] items = new Item[100];
 	
 	public enum ItemList {
+		AMMO(new Item(10, ItemTextures.AMMO)),
 		GLOCK(new Weapon(11, ItemTextures.GLOCK)),
 		SAWEDOFF(new Weapon(12, ItemTextures.SAWEDOFF)),
 		AK47(new Weapon(13, ItemTextures.AK47));
@@ -54,6 +56,10 @@ public class Item {
 	
 	public boolean isStackable() {
 		return stackable;
+	}
+
+	public void use(Player player) {
+		
 	}
 
 }

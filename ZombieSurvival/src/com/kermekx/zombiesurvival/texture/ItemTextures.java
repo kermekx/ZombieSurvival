@@ -7,7 +7,7 @@ import com.kermekx.engine.texture.TextureManager;
 
 public enum ItemTextures implements LoadableTexturePack {
 
-	/* AMMO(10, "ammo"), */GLOCK(11, "glock"), SAWEDOFF(12, "sawed_off"), AK47(13, "ak_47");
+	AMMO(10, "ammo"), GLOCK(11, "glock"), SAWEDOFF(12, "sawed_off"), AK47(13, "ak_47");
 
 	private static final String TEXTURES_PATH = "assets/items/";
 	private static final String IMAGE_FORMAT = ".png";

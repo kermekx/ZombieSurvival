@@ -14,6 +14,7 @@ public class Inventory {
 		while(amount > 0 && i < items.length) {
 			if(items[i] == null) {
 				items[i] = is;
+				return null;
 			} else if (items[i].getItemId() == is.getItemId()) {
 				amount = items[i].add(amount);
 				is.setAmount(amount);
@@ -27,13 +28,17 @@ public class Inventory {
 		int i = 0;
 		int amount = is.getAmount();
 		while(amount > 0 && i < items.length) {
-			if (items[i].getItemId() == is.getItemId()) {
+			if (items[i] != null && items[i].getItemId() == is.getItemId()) {
 				amount = items[i].remove(amount);
 				is.setAmount(amount);
 			}
 			i++;
 		}
 		return (amount == 0) ? null : is;
+	}
+
+	public ItemStack getSlot(int slot) {
+		return items[slot];
 	}
 
 }

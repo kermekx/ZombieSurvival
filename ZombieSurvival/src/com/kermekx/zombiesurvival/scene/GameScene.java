@@ -9,8 +9,6 @@ import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.ai.AIZombie;
-import com.kermekx.zombiesurvival.ai.RandomMouvements;
-import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
@@ -19,7 +17,6 @@ import com.kermekx.zombiesurvival.terrain.World;
 public class GameScene extends Scene {
 
 	private Player player;
-	private int lastFire;
 
 	private List<Entity> entities = new ArrayList<Entity>();
 
@@ -68,29 +65,16 @@ public class GameScene extends Scene {
 		}
 		entities.removeAll(deadEntities);
 
-		if (lastFire > 0) {
-			lastFire -= delta;
-		}
-
-		if (lastFire <= 0 && keyPressed(Key.KEY_ENTER)) {
-			player.fire();
-			lastFire = 150;
-
-			Bullet b = new Bullet(this, player.getPosition(), player.getRotation());
-			getDrawables().addAll(b.getDrawables());
-			entities.add(b);
-		}
+		if (keyPressed(Key.KEY_ENTER))
+			player.use();
 
 		if (keyPressed(Key.KEY_Q) || keyPressed(Key.KEY_LEFT))
 			player.rotate(-delta);
 		if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
 			player.rotate(delta);
-
-		if (lastFire <= 0) {
-			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
-				player.walk(delta);
-			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
-				player.walk(-delta);
-		}
+		if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
+			player.walk(delta);
+		if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
+			player.walk(-delta);
 	}
 }
