@@ -23,7 +23,7 @@ public class ShortInventory extends HUD {
 		addDisplayList(new DisplayList(drawables, new Vector(0, 0), new Vector(1920, 1080)));
 		
 		for (int i = 0; i < 10; i ++)
-			addDrawable(new Rectangle2D(523 + 96 * i, 1060, 86, 80, ColorBuilder.RED));
+			addDrawable(new Rectangle2D(528 + 96 * i, 1020, 86, 80, ColorBuilder.RED));
 	}
 	
 	

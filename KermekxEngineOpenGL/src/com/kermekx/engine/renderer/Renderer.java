@@ -88,6 +88,39 @@ public class Renderer {
 		for (HUD hud : scene.getHuds()) {
 			for (DisplayList dl : hud.getDisplayLists())
 				glCallList(dl.getListID());
+
+			for (Drawable drawable : hud.getDrawables()) {
+				float[] color = drawable.getColor();
+				glColor3f(color[0], color[1], color[2]);
+
+				int texture = drawable.getTextureId();
+				if (texture != -1)
+					;
+				glBindTexture(GL_TEXTURE_2D, texture);
+				int i = 0;
+				float angle = drawable.getRotation();
+				if (angle != 0) {
+					glPushMatrix();
+					Vector position = drawable.getPosition();
+					glTranslatef(position.getX(), position.getY(), 0);
+					glRotatef(angle, 0, 0, 1);
+					glTranslatef(-position.getX(), -position.getY(), 0);
+				}
+
+				glBegin(GL_TRIANGLES);
+				for (Vector vertex : drawable.getVertex()) {
+					if (texture != -1 && i % 2 == 0)
+						glTexCoord2f(vertex.getX(), vertex.getY());
+					else
+						glVertex2f(vertex.getX(), vertex.getY());
+					i++;
+				}
+				glEnd();
+				if (texture != -1)
+					glBindTexture(GL_TEXTURE_2D, 0);
+				if (angle != 0)
+					glPopMatrix();
+			}
 		}
 
 		glFlush();
