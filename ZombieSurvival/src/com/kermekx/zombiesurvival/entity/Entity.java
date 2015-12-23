@@ -10,6 +10,7 @@ import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.zombiesurvival.ai.AI;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
+import com.kermekx.zombiesurvival.scene.GameScene;
 
 public abstract class Entity {
 
@@ -49,16 +50,16 @@ public abstract class Entity {
 	public void addDrawable(Drawable drawable) {
 		drawables.add(drawable);
 	}
-	
+
 	public List<AI> getAis() {
 		return ais;
 	}
-	
+
 	public void addAI(AI ai) {
 		ais.add(ai);
 	}
-	
-	public void removeAI(AI ai){
+
+	public void removeAI(AI ai) {
 		ais.remove(ai);
 	}
 
@@ -71,17 +72,31 @@ public abstract class Entity {
 	}
 
 	public void translate(float tx, float ty) {
+		hitbox.translate(tx, ty);
+		for (Entity entity : ((GameScene) getContext()).getEntities()) {
+			if (contains(entity) && entity != this) {
+				hitbox.translate(-tx, -ty);
+				return;
+			}
+		}
+
 		double radian = Math.toRadians(rotation);
 		position = Matrix.translation(position, (float) (tx * Math.cos(radian) - ty * Math.sin(radian)),
 				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
-		hitbox.translate(tx, ty);
 		for (Drawable d : getDrawables())
 			d.translate(tx, ty);
 	}
 
 	public void rotate(float angle) {
-		rotation += angle;
 		hitbox.rotate(angle);
+		for (Entity entity : ((GameScene) getContext()).getEntities()) {
+			if (contains(entity) && entity != this) {
+				hitbox.rotate(-angle);
+				return;
+			}
+		}
+
+		rotation += angle;
 		for (Drawable d : getDrawables())
 			d.setRotation(rotation);
 	}
@@ -89,9 +104,9 @@ public abstract class Entity {
 	public float getRotation() {
 		return rotation;
 	}
-	
+
 	public void setRotation(float angle) {
-		if(rotation == angle)
+		if (rotation == angle)
 			return;
 		rotation = angle;
 		hitbox.setRotation(angle);

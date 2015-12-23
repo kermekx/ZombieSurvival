@@ -46,9 +46,6 @@ public class Player extends Entity {
 			if (d instanceof SwitchableAnimatedRectangle2D)
 				((SwitchableAnimatedRectangle2D) d).setTextureGroupe(1);
 		translate(delta * MOVEMENT_SPEED, 0);
-		for(Entity entity : ((GameScene)getContext()).getEntities())
-			if(contains(entity) && entity != this)
-				translate(-delta * MOVEMENT_SPEED, 0);
 		getContext().getCamera().setPosition(getPosition());
 		walking = true;
 	}
@@ -56,9 +53,6 @@ public class Player extends Entity {
 	@Override
 	public void rotate(float delta) {
 		super.rotate(delta * ROTATION_SPEED);
-		for(Entity entity : ((GameScene)getContext()).getEntities())
-			if(contains(entity) && entity != this)
-				super.rotate(-delta * ROTATION_SPEED);
 	}
 
 	@Override
