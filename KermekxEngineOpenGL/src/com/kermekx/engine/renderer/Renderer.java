@@ -22,6 +22,7 @@ import java.awt.Rectangle;
 import com.kermekx.engine.camera.Camera;
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.list.DisplayList;
+import com.kermekx.engine.hud.HUD;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 
@@ -38,13 +39,13 @@ public class Renderer {
 	public void render() {
 		if (scene == null)
 			return;
-		
+
 		Rectangle bounds = scene.getCamera().getBounds();
 		scene.getCamera().setViewModel();
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		for(DisplayList dl : scene.getDisplayLists())
-			if(dl.should(bounds))
+
+		for (DisplayList dl : scene.getDisplayLists())
+			if (dl.should(bounds))
 				glCallList(dl.getListID());
 
 		for (Drawable drawable : scene.getDrawables()) {
@@ -53,18 +54,19 @@ public class Renderer {
 				glColor3f(color[0], color[1], color[2]);
 
 				int texture = drawable.getTextureId();
-				if (texture != -1);
-					glBindTexture(GL_TEXTURE_2D, texture);
+				if (texture != -1)
+					;
+				glBindTexture(GL_TEXTURE_2D, texture);
 				int i = 0;
 				float angle = drawable.getRotation();
 				if (angle != 0) {
 					glPushMatrix();
 					Vector position = drawable.getPosition();
 					glTranslatef(position.getX(), position.getY(), 0);
-					glRotatef( angle, 0, 0, 1 );
+					glRotatef(angle, 0, 0, 1);
 					glTranslatef(-position.getX(), -position.getY(), 0);
 				}
-				
+
 				glBegin(GL_TRIANGLES);
 				for (Vector vertex : drawable.getVertex()) {
 					if (texture != -1 && i % 2 == 0)
@@ -80,12 +82,22 @@ public class Renderer {
 					glPopMatrix();
 			}
 		}
+
+		scene.getCamera().setViewModelHUD();
+
+		for (HUD hud : scene.getHuds()) {
+			for (DisplayList dl : hud.getDisplayLists())
+				glCallList(dl.getListID());
+		}
+
 		glFlush();
 	}
 
 	/**
 	 * modifie la scene à afficher (null pour rien afficher)
-	 * @param scene scene à afficher
+	 * 
+	 * @param scene
+	 *            scene à afficher
 	 */
 	public void setScene(Scene scene) {
 		if (scene.getCamera() == null)
@@ -95,10 +107,12 @@ public class Renderer {
 
 	/**
 	 * Mise à jour de la scene (éléments de la scene)
-	 * @param delta temps depuis la dernière mise à jour
+	 * 
+	 * @param delta
+	 *            temps depuis la dernière mise à jour
 	 */
 	public void update(int delta) {
-		if(scene != null)
+		if (scene != null)
 			scene.update(delta);
 	}
 

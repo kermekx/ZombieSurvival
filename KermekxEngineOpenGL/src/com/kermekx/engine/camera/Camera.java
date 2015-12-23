@@ -56,8 +56,9 @@ public class Camera {
 	 * true) Ou la taille de la fenêtre à été changer
 	 */
 	public void setViewModel() {
-		if (!update && size.getX() == Display.getWidth() && size.getY() == Display.getHeight())
-			return;
+		// if (!update && size.getX() == Display.getWidth() && size.getY() ==
+		// Display.getHeight())
+		// return;
 		size.setX(Display.getWidth());
 		size.setY(Display.getHeight());
 
@@ -71,6 +72,16 @@ public class Camera {
 				position.getY() - size.getY() / 2, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		update = false;
+	}
+
+	public void setViewModelHUD() {
+		// if (!update && size.getX() == Display.getWidth() && size.getY() ==
+		// Display.getHeight())
+		// return;
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, 1920, 1080, 0, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
 	}
 
 	/**

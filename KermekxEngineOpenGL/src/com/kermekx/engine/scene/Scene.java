@@ -9,6 +9,7 @@ import org.lwjgl.input.Keyboard;
 import com.kermekx.engine.camera.Camera;
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.list.DisplayList;
+import com.kermekx.engine.hud.HUD;
 
 public abstract class Scene {
 
@@ -26,6 +27,8 @@ public abstract class Scene {
 	 * liste des display de la scene à afficher
 	 */
 	private List<DisplayList> displayLists = new ArrayList<DisplayList>();
+	
+	private List<HUD> huds = new ArrayList<HUD>();
 	
 	/**
 	 * ajoute un drawable à la scene
@@ -73,6 +76,14 @@ public abstract class Scene {
 	 */
 	public List<DisplayList> getDisplayLists() {
 		return displayLists;
+	}
+	
+	public void addHud(HUD hud) {
+		huds.add(hud);
+	}
+	
+	public List<HUD> getHuds() {
+		return huds;
 	}
 
 	/**

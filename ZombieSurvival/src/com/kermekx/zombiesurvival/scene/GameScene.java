@@ -12,6 +12,7 @@ import com.kermekx.zombiesurvival.ai.AIZombie;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
+import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
 
 public class GameScene extends Scene {
@@ -42,6 +43,8 @@ public class GameScene extends Scene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		addHud(new ShortInventory(player.getInventory()));
 
 	}
 
