@@ -11,6 +11,7 @@ import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.ai.AIZombie;
+import com.kermekx.zombiesurvival.ai.RandomMouvements;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
@@ -25,21 +26,18 @@ public class GameScene extends Scene {
 	private List<Entity> entities = new ArrayList<Entity>();
 
 	public GameScene() {
-		
+
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
 
 		player = new Player(this, 0, 0, "Kermekx");
 		entities.add(player);
-		Zombie p = new Zombie(this, 500, 0);
-		Zombie theo = new Zombie(this, 250, 0);
-		entities.add(p);
-		entities.add(theo);
-		addDrawable(theo.getDrawables());
-		addDrawable(p.getDrawables());
-		// p.addIA(new Follow(this, p, player));
-		theo.addAI(new AIZombie(this, theo));
-		p.addAI(new AIZombie(this, p));
+
+		Zombie paul = new Zombie(this, 500, 0);
+		entities.add(paul);
+		addDrawable(paul.getDrawables());
+		paul.addAI(new RandomMouvements(this, paul));
+
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
 
@@ -49,7 +47,7 @@ public class GameScene extends Scene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public List<Entity> getEntities() {

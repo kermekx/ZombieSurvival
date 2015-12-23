@@ -9,10 +9,10 @@ import com.kermekx.engine.texture.TextureManager;
 
 public class Zombie extends Entity {
 
-	
 	public static int LIFE = 200;
-	public static float MOVEMENT_SPEED = 0.2f;
 	public static float MOVEMENT_WALK = 0.1f;
+	public static float MOVEMENT_SPEED = 0.2f;
+	public static float ROTATION_SPEED = 0.1f;
 
 	public Zombie(Scene context, int x, int y) {
 		super(context, new Vector(x, y), new Vector(50, 50), LIFE);
