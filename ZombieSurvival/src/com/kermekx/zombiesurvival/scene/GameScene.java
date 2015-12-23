@@ -4,13 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kermekx.engine.color.ColorBuilder;
 import com.kermekx.engine.drawable.Drawable;
-import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
-import com.kermekx.zombiesurvival.ai.AIZombie;
 import com.kermekx.zombiesurvival.ai.RandomMouvements;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Entity;
@@ -36,7 +33,7 @@ public class GameScene extends Scene {
 		Zombie paul = new Zombie(this, 500, 0);
 		entities.add(paul);
 		addDrawable(paul.getDrawables());
-		paul.addAI(new RandomMouvements(this, paul));
+		paul.addAI(new RandomMouvements(paul));
 
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);

@@ -6,7 +6,6 @@ import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
-import com.kermekx.zombiesurvival.scene.GameScene;
 
 public class Bullet extends Entity {
 
@@ -23,7 +22,7 @@ public class Bullet extends Entity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		rotate(rotation);
+		setRotation(rotation);
 		translate(65, 27);
 	}
 
@@ -35,12 +34,10 @@ public class Bullet extends Entity {
 		if (lifeTime > 5000)
 			kill();
 
-		translate(delta, 0f);
-		
-		for(Entity entity : ((GameScene)getContext()).getEntities())
-			if(contains(entity) && entity != this) {
-				entity.damage(DAMAGE);
-				this.kill();
-			}		
+		Entity target = translate(delta, 0f);
+		if (target != null) {
+			target.damage(DAMAGE);
+			this.kill();
+		}
 	}
 }

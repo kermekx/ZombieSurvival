@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Zombie;
-import com.kermekx.zombiesurvival.scene.GameScene;
 
 public class RandomMouvements extends BaseAI {
 	private float rotation;

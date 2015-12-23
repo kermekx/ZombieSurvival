@@ -71,12 +71,12 @@ public abstract class Entity {
 		this.position = position;
 	}
 
-	public void translate(float tx, float ty) {
+	public Entity translate(float tx, float ty) {
 		hitbox.translate(tx, ty);
 		for (Entity entity : ((GameScene) getContext()).getEntities()) {
 			if (contains(entity) && entity != this) {
 				hitbox.translate(-tx, -ty);
-				return;
+				return entity;
 			}
 		}
 
@@ -85,20 +85,24 @@ public abstract class Entity {
 				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
 		for (Drawable d : getDrawables())
 			d.translate(tx, ty);
+		
+		return null;
 	}
 
-	public void rotate(float angle) {
+	public boolean rotate(float angle) {
 		hitbox.rotate(angle);
 		for (Entity entity : ((GameScene) getContext()).getEntities()) {
 			if (contains(entity) && entity != this) {
 				hitbox.rotate(-angle);
-				return;
+				return false;
 			}
 		}
 
 		rotation += angle;
 		for (Drawable d : getDrawables())
 			d.setRotation(rotation);
+		
+		return true;
 	}
 
 	public float getRotation() {
