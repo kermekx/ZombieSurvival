@@ -30,6 +30,8 @@ public class Inventory {
 		while(amount > 0 && i < items.length) {
 			if (items[i] != null && items[i].getItemId() == is.getItemId()) {
 				amount = items[i].remove(amount);
+				if(amount != 0)
+					items[i] = null;
 				is.setAmount(amount);
 			}
 			i++;

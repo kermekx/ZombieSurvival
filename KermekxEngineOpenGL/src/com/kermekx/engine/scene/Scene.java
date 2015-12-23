@@ -109,6 +109,8 @@ public abstract class Scene {
 	public void update(int delta) {
 		for(Drawable d : drawables)
 			d.update(delta);
+		for(HUD hud : huds)
+			hud.update(delta);
 	}
 
 	/**

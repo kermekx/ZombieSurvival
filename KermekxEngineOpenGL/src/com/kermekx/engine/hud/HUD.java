@@ -7,7 +7,7 @@ import java.util.List;
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.list.DisplayList;
 
-public class HUD {
+public abstract class HUD {
 	
 	private List<Drawable> drawables = new ArrayList<Drawable>();
 	private List<DisplayList> displayLists = new ArrayList<DisplayList>();
@@ -35,5 +35,7 @@ public class HUD {
 	public List<DisplayList> getDisplayLists() {
 		return displayLists;
 	}
+
+	public abstract void update(int delta);
 
 }
