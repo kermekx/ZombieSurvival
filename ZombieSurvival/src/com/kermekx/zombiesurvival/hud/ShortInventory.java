@@ -12,6 +12,7 @@ import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.inventory.Inventory;
 import com.kermekx.zombiesurvival.inventory.ItemStack;
 import com.kermekx.zombiesurvival.item.Item;
+import com.kermekx.zombiesurvival.item.Item.ItemList;
 
 public class ShortInventory extends HUD {
 
@@ -39,7 +40,7 @@ public class ShortInventory extends HUD {
 			if (is != null)
 				getDrawables().get(i).setTexture(Item.items[is.getItemId()].getTextureID());
 			else
-				getDrawables().get(i).setTexture(0);
+				getDrawables().get(i).setTexture(ItemList.VOID.getItem().getTextureID());
 		}
 	}
 

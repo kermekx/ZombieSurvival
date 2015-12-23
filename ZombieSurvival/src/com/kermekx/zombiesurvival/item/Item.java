@@ -8,6 +8,7 @@ public class Item {
 	public static Item[] items = new Item[100];
 	
 	public enum ItemList {
+		VOID(new Item(0, ItemTextures.VOID)),
 		AMMO(new Item(10, ItemTextures.AMMO)),
 		GLOCK(new Weapon(11, ItemTextures.GLOCK)),
 		SAWEDOFF(new Weapon(12, ItemTextures.SAWEDOFF)),
