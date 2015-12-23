@@ -2,21 +2,17 @@ package com.kermekx.zombiesurvival.ai;
 
 import java.util.Random;
 
-import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Zombie;
-import com.kermekx.zombiesurvival.hitbox.Hitbox;
 import com.kermekx.zombiesurvival.scene.GameScene;
 
 public class RandomMouvements extends BaseAI {
-	private GameScene context;
 	private float rotation;
 	int timeRotate = 2000;
 	private int delta;
 
-	public RandomMouvements(GameScene context, Entity entity) {
+	public RandomMouvements(Entity entity) {
 		super(entity);
-		this.context = context;
 	}
 
 	@Override

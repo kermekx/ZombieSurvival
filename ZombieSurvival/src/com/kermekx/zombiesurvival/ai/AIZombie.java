@@ -19,7 +19,7 @@ public class AIZombie extends BaseAI {
 		super(entity);
 		this.context = context;
 		hitbox = new Hitbox(entity.getPosition(), new Vector(500, 500));
-		randomMouvements = new RandomMouvements(context, entity);
+		randomMouvements = new RandomMouvements(entity);
 		follow = new Follow(context, entity, null);
 	}
 
@@ -33,10 +33,12 @@ public class AIZombie extends BaseAI {
 		}
 		if (inHitbox) {
 			hitbox.setHitbox(entity.getPosition(), new Vector(1500, 1500));
+			hitbox.setBounds();
 			follow.update(delta);
 
 		} else {
 			hitbox.setHitbox(entity.getPosition(), new Vector(500, 500));
+			hitbox.setBounds();
 			randomMouvements.update(delta);
 		}
 
