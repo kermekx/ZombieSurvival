@@ -8,11 +8,9 @@ public class Follow extends BaseAI {
 
 	private Entity follow;
 	private LookAt lookAt;
-	private GameScene context;
 
-	public Follow(GameScene context, Entity entity, Entity follow) {
+	public Follow(Entity entity, Entity follow) {
 		super(entity);
-		this.context = context;
 		this.follow = follow;
 		lookAt = new LookAt(entity, follow);
 	}

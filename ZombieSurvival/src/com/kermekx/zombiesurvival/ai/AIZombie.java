@@ -19,7 +19,7 @@ public class AIZombie extends BaseAI {
 		super(entity);
 		this.context = context;
 		randomMouvements = new RandomMouvements(entity);
-		follow = new Follow(context, entity, null);
+		follow = new Follow(entity, null);
 	}
 
 	@Override

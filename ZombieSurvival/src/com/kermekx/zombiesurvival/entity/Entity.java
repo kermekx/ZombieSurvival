@@ -85,21 +85,21 @@ public abstract class Entity {
 				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
 		for (Drawable d : getDrawables())
 			d.translate(tx, ty);
-		
+
 		return null;
 	}
-	
+
 	public Entity translate(float tx, float ty, boolean passThrow) {
-		if(!passThrow)
+		if (!passThrow)
 			return translate(tx, ty);
-		
+
 		hitbox.translate(tx, ty);
 		double radian = Math.toRadians(rotation);
 		position = Matrix.translation(position, (float) (tx * Math.cos(radian) - ty * Math.sin(radian)),
 				(float) (ty * Math.cos(radian) + tx * Math.sin(radian)));
 		for (Drawable d : getDrawables())
 			d.translate(tx, ty);
-		
+
 		return null;
 	}
 
@@ -115,8 +115,12 @@ public abstract class Entity {
 		rotation += angle;
 		for (Drawable d : getDrawables())
 			d.setRotation(rotation);
-		
+
 		return true;
+	}
+
+	public int getLife() {
+		return this.life;
 	}
 
 	public float getRotation() {
