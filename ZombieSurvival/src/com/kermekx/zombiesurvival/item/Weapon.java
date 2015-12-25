@@ -21,6 +21,8 @@ public class Weapon extends Item {
 			p.getContext().addDrawable(b.getDrawables());
 			((GameScene) p.getContext()).getEntities().add(b);
 			Sounds.GUNSHOT.play();
+		} else {
+			Sounds.TRIGGER.play();
 		}
 	}
 

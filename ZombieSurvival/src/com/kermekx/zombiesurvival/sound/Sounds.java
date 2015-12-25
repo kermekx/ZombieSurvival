@@ -4,7 +4,7 @@ import com.kermekx.engine.sound.SoundManager;
 
 public enum Sounds {
 
-	GUNSHOT(10, "gunshot");
+	GUNSHOT(10, "gunshot"), TRIGGER(11, "trigger");
 
 	private static final String SOUNDS_PATH = "assets/fx/";
 	private static final String SOUND_FORMAT = ".wav";
