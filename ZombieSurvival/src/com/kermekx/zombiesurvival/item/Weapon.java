@@ -4,6 +4,7 @@ import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.inventory.ItemStack;
 import com.kermekx.zombiesurvival.scene.GameScene;
+import com.kermekx.zombiesurvival.sound.Sounds;
 import com.kermekx.zombiesurvival.texture.ItemTextures;
 
 public class Weapon extends Item {
@@ -19,6 +20,7 @@ public class Weapon extends Item {
 			Bullet b = new Bullet(p.getContext(), p.getPosition(), p.getRotation());
 			p.getContext().addDrawable(b.getDrawables());
 			((GameScene) p.getContext()).getEntities().add(b);
+			Sounds.GUNSHOT.play();
 		}
 	}
 

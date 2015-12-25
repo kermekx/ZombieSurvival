@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -22,6 +23,7 @@ import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.log.KELogger;
 import com.kermekx.engine.renderer.Renderer;
 import com.kermekx.engine.scene.Scene;
+import com.kermekx.engine.sound.SoundManager;
 
 public abstract class KermekxEngine implements Runnable {
 
@@ -107,6 +109,7 @@ public abstract class KermekxEngine implements Runnable {
 		Display.setResizable(true);
 		Display.setVSyncEnabled(true);
 		Display.create();
+		AL.create();
 		
 		glClearColor(0f, 0f, 0f, 0f);
 		glEnable(GL_BLEND);
@@ -161,6 +164,8 @@ public abstract class KermekxEngine implements Runnable {
 		KELogger.logInfo(WINDOW_NAME + " termined!");
 		KELogger.logInfo("This game use Kermekx Engine, Developed by Kevin MESSIAEN and Paul DUMONT.");
 		Display.destroy();
+		SoundManager.killALData();
+		AL.destroy();
 
 	}
 

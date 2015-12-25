@@ -36,7 +36,7 @@ public enum ItemTextures implements LoadableTexturePack {
 		for (ItemTextures texture : ItemTextures.values())
 			try {
 				texture.textureId = TextureManager.getTexture(TEXTURES_PATH + texture.name + IMAGE_FORMAT);
-				ItemTextures.TEXTURES[texture.id] = texture;
+				TEXTURES[texture.id] = texture;
 			} catch (IOException e) {
 				fail++;
 				e.printStackTrace();
