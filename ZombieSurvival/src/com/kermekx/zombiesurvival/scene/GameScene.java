@@ -9,12 +9,14 @@ import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
 import com.kermekx.zombiesurvival.ai.AIZombie;
+import com.kermekx.zombiesurvival.ai.DropOnDeath;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.hud.Life;
 import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
+import com.kermekx.zombiesurvival.texture.PlayerTextures;
 
 public class GameScene extends Scene {
 
@@ -31,9 +33,13 @@ public class GameScene extends Scene {
 		entities.add(player);
 
 		Zombie paul = new Zombie(this, 500, 0);
+		Player kevin = new Player(this, 200, 200, "Kevin");
 		entities.add(paul);
+		entities.add(kevin);
 		addDrawable(paul.getDrawables());
-		paul.addAI(new AIZombie(this, paul));
+		addDrawable(kevin.getDrawables());
+		// paul.addAI(new AIZombie(this, paul));
+		kevin.addAI(new DropOnDeath(kevin, PlayerTextures.PLAYER_RIFLE_MOVE.getTextureIds(0)));
 
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
@@ -66,6 +72,7 @@ public class GameScene extends Scene {
 			else {
 				for (Drawable drawable : entity.getDrawables())
 					getDrawables().remove(drawable);
+				entity.update(delta);
 				deadEntities.add(entity);
 			}
 		}
@@ -85,8 +92,8 @@ public class GameScene extends Scene {
 				player.walk(-delta);
 			if (keyPressed(Key.KEY_UP))
 				player.damage(1);
-		}else{
-			//afficher le monsieur mort
+		} else {
+			// afficher le monsieur mort
 		}
 
 	}

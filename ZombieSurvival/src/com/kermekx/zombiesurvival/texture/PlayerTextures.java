@@ -11,7 +11,8 @@ public enum PlayerTextures implements LoadableTexturePack {
 	PLAYER_FEET_RUN(2, "feet/run/survivor-run_", 20),
 	PLAYER_RIFLE_IDLE(41, "rifle/idle/survivor-idle_rifle_", 20),
 	PLAYER_RIFLE_MOVE(43, "rifle/move/survivor-move_rifle_", 20),
-	PLAYER_RIFLE_SHOOT(45, "rifle/shoot/survivor-shoot_rifle_", 3);
+	PLAYER_RIFLE_SHOOT(45, "rifle/shoot/survivor-shoot_rifle_", 3),
+	PLAYER_DEATH(60, "dead/player_dead_",1);
 
 	private static final String TEXTURES_PATH = "assets/person/player/";
 	private static final String IMAGE_FORMAT = ".png";
@@ -54,5 +55,13 @@ public enum PlayerTextures implements LoadableTexturePack {
 	@Override
 	public double getProgress() {
 		return progress;
+	}
+	
+	public int getId(){
+		return this.id;
+	}
+	
+	public int getTextureIds(int id){
+		return this.textureIds[id];
 	}
 }
