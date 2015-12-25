@@ -46,8 +46,6 @@ public class Player extends Entity {
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 102, 62, texturesPlayerFeet));
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 126, 107, texturesPlayer));
 		
-		//addDrawable(new Empty);
-
 		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 16));
 	}

@@ -14,6 +14,7 @@ import com.kermekx.zombiesurvival.entity.Player;
 
 public class Life extends HUD {
 
+	private Rectangle2D lifeBar = new Rectangle2D(100, 14, 191, 17, ColorBuilder.RED);
 	private Entity player;
 	private int startLife;
 	private int life;
@@ -26,7 +27,7 @@ public class Life extends HUD {
 		drawables.add(new Rectangle2D(198, 15, 5, 20, ColorBuilder.BLACK));
 
 		addDisplayList(new DisplayList(drawables, new Vector(0, 0), new Vector(1920, 1080)));
-		addDrawable(new Rectangle2D(100, 14, 191, 17, ColorBuilder.RED));
+		addDrawable(lifeBar);
 
 		this.startLife = player.getLife();
 		this.life = player.getLife();
@@ -38,8 +39,10 @@ public class Life extends HUD {
 		if (player.getLife() != life) {
 			int percentLife = 100 * life / startLife;
 			life = player.getLife();
-			getDrawables().remove(0);
-			getDrawables().add(new Rectangle2D(100, 14, 100 - 50 + percentLife/2, 17));
+			getDrawables().remove(lifeBar);
+			lifeBar = new Rectangle2D(percentLife, 14, (2 * percentLife), 17,
+					ColorBuilder.createColor(200f / (percentLife + 1), 0, percentLife / 200f));
+			getDrawables().add(lifeBar);
 		}
 	}
 }

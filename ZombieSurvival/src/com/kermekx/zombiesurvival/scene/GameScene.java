@@ -44,9 +44,9 @@ public class GameScene extends Scene {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		addHud(new ShortInventory(player.getInventory()));
+
 		addHud(new Life(player));
+		addHud(new ShortInventory(player.getInventory()));
 
 	}
 
@@ -58,6 +58,7 @@ public class GameScene extends Scene {
 	public void update(int delta) {
 		super.update(delta);
 
+		getHuds().get(0).update(delta);
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
 			if (entity.isAlive())
@@ -70,16 +71,23 @@ public class GameScene extends Scene {
 		}
 		entities.removeAll(deadEntities);
 
-		if (keyPressed(Key.KEY_ENTER))
-			player.use();
+		if (player.isAlive()) {
+			if (keyPressed(Key.KEY_ENTER))
+				player.use();
 
-		if (keyPressed(Key.KEY_Q) || keyPressed(Key.KEY_LEFT))
-			player.rotate(-delta);
-		if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
-			player.rotate(delta);
-		if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
-			player.walk(delta);
-		if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
-			player.walk(-delta);
+			if (keyPressed(Key.KEY_Q) || keyPressed(Key.KEY_LEFT))
+				player.rotate(-delta);
+			if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
+				player.rotate(delta);
+			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
+				player.walk(delta);
+			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
+				player.walk(-delta);
+			if (keyPressed(Key.KEY_UP))
+				player.damage(1);
+		}else{
+			//afficher le monsieur mort
+		}
+
 	}
 }
