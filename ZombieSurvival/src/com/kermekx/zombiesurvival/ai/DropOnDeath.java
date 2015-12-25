@@ -1,9 +1,9 @@
 package com.kermekx.zombiesurvival.ai;
 
-import com.kermekx.engine.drawable.Rectangle2D;
+import com.kermekx.engine.position.Vector;
+import com.kermekx.zombiesurvival.entity.DeathEntity;
 import com.kermekx.zombiesurvival.entity.Entity;
-import com.kermekx.zombiesurvival.entity.Player;
-import com.kermekx.zombiesurvival.texture.PlayerTextures;
+import com.kermekx.zombiesurvival.scene.GameScene;
 
 public class DropOnDeath extends BaseAI {
 
@@ -18,11 +18,9 @@ public class DropOnDeath extends BaseAI {
 
 	@Override
 	public void update(int delta) {
-		if (!entity.isAlive())
-				System.out.println("IA DropOndeath" + texture);
-				((GameScene)entity.getContext())
-				entity.addDrawable(new Rectangle2D(entity.getPosition().getX(), entity.getPosition().getY(), 80, 0,
-						texture));
-			
+		if (!entity.isAlive()) {
+			GameScene context = (GameScene) entity.getContext();
+			context.addEntity(new DeathEntity(context, entity.getPosition(), new Vector(100, 100), texture));
+		}
 	}
 }

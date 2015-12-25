@@ -27,6 +27,11 @@ public abstract class BaseDrawable implements Drawable {
 		vertex[i] = new Vector(x, y);
 		setColor(ColorBuilder.WHITE);
 	}
+	
+	public void setVertex(int i, float x, float y, float z) {
+		vertex[i] = new Vector(x, y, z);
+		setColor(ColorBuilder.WHITE);
+	}
 
 	public float[] getColor() {
 		return color;

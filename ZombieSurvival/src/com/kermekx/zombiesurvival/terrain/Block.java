@@ -17,7 +17,7 @@ public class Block {
 		this.position = new Vector(x * size.getX(), y * size.getY());
 		this.texture = texture;
 		
-		drawable = new Rectangle2D(position.getX(), position.getY(), size.getX(), size.getY(), texture.getTextureId());
+		drawable = new Rectangle2D(position.getX(), position.getY(), size.getX(), size.getY(), 9, texture.getTextureId());
 	}
 	
 	public Vector getPosition() {

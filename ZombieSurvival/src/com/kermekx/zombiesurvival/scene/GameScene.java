@@ -8,7 +8,6 @@ import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
-import com.kermekx.zombiesurvival.ai.AIZombie;
 import com.kermekx.zombiesurvival.ai.DropOnDeath;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
@@ -23,9 +22,11 @@ public class GameScene extends Scene {
 	private Player player;
 
 	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Entity> entityTmp = new ArrayList<Entity>();
 
 	public GameScene() {
-
+		super();
+		
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
 
@@ -39,7 +40,7 @@ public class GameScene extends Scene {
 		addDrawable(paul.getDrawables());
 		addDrawable(kevin.getDrawables());
 		// paul.addAI(new AIZombie(this, paul));
-		kevin.addAI(new DropOnDeath(kevin, PlayerTextures.PLAYER_RIFLE_MOVE.getTextureIds(0)));
+		kevin.addAI(new DropOnDeath(kevin, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
 
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
@@ -60,6 +61,11 @@ public class GameScene extends Scene {
 		return entities;
 	}
 
+	public void addEntity(Entity entity) {
+		entityTmp.add(entity);
+		addDrawable(entity.getDrawables());
+	}
+
 	@Override
 	public void update(int delta) {
 		super.update(delta);
@@ -71,7 +77,7 @@ public class GameScene extends Scene {
 				entity.update(delta);
 			else {
 				for (Drawable drawable : entity.getDrawables())
-					getDrawables().remove(drawable);
+					removeDrawable(drawable);
 				entity.update(delta);
 				deadEntities.add(entity);
 			}
@@ -96,5 +102,7 @@ public class GameScene extends Scene {
 			// afficher le monsieur mort
 		}
 
+		entities.addAll(entityTmp);
+		entityTmp = new ArrayList<Entity>();
 	}
 }

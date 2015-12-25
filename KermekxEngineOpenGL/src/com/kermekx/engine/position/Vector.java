@@ -25,6 +25,10 @@ public class Vector {
 		vector = new Vector3f(x, y, 1f);
 	}
 	
+	public Vector(float x, float y, float z) {
+		vector = new Vector3f(x, y, z);
+	}
+	
 	/**
 	 * renvoie la taille x du vecteur
 	 * @return taille x
@@ -55,6 +59,14 @@ public class Vector {
 	 */
 	public void setY(float y) {
 		vector.setY(y);
+	}
+
+	public float getZ() {
+		return vector.getZ();
+	}
+
+	public void setZ(float z) {
+		vector.setZ(z);
 	}
 
 	@Override

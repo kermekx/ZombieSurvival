@@ -14,9 +14,9 @@ import static org.lwjgl.opengl.GL11.glNewList;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTexCoord3f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.awt.Rectangle;
 import java.util.Collection;
@@ -64,9 +64,9 @@ public class DisplayList {
 			glBegin(GL_TRIANGLES);
 			for (Vector vertex : drawable.getVertex()) {
 				if (texture != -1 && i % 2 == 0)
-					glTexCoord2f(vertex.getX(), vertex.getY());
+					glTexCoord3f(vertex.getX(), vertex.getY(), vertex.getZ());
 				else
-					glVertex2f(vertex.getX(), vertex.getY());
+					glVertex3f(vertex.getX(), vertex.getY(), vertex.getZ());
 				i++;
 			}
 			glEnd();

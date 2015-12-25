@@ -19,8 +19,8 @@ public class Weapon extends Item {
 		if (p.getInventory().removeItem(new ItemStack(ItemList.AMMO.getItem().getId())) == null) {
 			p.fire();
 			Bullet b = new Bullet(p.getContext(), p.getPosition(), p.getRotation());
-			p.getContext().addDrawable(b.getDrawables());
-			((GameScene) p.getContext()).getEntities().add(b);
+
+			((GameScene) p.getContext()).addEntity(b);
 			Sounds.GUNSHOT.play(new Vector(0, 0));
 		} else {
 			Sounds.TRIGGER.play();

@@ -1,6 +1,7 @@
 package com.kermekx.engine;
 
 import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
@@ -28,28 +29,27 @@ import com.kermekx.engine.sound.SoundManager;
 public abstract class KermekxEngine implements Runnable {
 
 	public static KermekxEngine INSTANCE;
-	
+
 	/**
 	 * Nom de la fenêtre
 	 */
 	private final String WINDOW_NAME;
-	
+
 	/**
 	 * Largeur de l'écran
 	 */
 	private final int WIDTH;
-	
+
 	/**
 	 * Hauteur de l'écran
 	 */
 	private final int HEIGHT;
-	
+
 	/**
-	 * Vrai lorsque la fenêtre est en plein écran,
-	 * faux sinon
+	 * Vrai lorsque la fenêtre est en plein écran, faux sinon
 	 */
 	private boolean fullScreen = false;
-	
+
 	/**
 	 * Classe de rendue de la fenêtre
 	 */
@@ -59,12 +59,12 @@ public abstract class KermekxEngine implements Runnable {
 	 * Temps de la dernière frame.
 	 */
 	private long lastFrame;
-	
+
 	/**
 	 * Conteur de FPS
 	 */
 	private int fps;
-	
+
 	/**
 	 * Temps du dernier calcule de FPS
 	 */
@@ -72,7 +72,9 @@ public abstract class KermekxEngine implements Runnable {
 
 	/**
 	 * Créer une instance du moteur graphique
-	 * @param windowName Nom de la denêtre
+	 * 
+	 * @param windowName
+	 *            Nom de la denêtre
 	 */
 	public KermekxEngine(String windowName) {
 		INSTANCE = this;
@@ -100,7 +102,9 @@ public abstract class KermekxEngine implements Runnable {
 
 	/**
 	 * Initialise le moteur graphique
-	 * @throws LWJGLException Erreur lors de l'initialisation d'openGL
+	 * 
+	 * @throws LWJGLException
+	 *             Erreur lors de l'initialisation d'openGL
 	 */
 	public void init() throws LWJGLException {
 		KELogger.logInfo("Initializing display...");
@@ -110,16 +114,18 @@ public abstract class KermekxEngine implements Runnable {
 		Display.setVSyncEnabled(true);
 		Display.create();
 		AL.create();
-		
+
 		glClearColor(0f, 0f, 0f, 0f);
 		glEnable(GL_BLEND);
 		glEnable(GL_VERTEX_ARRAY);
+		glEnable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		KELogger.logInfo("Initialized!");
 	}
 
 	/**
-	 * Classe abstraite permetant de lancer le jeu après l'initialisation d'openGL
+	 * Classe abstraite permetant de lancer le jeu après l'initialisation
+	 * d'openGL
 	 */
 	public abstract void launch();
 
@@ -129,22 +135,17 @@ public abstract class KermekxEngine implements Runnable {
 	private void loop() {
 
 		getDelta();
-		
-		//TODO : Mise à jour de la scène dans une autre Thread
+
+		// TODO : Mise à jour de la scène dans une autre Thread
 		/**
-		new Thread(new Runnable() {
+		 * new Thread(new Runnable() {
+		 * 
+		 * @Override public void run() { while (true) { int delta = getDelta();
+		 *           renderer.update(delta); Usages.setUse("update"); } }
+		 *           }).start();
+		 */
 
-			@Override
-			public void run() {
-				while (true) {
-					int delta = getDelta();
-					renderer.update(delta);
-					Usages.setUse("update");
-				}
-			}
-		}).start();*/
-
-		//Mise à jour graphiquetant que la fenêtre est ouverte
+		// Mise à jour graphiquetant que la fenêtre est ouverte
 		while (!Display.isCloseRequested()) {
 			Usages.setNewLoop();
 			if (Keyboard.isKeyDown(Key.KEY_F5))
@@ -171,7 +172,9 @@ public abstract class KermekxEngine implements Runnable {
 
 	/**
 	 * Met la fenêtre en mode pein écran/fenêtrer
-	 * @param fullScreen vrai pour le plein écran, faux pour le fenêtrer
+	 * 
+	 * @param fullScreen
+	 *            vrai pour le plein écran, faux pour le fenêtrer
 	 */
 	private void setFullScreen(boolean fullScreen) {
 		try {
@@ -247,7 +250,8 @@ public abstract class KermekxEngine implements Runnable {
 	}
 
 	/**
-	 * Calcule le temps entre chaque boucle de mise à jours 
+	 * Calcule le temps entre chaque boucle de mise à jours
+	 * 
 	 * @return temps d'écart en millisecondes
 	 */
 	public int getDelta() {
@@ -281,7 +285,9 @@ public abstract class KermekxEngine implements Runnable {
 
 	/**
 	 * Change la scene à afficher par le moteur Graphique
-	 * @param scene à afficher
+	 * 
+	 * @param scene
+	 *            à afficher
 	 */
 	public void setScene(Scene scene) {
 		getRenderer().setScene(scene);

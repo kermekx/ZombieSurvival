@@ -1,6 +1,7 @@
 package com.kermekx.engine.renderer;
 
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
 import static org.lwjgl.opengl.GL11.glBegin;
@@ -14,10 +15,13 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
+import static org.lwjgl.opengl.GL11.glTexCoord3f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
+import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.awt.Rectangle;
+import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
@@ -45,44 +49,46 @@ public class Renderer {
 
 		Rectangle bounds = scene.getCamera().getBounds();
 		scene.getCamera().setViewModel();
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		for (DisplayList dl : scene.getDisplayLists())
 			if (dl.should(bounds))
 				glCallList(dl.getListID());
 
-		for (Drawable drawable : scene.getDrawables()) {
-			if (drawable.shouldRender(bounds)) {
-				float[] color = drawable.getColor();
-				glColor3f(color[0], color[1], color[2]);
+		for (int j = scene.getDrawables().length - 1; j >= 0; j--) {
+			for (Drawable drawable : scene.getDrawables()[j]) {
+				if (drawable.shouldRender(bounds)) {
+					float[] color = drawable.getColor();
+					glColor3f(color[0], color[1], color[2]);
 
-				int texture = drawable.getTextureId();
-				if (texture != -1)
-					;
-				glBindTexture(GL_TEXTURE_2D, texture);
-				int i = 0;
-				float angle = drawable.getRotation();
-				if (angle != 0) {
-					glPushMatrix();
-					Vector position = drawable.getPosition();
-					glTranslatef(position.getX(), position.getY(), 0);
-					glRotatef(angle, 0, 0, 1);
-					glTranslatef(-position.getX(), -position.getY(), 0);
-				}
+					int texture = drawable.getTextureId();
+					if (texture != -1)
+						;
+					glBindTexture(GL_TEXTURE_2D, texture);
+					int i = 0;
+					float angle = drawable.getRotation();
+					if (angle != 0) {
+						glPushMatrix();
+						Vector position = drawable.getPosition();
+						glTranslatef(position.getX(), position.getY(), 0);
+						glRotatef(angle, 0, 0, 1);
+						glTranslatef(-position.getX(), -position.getY(), 0);
+					}
 
-				glBegin(GL_TRIANGLES);
-				for (Vector vertex : drawable.getVertex()) {
-					if (texture != -1 && i % 2 == 0)
-						glTexCoord2f(vertex.getX(), vertex.getY());
-					else
-						glVertex2f(vertex.getX(), vertex.getY());
-					i++;
+					glBegin(GL_TRIANGLES);
+					for (Vector vertex : drawable.getVertex()) {
+						if (texture != -1 && i % 2 == 0)
+							glTexCoord3f(vertex.getX(), vertex.getY(), vertex.getZ());
+						else
+							glVertex3f(vertex.getX(), vertex.getY(), vertex.getZ());
+						i++;
+					}
+					glEnd();
+					if (texture != -1)
+						glBindTexture(GL_TEXTURE_2D, 0);
+					if (angle != 0)
+						glPopMatrix();
 				}
-				glEnd();
-				if (texture != -1)
-					glBindTexture(GL_TEXTURE_2D, 0);
-				if (angle != 0)
-					glPopMatrix();
 			}
 		}
 

@@ -10,6 +10,7 @@ public class LoadingScene extends Scene implements LoadingListener {
 	Rectangle2D progressBar = new Rectangle2D(-50, -10, 0, 20, ColorBuilder.RED);
 
 	public LoadingScene() {
+		super();
 		addDrawable(progressBar);
 	}
 	
@@ -20,7 +21,7 @@ public class LoadingScene extends Scene implements LoadingListener {
 	
 	@Override
 	public void onUpdate(double progress) {
-		getDrawables().remove(progressBar);
+		removeDrawable(progressBar);
 		progressBar = new Rectangle2D(-50 + (float) progress * 50f, -10, (float) progress * 100f, 20,
 				ColorBuilder.RED);
 		addDrawable(progressBar);

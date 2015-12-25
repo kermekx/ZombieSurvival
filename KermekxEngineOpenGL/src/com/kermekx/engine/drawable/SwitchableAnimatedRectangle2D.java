@@ -11,6 +11,12 @@ public class SwitchableAnimatedRectangle2D extends AnimatedRectangle2D {
 		this.texturesGroupes = texturesGroupes;
 	}
 
+	public SwitchableAnimatedRectangle2D(float x, float y, float width,
+			float height, float z, int[][] texturesGroupes) {
+		super(x, y, width, height, z, texturesGroupes[0]);
+		this.texturesGroupes = texturesGroupes;
+	}
+	
 	public void setTextureGroupe(int texture) {
 		if (currentTexture != texture) {
 			currentTexture = texture;

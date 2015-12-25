@@ -48,8 +48,11 @@ public class Matrix {
 	 * @return nouveau vecteur position
 	 */
 	public static Vector transform(Matrix m, Vector v) {
+		float z = v.getZ();
+		v.setZ(1f);
 		Vector r = new Vector();
 		Matrix3f.transform(m.matrix, v.vector, r.vector);
+		r.setZ(z);
 		return r;
 	}
 

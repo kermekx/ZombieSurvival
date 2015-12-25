@@ -21,6 +21,12 @@ public class AnimatedRectangle2D extends Rectangle2D {
 		this.frameUpdateTime = frameUpdateTime;
 	}
 	
+	public AnimatedRectangle2D(float x, float y, float width, float height, float z, int[] textures) {
+		super(x, y, width, height, z, textures[0]);
+		this.textures = textures;
+		frameUpdateTime = 50;
+	}
+
 	@Override
 	public void update(int delta) {
 		frameTime += delta;

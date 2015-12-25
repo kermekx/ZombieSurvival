@@ -69,7 +69,7 @@ public class Camera {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(position.getX() - size.getX() / 2, position.getX() + size.getX() / 2, position.getY() + size.getY() / 2,
-				position.getY() - size.getY() / 2, 1, -1);
+				position.getY() - size.getY() / 2, 10, -10);
 		glMatrixMode(GL_MODELVIEW);
 		update = false;
 	}
