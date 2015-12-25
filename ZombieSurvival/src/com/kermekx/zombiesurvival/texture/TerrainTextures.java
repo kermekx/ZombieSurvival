@@ -2,7 +2,6 @@ package com.kermekx.zombiesurvival.texture;
 
 import java.io.IOException;
 
-import com.kermekx.engine.log.KELogger;
 import com.kermekx.engine.texture.LoadableTexturePack;
 import com.kermekx.engine.texture.TextureManager;
 

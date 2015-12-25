@@ -8,6 +8,7 @@ import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.drawable.list.DisplayList;
 import com.kermekx.engine.hud.HUD;
+import com.kermekx.engine.mouse.MouseEvent;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.inventory.Inventory;
 import com.kermekx.zombiesurvival.inventory.ItemStack;
@@ -42,6 +43,11 @@ public class ShortInventory extends HUD {
 			else
 				getDrawables().get(i).setTexture(ItemList.VOID.getItem().getTextureID());
 		}
+	}
+
+	@Override
+	public void mouseEvent(MouseEvent mouseEvent) {
+		
 	}
 
 }

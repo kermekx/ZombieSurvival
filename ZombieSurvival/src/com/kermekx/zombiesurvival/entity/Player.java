@@ -42,7 +42,6 @@ public class Player extends Entity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 102, 62, texturesPlayerFeet));
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 126, 107, texturesPlayer));
 		

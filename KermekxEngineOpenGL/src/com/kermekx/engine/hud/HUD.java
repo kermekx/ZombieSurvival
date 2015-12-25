@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.list.DisplayList;
+import com.kermekx.engine.mouse.MouseEvent;
 
 public abstract class HUD {
 	
@@ -37,5 +38,6 @@ public abstract class HUD {
 	}
 
 	public abstract void update(int delta);
+	public abstract void mouseEvent(MouseEvent mouseEvent); 
 
 }

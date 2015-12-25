@@ -8,6 +8,7 @@ import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.drawable.list.DisplayList;
 import com.kermekx.engine.hud.HUD;
+import com.kermekx.engine.mouse.MouseEvent;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
@@ -44,5 +45,10 @@ public class Life extends HUD {
 					ColorBuilder.createColor(200f / (percentLife + 1), 0, percentLife / 200f));
 			getDrawables().add(lifeBar);
 		}
+	}
+
+	@Override
+	public void mouseEvent(MouseEvent mouseEvent) {
+
 	}
 }

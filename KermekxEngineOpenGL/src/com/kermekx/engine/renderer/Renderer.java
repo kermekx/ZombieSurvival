@@ -19,10 +19,13 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import java.awt.Rectangle;
 
+import org.lwjgl.input.Mouse;
+
 import com.kermekx.engine.camera.Camera;
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.list.DisplayList;
 import com.kermekx.engine.hud.HUD;
+import com.kermekx.engine.mouse.MouseEvent;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 
@@ -147,6 +150,13 @@ public class Renderer {
 	public void update(int delta) {
 		if (scene != null)
 			scene.update(delta);
+		MouseEvent me = new MouseEvent(new Vector(Mouse.getX(), Mouse.getY()),
+				(Mouse.isButtonDown(0) ? MouseEvent.LEFT_BUTTON : 0)
+						| (Mouse.isButtonDown(1) ? MouseEvent.RIGHT_CLICK : 0));
+		if (me.getClick() == 0)
+			return;
+		for (HUD hud : scene.getHuds())
+			hud.mouseEvent(me);
 	}
 
 }
