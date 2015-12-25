@@ -1,5 +1,6 @@
 package com.kermekx.zombiesurvival.sound;
 
+import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.sound.SoundManager;
 
 public enum Sounds {
@@ -39,7 +40,10 @@ public enum Sounds {
 	}
 	
 	public void play() {
-		SoundManager.play(soundId);
+		SoundManager.play(soundId, new Vector());
 	}
 
+	public void play(Vector position) {
+		SoundManager.play(soundId, position);
+	}
 }

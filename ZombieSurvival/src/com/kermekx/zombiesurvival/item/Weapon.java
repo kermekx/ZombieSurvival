@@ -1,5 +1,6 @@
 package com.kermekx.zombiesurvival.item;
 
+import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.inventory.ItemStack;
@@ -20,7 +21,7 @@ public class Weapon extends Item {
 			Bullet b = new Bullet(p.getContext(), p.getPosition(), p.getRotation());
 			p.getContext().addDrawable(b.getDrawables());
 			((GameScene) p.getContext()).getEntities().add(b);
-			Sounds.GUNSHOT.play();
+			Sounds.GUNSHOT.play(new Vector(0, 0));
 		} else {
 			Sounds.TRIGGER.play();
 		}

@@ -12,6 +12,8 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
 import org.lwjgl.util.WaveData;
 
+import com.kermekx.engine.position.Vector;
+
 public class SoundManager {
 
 	private static IntBuffer[] buffers = new IntBuffer[100];
@@ -52,7 +54,6 @@ public class SoundManager {
 		waveFile.dispose();
 
 		AL10.alGenSources(source);
-		setListenerValues();
 
 		if (AL10.alGetError() != AL10.AL_NO_ERROR)
 			return -1;
@@ -77,8 +78,8 @@ public class SoundManager {
 		return -1;
 	}
 
-	private static void setListenerValues() {
-		listenerPos = BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f });
+	private static void setListenerValues(Vector position) {
+		listenerPos = BufferUtils.createFloatBuffer(3).put(new float[] { position.getX(), position.getY(), 0.0f });
 		listenerVel = BufferUtils.createFloatBuffer(3).put(new float[] { 0.0f, 0.0f, 0.0f });
 		listenerOri = BufferUtils.createFloatBuffer(6).put(new float[] { 0.0f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f });
 		listenerPos.flip();
@@ -96,7 +97,8 @@ public class SoundManager {
 		}
 	}
 
-	public static void play(int id) {
+	public static void play(int id, Vector position) {
+		setListenerValues(position);
 		AL10.alSourcePlay(sources[id].get(0));
 	}
 

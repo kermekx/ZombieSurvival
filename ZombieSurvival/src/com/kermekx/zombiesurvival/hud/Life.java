@@ -49,6 +49,6 @@ public class Life extends HUD {
 
 	@Override
 	public void mouseEvent(MouseEvent mouseEvent) {
-
+		
 	}
 }
