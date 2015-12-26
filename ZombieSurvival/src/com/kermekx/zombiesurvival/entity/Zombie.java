@@ -6,6 +6,8 @@ import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.ai.AIZombie;
+import com.kermekx.zombiesurvival.scene.GameScene;
 
 public class Zombie extends Entity {
 
@@ -26,6 +28,8 @@ public class Zombie extends Entity {
 		}
 
 		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 64f, 64f, textureZombie));
+		
+		this.addAI(new AIZombie((GameScene) getContext(), this));
 	}
 
 }

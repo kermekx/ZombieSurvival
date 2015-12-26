@@ -8,14 +8,12 @@ import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
-import com.kermekx.zombiesurvival.ai.DropOnDeath;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.hud.Life;
 import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
-import com.kermekx.zombiesurvival.texture.PlayerTextures;
 
 public class GameScene extends Scene {
 
@@ -40,7 +38,6 @@ public class GameScene extends Scene {
 		addDrawable(paul.getDrawables());
 		addDrawable(kevin.getDrawables());
 		// paul.addAI(new AIZombie(this, paul));
-		kevin.addAI(new DropOnDeath(kevin, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
 
 		for (Drawable d : player.getDrawables())
 			addDrawable(d);
