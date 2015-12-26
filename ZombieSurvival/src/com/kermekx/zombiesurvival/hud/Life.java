@@ -42,13 +42,13 @@ public class Life extends HUD {
 			life = player.getLife();
 			getDrawables().remove(lifeBar);
 			lifeBar = new Rectangle2D(percentLife, 14, (2 * percentLife), 17,
-					ColorBuilder.createColor(200f / (percentLife + 1), 0, percentLife / 200f));
+					ColorBuilder.createColor(percentLife / 100f, 0, 0));
 			getDrawables().add(lifeBar);
 		}
 	}
 
 	@Override
 	public void mouseEvent(MouseEvent mouseEvent) {
-		
+
 	}
 }
