@@ -21,7 +21,6 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.awt.Rectangle;
-import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
@@ -56,6 +55,8 @@ public class Renderer {
 				glCallList(dl.getListID());
 
 		for (int j = scene.getDrawables().length - 1; j >= 0; j--) {
+			float k = 0.9f;
+			float zPerK = 0.9f / scene.getDrawables()[j].size();
 			for (Drawable drawable : scene.getDrawables()[j]) {
 				if (drawable.shouldRender(bounds)) {
 					float[] color = drawable.getColor();
@@ -78,9 +79,9 @@ public class Renderer {
 					glBegin(GL_TRIANGLES);
 					for (Vector vertex : drawable.getVertex()) {
 						if (texture != -1 && i % 2 == 0)
-							glTexCoord3f(vertex.getX(), vertex.getY(), vertex.getZ());
+							glTexCoord3f(vertex.getX(), vertex.getY(), vertex.getZ() + k);
 						else
-							glVertex3f(vertex.getX(), vertex.getY(), vertex.getZ());
+							glVertex3f(vertex.getX(), vertex.getY(), vertex.getZ() + k);
 						i++;
 					}
 					glEnd();
@@ -88,6 +89,7 @@ public class Renderer {
 						glBindTexture(GL_TEXTURE_2D, 0);
 					if (angle != 0)
 						glPopMatrix();
+					k -= zPerK;
 				}
 			}
 		}
