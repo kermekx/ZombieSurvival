@@ -11,5 +11,10 @@ public class DeathEntity extends Entity{
 		addDrawable(new Rectangle2D(position.getX(), position.getY(), size.getX(), size.getY(), 8, texture));
 	}
 
+	public DeathEntity(Scene context, Vector position, Vector size, float rotation, int texture) {
+		super(context, position, new Vector());
+		addDrawable(new Rectangle2D(position.getX(), position.getY(), size.getX(), size.getY(), 8, texture));
+		setRotation(rotation);
+	}
 	
 }

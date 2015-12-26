@@ -1,6 +1,5 @@
 package com.kermekx.zombiesurvival.entity;
 
-import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;

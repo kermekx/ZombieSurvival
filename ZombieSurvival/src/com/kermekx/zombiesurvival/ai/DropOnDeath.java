@@ -20,7 +20,7 @@ public class DropOnDeath extends BaseAI {
 	public void update(int delta) {
 		if (!entity.isAlive()) {
 			GameScene context = (GameScene) entity.getContext();
-			context.addEntity(new DeathEntity(context, entity.getPosition(), new Vector(100, 100), texture));
+			context.addEntity(new DeathEntity(context, entity.getPosition(), new Vector(100, 100), entity.getRotation(), texture));
 		}
 	}
 }
