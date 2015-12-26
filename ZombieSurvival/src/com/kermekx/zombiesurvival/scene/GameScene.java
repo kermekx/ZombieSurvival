@@ -72,10 +72,9 @@ public class GameScene extends Scene {
 	}
 
 	@Override
-	public void update(int delta) {
+	public synchronized void update(int delta) {
 		super.update(delta);
-
-		getHuds().get(0).update(delta);
+		
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
 			if (entity.isAlive())
@@ -103,11 +102,18 @@ public class GameScene extends Scene {
 				player.walk(-delta);
 			if (keyPressed(Key.KEY_UP))
 				player.damage(1);
+			getCamera().setPosition(player.getPosition());
 		} else {
 			// afficher le monsieur mort
 		}
 
 		entities.addAll(entityTmp);
 		entityTmp = new ArrayList<Entity>();
+	}
+
+	@Override
+	public synchronized void updateAI(int delta) {
+		for (Entity entity : entities)
+			entity.updateAI(delta);
 	}
 }

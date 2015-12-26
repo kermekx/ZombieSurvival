@@ -43,7 +43,9 @@ public class Usages {
 	 * @param fonction
 	 *            nom de la fonction (clef)
 	 */
-	public static void setUse(String fonction) {
+	public synchronized static void setUse(String fonction) {
+		if (INSTANCE.usages == null)
+			return;
 		if (INSTANCE.usages.get(fonction) == null)
 			INSTANCE.usages.put(fonction, new Long(0l));
 		INSTANCE.usages.put(fonction, new Long(INSTANCE.usages.get(fonction) + INSTANCE.getDelta()));
@@ -52,7 +54,7 @@ public class Usages {
 	/**
 	 * Affiche le taux d'utilisation et vide la map
 	 */
-	public static void log() {
+	public synchronized static void log() {
 		for (String s : INSTANCE.usages.keySet())
 			KELogger.logInfo(s + " use " + (INSTANCE.usages.get(s) * 0.1) + "% of time");
 		INSTANCE.usages.clear();

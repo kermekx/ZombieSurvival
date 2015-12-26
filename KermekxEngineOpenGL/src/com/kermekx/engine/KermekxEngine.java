@@ -69,6 +69,8 @@ public abstract class KermekxEngine implements Runnable {
 	 * Temps du dernier calcule de FPS
 	 */
 	private long lastFPS;
+	
+	public boolean run = false;
 
 	/**
 	 * Créer une instance du moteur graphique
@@ -134,34 +136,100 @@ public abstract class KermekxEngine implements Runnable {
 	 */
 	private void loop() {
 
+		boolean isLogicThreadRunning = false;
+		run = true;
 		getDelta();
 
 		// TODO : Mise à jour de la scène dans une autre Thread
-		/**
-		 * new Thread(new Runnable() {
-		 * 
-		 * @Override public void run() { while (true) { int delta = getDelta();
-		 *           renderer.update(delta); Usages.setUse("update"); } }
-		 *           }).start();
-		 */
+		if(Runtime.getRuntime().availableProcessors() > 1) {
+			Runnable update = new Runnable() {
+				@Override
+				public void run() {
+					boolean isAIThreadRunning = false;
+					
+					if(Runtime.getRuntime().availableProcessors() > 2) {
+						Runnable updateAI = new Runnable() {
+							long lastFrame;
+							@Override
+							public void run() {
+								getDelta();
+								int delta = getDelta();
+								while(run) {
+									renderer.updateAI(delta);
+									Usages.setUse("update AI");
+									if (1000/32-delta > 0)
+										try {
+											Thread.sleep(1000/32-delta);
+										} catch (InterruptedException e) {
+											e.printStackTrace();
+										}
+									delta = getDelta();
+								}
+							}
+							
+							public int getDelta() {
+								long time = getTime();
+								int delta = (int) (time - lastFrame);
+								lastFrame = time;
+
+								return delta;
+							}
+							
+							public long getTime() {
+								return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+							}
+						};
+						Thread updateAIThread = new Thread(updateAI);
+						updateAIThread.start();
+						isAIThreadRunning = true;
+					}
+					int delta = getDelta();
+					while (run) {
+						renderer.update(delta);
+						Usages.setUse("update");
+						if (!isAIThreadRunning) {
+							renderer.updateAI(delta);
+							Usages.setUse("update AI");
+						}
+						if (1000/64-delta > 0)
+							try {
+								Thread.sleep(1000/64-delta);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						delta = getDelta();
+					}
+				}
+			};
+			
+			Thread updateThread = new Thread(update);
+			updateThread.start();
+	        isLogicThreadRunning = true;
+	    }
+		
 
 		// Mise à jour graphiquetant que la fenêtre est ouverte
 		while (!Display.isCloseRequested()) {
 			Usages.setNewLoop();
 			if (Keyboard.isKeyDown(Key.KEY_F5))
 				this.setFullScreen(!fullScreen);
-			int delta = getDelta();
-			getRenderer().update(delta);
-			Usages.setUse("update");
+			if(!isLogicThreadRunning) {
+				int delta = getDelta();
+				getRenderer().update(delta);
+				Usages.setUse("update");
+				getRenderer().updateAI(delta);
+				Usages.setUse("update AI");
+			}
 			getRenderer().render();
 			Usages.setUse("render");
-			Display.sync(60);
 			updateFPS();
+			Display.sync(60);
 			Usages.setUse("wait");
 			Display.update();
 			Usages.setUse("display");
 		}
 
+		run = false;
 		KELogger.logInfo(WINDOW_NAME + " termined!");
 		KELogger.logInfo("This game use Kermekx Engine, Developed by Kevin MESSIAEN and Paul DUMONT.");
 		Display.destroy();
@@ -277,6 +345,7 @@ public abstract class KermekxEngine implements Runnable {
 	public void updateFPS() {
 		if (getTime() - lastFPS > 1000) {
 			Usages.log();
+			KELogger.logInfo("FPS : " + fps);
 			lastFPS = getTime();
 			fps = 0;
 		}

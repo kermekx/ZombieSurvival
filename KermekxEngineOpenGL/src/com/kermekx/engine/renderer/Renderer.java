@@ -42,7 +42,7 @@ public class Renderer {
 	/**
 	 * rendue de la scene
 	 */
-	public void render() {
+	public synchronized void render() {
 		if (scene == null)
 			return;
 
@@ -155,7 +155,7 @@ public class Renderer {
 	 * @param delta
 	 *            temps depuis la dernière mise à jour
 	 */
-	public void update(int delta) {
+	public synchronized void update(int delta) {
 		if (scene != null)
 			scene.update(delta);
 		MouseEvent me = new MouseEvent(new Vector(Mouse.getX(), Mouse.getY()),
@@ -165,6 +165,11 @@ public class Renderer {
 			return;
 		for (HUD hud : scene.getHuds())
 			hud.mouseEvent(me);
+	}
+
+	public synchronized void updateAI(int delta) {
+		if (scene != null)
+			scene.updateAI(delta);
 	}
 
 }
