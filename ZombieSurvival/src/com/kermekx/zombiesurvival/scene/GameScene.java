@@ -82,7 +82,7 @@ public class GameScene extends Scene {
 			else {
 				for (Drawable drawable : entity.getDrawables())
 					removeDrawable(drawable);
-				entity.update(delta);
+				entity.updateAI(delta);
 				deadEntities.add(entity);
 			}
 		}

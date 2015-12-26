@@ -121,9 +121,9 @@ public class Renderer {
 				glBegin(GL_TRIANGLES);
 				for (Vector vertex : drawable.getVertex()) {
 					if (texture != -1 && i % 2 == 0)
-						glTexCoord2f(vertex.getX(), vertex.getY());
+						glTexCoord3f(vertex.getX(), vertex.getY(), 1);
 					else
-						glVertex2f(vertex.getX(), vertex.getY());
+						glVertex3f(vertex.getX(), vertex.getY(), 1);
 					i++;
 				}
 				glEnd();

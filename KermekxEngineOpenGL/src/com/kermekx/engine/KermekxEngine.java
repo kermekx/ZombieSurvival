@@ -235,7 +235,6 @@ public abstract class KermekxEngine implements Runnable {
 		Display.destroy();
 		SoundManager.killALData();
 		AL.destroy();
-
 	}
 
 	/**
