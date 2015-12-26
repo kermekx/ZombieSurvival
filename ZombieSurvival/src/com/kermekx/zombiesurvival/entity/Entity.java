@@ -8,6 +8,7 @@ import com.kermekx.engine.drawable.EmptyRectangle2D;
 import com.kermekx.engine.position.Matrix;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
+import com.kermekx.zombiesurvival.ZombieSurvival;
 import com.kermekx.zombiesurvival.ai.AI;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
 import com.kermekx.zombiesurvival.scene.GameScene;
@@ -27,15 +28,17 @@ public abstract class Entity {
 		this.context = context;
 		setPosition(position);
 		hitbox = new Hitbox(position, size);
-		addDrawable(new EmptyRectangle2D(position.getX(), position.getY(), size.getX(), size.getY()));
+		if (ZombieSurvival.DEBUG)
+			addDrawable(new EmptyRectangle2D(position.getX(), position.getY(), size.getX(), size.getY()));
 	}
 
 	public Entity(Scene context, Vector position, Vector size, int life) {
 		this.context = context;
 		setPosition(position);
 		hitbox = new Hitbox(position, size);
-		addDrawable(new EmptyRectangle2D(getHitbox().getPosition().getX(), getHitbox().getPosition().getY(),
-				getHitbox().getSize().getX(), getHitbox().getSize().getY()));
+		if (ZombieSurvival.DEBUG)
+			addDrawable(new EmptyRectangle2D(getHitbox().getPosition().getX(), getHitbox().getPosition().getY(),
+					getHitbox().getSize().getX(), getHitbox().getSize().getY()));
 		this.life = life;
 	}
 

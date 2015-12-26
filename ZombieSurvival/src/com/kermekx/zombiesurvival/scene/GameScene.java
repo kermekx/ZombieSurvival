@@ -6,14 +6,17 @@ import java.util.List;
 
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
+import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.entity.Decoration;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.hud.Life;
 import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
+import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
 
@@ -24,7 +27,7 @@ public class GameScene extends Scene {
 
 	public GameScene() {
 		super();
-		
+
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
 
@@ -47,6 +50,11 @@ public class GameScene extends Scene {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+
+		for (int i = -5; i < 6; i++) {
+			addEntity(new Decoration(this, new Vector(64 * i, -512), new Vector(64, 64), 50,
+					TerrainTextures.STONE_BRICK_WHITE.getTextureId()));
 		}
 
 		addHud(new Life(player));

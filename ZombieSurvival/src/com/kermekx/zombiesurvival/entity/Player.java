@@ -21,6 +21,9 @@ public class Player extends Entity {
 	private int slot = 0;
 	private boolean walking = false;
 	private int using = 0;
+	
+	private final SwitchableAnimatedRectangle2D feet;
+	private final SwitchableAnimatedRectangle2D body;
 
 	public Player(Scene context, int x, int y, String name) {
 		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
@@ -35,8 +38,11 @@ public class Player extends Entity {
 			texturesPlayer[2][i] = PlayerTextures.PLAYER_RIFLE_SHOOT.getTextureIds(i % 3);
 		}
 		
-		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 102, 62, -5f, texturesPlayerFeet));
-		addDrawable(new SwitchableAnimatedRectangle2D(x, y, 126, 107, -6f, texturesPlayer));
+		feet = new SwitchableAnimatedRectangle2D(x, y, 102, 62, -5f, texturesPlayerFeet);
+		body = new SwitchableAnimatedRectangle2D(x, y, 126, 107, -6f, texturesPlayer);
+				
+		addDrawable(feet);
+		addDrawable(body);
 
 		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 16));
@@ -48,9 +54,9 @@ public class Player extends Entity {
 		if (using > 0)
 			return;
 
-		for (Drawable d : getDrawables())
-			if (d instanceof SwitchableAnimatedRectangle2D)
-				((SwitchableAnimatedRectangle2D) d).setTextureGroupe(1);
+		feet.setTextureGroupe(1);
+		body.setTextureGroupe(1);
+		
 		translate(delta * MOVEMENT_SPEED, 0);
 		getContext().getCamera().setPosition(getPosition());
 		walking = true;
@@ -68,10 +74,10 @@ public class Player extends Entity {
 			walking = false;
 		else if (using >= 0)
 			using -= delta;
-		else
-			for (Drawable d : getDrawables())
-				if (d instanceof SwitchableAnimatedRectangle2D)
-					((SwitchableAnimatedRectangle2D) d).setTextureGroupe(0);
+		else {
+			feet.setTextureGroupe(0);
+			body.setTextureGroupe(0);
+		}
 	}
 
 	public void use() {
@@ -82,8 +88,8 @@ public class Player extends Entity {
 
 	public void fire() {
 		// .get(0) == hitbox
-		((SwitchableAnimatedRectangle2D) getDrawables().get(1)).setTextureGroupe(0);
-		((SwitchableAnimatedRectangle2D) getDrawables().get(2)).setTextureGroupe(2);
+		feet.setTextureGroupe(0);
+		body.setTextureGroupe(2);
 		using = 150;
 	}
 

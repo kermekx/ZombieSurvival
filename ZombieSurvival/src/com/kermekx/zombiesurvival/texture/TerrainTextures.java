@@ -7,7 +7,7 @@ import com.kermekx.engine.texture.TextureManager;
 
 public enum TerrainTextures implements LoadableTexturePack {
 
-	DIRT(3, "dirt"), GRASS(2, "grass");
+	GRASS(2, "grass"), DIRT(3, "dirt"), STONE_BRICK_WHITE(42, "stone_brick_white");
 
 	private static final String TEXTURES_PATH = "assets/textures/";
 	private static final String IMAGE_FORMAT = ".png";
