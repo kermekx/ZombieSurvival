@@ -21,7 +21,7 @@ public class CurrentWeapon extends HUD {
 
 	@Override
 	public void update(int delta) {
-		if (Item.items[player.getInventory().getSlot(player.getActualWeapon()).getItemId()] instanceof Weapon) {
+		if (Item.items[player.getInventory().getSlot(player.getSlotActualWeapon()).getItemId()] instanceof Weapon) {
 			
 		}
 

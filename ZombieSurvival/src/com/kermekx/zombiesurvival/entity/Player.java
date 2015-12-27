@@ -21,6 +21,7 @@ public class Player extends Entity {
 	private final Inventory inventory = new Inventory(16);
 	private int actualWeapon = 0;
 	private boolean walking = false;
+	private boolean run = false;
 	private int using = 0;
 
 	private final SwitchableAnimatedRectangle2D feet;
@@ -35,25 +36,25 @@ public class Player extends Entity {
 			texturesPlayerFeet[0][i] = PlayerTextures.PLAYER_FEET_IDLE.getTextureIds(0);
 			texturesPlayerFeet[1][i] = PlayerTextures.PLAYER_FEET_RUN.getTextureIds(i);
 			texturesPlayerFeet[2][i] = PlayerTextures.PLAYER_FEET_WALK.getTextureIds(i);
-			
+
 			texturesPlayer[0][i] = PlayerTextures.PLAYER_FLASHLIGHT_IDLE.getTextureIds(i);
 			texturesPlayer[1][i] = PlayerTextures.PLAYER_FLASHLIGHT_MELEEATTACK.getTextureIds(i % 15);
 			texturesPlayer[2][i] = PlayerTextures.PLAYER_FLASHLIGHT_MOVE.getTextureIds(i);
-			
+
 			texturesPlayer[3][i] = PlayerTextures.PLAYER_HANDGUN_IDLE.getTextureIds(i);
 			texturesPlayer[4][i] = PlayerTextures.PLAYER_HANDGUN_MOVE.getTextureIds(i);
 			texturesPlayer[5][i] = PlayerTextures.PLAYER_HANDGUN_RELOAD.getTextureIds(i % 15);
 			texturesPlayer[6][i] = PlayerTextures.PLAYER_HANDGUN_SHOOT.getTextureIds(i % 3);
-			
+
 			texturesPlayer[7][i] = PlayerTextures.PLAYER_KNIFE_IDLE.getTextureIds(i);
 			texturesPlayer[8][i] = PlayerTextures.PLAYER_KNIFE_MELEEATTACK.getTextureIds(i % 15);
 			texturesPlayer[9][i] = PlayerTextures.PLAYER_KNIFE_MOVE.getTextureIds(i);
-			
+
 			texturesPlayer[10][i] = PlayerTextures.PLAYER_RIFLE_IDLE.getTextureIds(i);
 			texturesPlayer[11][i] = PlayerTextures.PLAYER_RIFLE_MOVE.getTextureIds(i);
-			texturesPlayer[12][i] = PlayerTextures.PLAYER_RIFLE_SHOOT.getTextureIds(i % 3);
-			texturesPlayer[13][i] = PlayerTextures.PLAYER_RIFLE_RELOAD.getTextureIds(i);
-			
+			texturesPlayer[12][i] = PlayerTextures.PLAYER_RIFLE_RELOAD.getTextureIds(i);
+			texturesPlayer[13][i] = PlayerTextures.PLAYER_RIFLE_SHOOT.getTextureIds(i % 3);
+
 			texturesPlayer[14][i] = PlayerTextures.PLAYER_SHOTGUN_IDLE.getTextureIds(i);
 			texturesPlayer[15][i] = PlayerTextures.PLAYER_SHOTGUN_MOVE.getTextureIds(i);
 			texturesPlayer[16][i] = PlayerTextures.PLAYER_SHOTGUN_RELOAD.getTextureIds(i);
@@ -67,7 +68,8 @@ public class Player extends Entity {
 		addDrawable(body);
 
 		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
-		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 16));
+		inventory.addItem(new ItemStack(ItemList.HANDGUN.getItem().getId()));
+		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 30));
 
 		this.addAI(new DropOnDeath(this, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
 	}
@@ -77,11 +79,23 @@ public class Player extends Entity {
 			return;
 
 		feet.setTextureGroupe(1);
-		body.setTextureGroupe(1);
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, "move"));
 
 		translate(delta * MOVEMENT_SPEED, 0);
 
 		walking = true;
+	}
+
+	public void run(float delta) {
+		if (using > 0)
+			return;
+
+		feet.setTextureGroupe(1);
+		body.setTextureGroupe(1);
+
+		translate(delta * MOVEMENT_SPEED + 0.1f, 0);
+
+		run = true;
 	}
 
 	@Override
@@ -98,7 +112,7 @@ public class Player extends Entity {
 			using -= delta;
 		else {
 			feet.setTextureGroupe(0);
-			body.setTextureGroupe(0);
+			body.setTextureGroupe(getTextureGroupe(actualWeapon, "idle"));
 		}
 	}
 
@@ -116,13 +130,48 @@ public class Player extends Entity {
 		}
 	}
 
-	public int getActualWeapon() {
+	public int getTextureGroupe(int slot, String action) {
+		// handgun - 11
+		// ak 47 - 13
+		Item is = Item.items[inventory.getSlot(slot).getItemId()];
+		switch (action) {
+		case "idle":
+			if (is.getId() == 11)
+				return 3;
+			if (is.getId() == 13)
+				return 10;
+			break;
+		case "meleeatack":
+			break;
+		case "move":
+			if (is.getId() == 11)
+				return 4;
+			if (is.getId() == 13)
+				return 11;
+			break;
+		case "reload":
+			if (is.getId() == 11)
+				return 5;
+			if (is.getId() == 13)
+				return 12;
+			break;
+		case "shoot":
+			if (is.getId() == 11)
+				return 6;
+			if (is.getId() == 13)
+				return 13;
+			break;
+		}
+		return -1;
+	}
+
+	public int getSlotActualWeapon() {
 		return actualWeapon;
 	}
 
 	public void fire() {
 		feet.setTextureGroupe(0);
-		body.setTextureGroupe(1);
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, "shoot"));
 		using = 150;
 	}
 

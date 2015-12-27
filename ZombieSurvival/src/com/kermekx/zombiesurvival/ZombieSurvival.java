@@ -27,7 +27,7 @@ public class ZombieSurvival extends KermekxEngine {
 	public void launch() {
 		Scene loadingScene = new LoadingScene();
 		setScene(loadingScene);
-		TextureLoader.loadTexture(new LoadableTexturePack[] { ItemTextures.GLOCK, TerrainTextures.DIRT,
+		TextureLoader.loadTexture(new LoadableTexturePack[] { ItemTextures.HANDGUN, TerrainTextures.DIRT,
 				PlayerTextures.PLAYER_FEET_IDLE , HudTextures.WEAPON_WITHOUT_AMMO}, (LoadingListener) loadingScene);
 		Sounds.loadSounds();
 		setScene(new GameScene());
