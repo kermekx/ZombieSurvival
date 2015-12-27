@@ -13,6 +13,7 @@ import com.kermekx.zombiesurvival.entity.Decoration;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
+import com.kermekx.zombiesurvival.hud.CurrentWeapon;
 import com.kermekx.zombiesurvival.hud.Life;
 import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
@@ -58,7 +59,8 @@ public class GameScene extends Scene {
 		}
 
 		addHud(new Life(player));
-		addHud(new ShortInventory(player.getInventory()));
+		//addHud(new ShortInventory(player.getInventory()));
+		addHud(new CurrentWeapon(player));
 
 	}
 
@@ -76,6 +78,7 @@ public class GameScene extends Scene {
 		super.update(delta);
 
 		getHuds().get(0).update(delta);
+		//getHuds().get(1).update(delta);
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
 			if (entity.isAlive())

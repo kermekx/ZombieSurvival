@@ -82,11 +82,14 @@ public class Player extends Entity {
 	public void use() {
 		if (using > 0)
 			return;
-		Item.items[inventory.getSlot(slot).getItemId()].use(this);
+		Item.items[inventory.getSlot(getActualWeapon()).getItemId()].use(this);
+	}
+	
+	public int getActualWeapon(){
+		return slot;
 	}
 
 	public void fire() {
-		// .get(0) == hitbox
 		feet.setTextureGroupe(0);
 		body.setTextureGroupe(2);
 		using = 150;

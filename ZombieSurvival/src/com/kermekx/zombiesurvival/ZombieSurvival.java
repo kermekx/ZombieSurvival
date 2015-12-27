@@ -8,13 +8,14 @@ import com.kermekx.engine.texture.TextureLoader;
 import com.kermekx.zombiesurvival.scene.GameScene;
 import com.kermekx.zombiesurvival.scene.LoadingScene;
 import com.kermekx.zombiesurvival.sound.Sounds;
+import com.kermekx.zombiesurvival.texture.HudTextures;
 import com.kermekx.zombiesurvival.texture.ItemTextures;
 import com.kermekx.zombiesurvival.texture.PlayerTextures;
 import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class ZombieSurvival extends KermekxEngine {
 	
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	public ZombieSurvival() {
 		super("Zombie Survival");
@@ -27,7 +28,7 @@ public class ZombieSurvival extends KermekxEngine {
 		Scene loadingScene = new LoadingScene();
 		setScene(loadingScene);
 		TextureLoader.loadTexture(new LoadableTexturePack[] { ItemTextures.GLOCK, TerrainTextures.DIRT,
-				PlayerTextures.PLAYER_FEET_IDLE }, (LoadingListener) loadingScene);
+				PlayerTextures.PLAYER_FEET_IDLE , HudTextures.WEAPON_WITHOUT_AMMO}, (LoadingListener) loadingScene);
 		Sounds.loadSounds();
 		setScene(new GameScene());
 	}
