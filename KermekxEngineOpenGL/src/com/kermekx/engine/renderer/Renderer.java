@@ -14,10 +14,8 @@ import static org.lwjgl.opengl.GL11.glFlush;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTexCoord3f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
-import static org.lwjgl.opengl.GL11.glVertex2f;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.awt.Rectangle;
@@ -42,7 +40,7 @@ public class Renderer {
 	/**
 	 * rendue de la scene
 	 */
-	public void render() {
+	public synchronized void render() {
 		if (scene == null)
 			return;
 
@@ -121,9 +119,9 @@ public class Renderer {
 				glBegin(GL_TRIANGLES);
 				for (Vector vertex : drawable.getVertex()) {
 					if (texture != -1 && i % 2 == 0)
-						glTexCoord2f(vertex.getX(), vertex.getY());
+						glTexCoord3f(vertex.getX(), vertex.getY(), 1);
 					else
-						glVertex2f(vertex.getX(), vertex.getY());
+						glVertex3f(vertex.getX(), vertex.getY(), 1);
 					i++;
 				}
 				glEnd();
@@ -155,7 +153,7 @@ public class Renderer {
 	 * @param delta
 	 *            temps depuis la dernière mise à jour
 	 */
-	public void update(int delta) {
+	public synchronized void update(int delta) {
 		if (scene != null)
 			scene.update(delta);
 		MouseEvent me = new MouseEvent(new Vector(Mouse.getX(), Mouse.getY()),
@@ -165,6 +163,11 @@ public class Renderer {
 			return;
 		for (HUD hud : scene.getHuds())
 			hud.mouseEvent(me);
+	}
+
+	public synchronized void updateAI(int delta) {
+		if (scene != null)
+			scene.updateAI(delta);
 	}
 
 }

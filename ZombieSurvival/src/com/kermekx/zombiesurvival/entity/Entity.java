@@ -156,6 +156,10 @@ public abstract class Entity {
 	}
 
 	public void update(int delta) {
+		
+	}
+	
+	public void updateAI(int delta) {
 		for (AI ai : ais)
 			ai.update(delta);
 	}

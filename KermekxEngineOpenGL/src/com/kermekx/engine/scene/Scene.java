@@ -21,7 +21,8 @@ public abstract class Scene {
 	/**
 	 * liste des drawable de la scene à afficher
 	 */
-	private List<Drawable>[] drawables = new List[20];
+	@SuppressWarnings("unchecked")
+	private List<Drawable>[] drawables = (List<Drawable>[]) new List<?>[20];
 
 	/**
 	 * liste des display de la scene à afficher
@@ -132,7 +133,7 @@ public abstract class Scene {
 	 * @param delta
 	 *            temps en millisecondes depuis la dernière mise à jour
 	 */
-	public void update(int delta) {
+	public synchronized void update(int delta) {
 		for (List<Drawable> dl : drawables)
 			for (Drawable d : dl)
 				d.update(delta);
@@ -150,5 +151,7 @@ public abstract class Scene {
 	public boolean keyPressed(int key) {
 		return Keyboard.isKeyDown(key);
 	}
+
+	public abstract void updateAI(int delta);
 
 }

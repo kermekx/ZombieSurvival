@@ -27,4 +27,9 @@ public class LoadingScene extends Scene implements LoadingListener {
 		addDrawable(progressBar);
 	}
 
+	@Override
+	public void updateAI(int delta) {
+		
+	}
+
 }

@@ -57,7 +57,7 @@ public class Player extends Entity {
 		body.setTextureGroupe(1);
 		
 		translate(delta * MOVEMENT_SPEED, 0);
-		getContext().getCamera().setPosition(getPosition());
+		
 		walking = true;
 	}
 
