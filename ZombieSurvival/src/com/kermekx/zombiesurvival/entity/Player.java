@@ -1,12 +1,14 @@
 package com.kermekx.zombiesurvival.entity;
 
 import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
+import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.zombiesurvival.ai.DropOnDeath;
 import com.kermekx.zombiesurvival.inventory.Inventory;
 import com.kermekx.zombiesurvival.inventory.ItemStack;
 import com.kermekx.zombiesurvival.item.Item;
+import com.kermekx.zombiesurvival.item.Weapon;
 import com.kermekx.zombiesurvival.item.Item.ItemList;
 import com.kermekx.zombiesurvival.texture.PlayerTextures;
 
@@ -17,29 +19,50 @@ public class Player extends Entity {
 	public static float ROTATION_SPEED = 0.2f;
 
 	private final Inventory inventory = new Inventory(16);
-	private int slot = 0;
+	private int actualWeapon = 0;
 	private boolean walking = false;
 	private int using = 0;
-	
+
 	private final SwitchableAnimatedRectangle2D feet;
 	private final SwitchableAnimatedRectangle2D body;
 
 	public Player(Scene context, int x, int y, String name) {
 		super(context, new Vector(x, y), new Vector(85, 55), LIFE);
-		int[][] texturesPlayer = new int[3][20];
-		int[][] texturesPlayerFeet = new int[2][20];
+		int[][] texturesPlayer = new int[18][20];
+		int[][] texturesPlayerFeet = new int[3][20];
 
 		for (int i = 0; i < 20; i++) {
 			texturesPlayerFeet[0][i] = PlayerTextures.PLAYER_FEET_IDLE.getTextureIds(0);
-			texturesPlayer[0][i] = PlayerTextures.PLAYER_RIFLE_IDLE.getTextureIds(i);
 			texturesPlayerFeet[1][i] = PlayerTextures.PLAYER_FEET_RUN.getTextureIds(i);
-			texturesPlayer[1][i] = PlayerTextures.PLAYER_RIFLE_MOVE.getTextureIds(i);
-			texturesPlayer[2][i] = PlayerTextures.PLAYER_RIFLE_SHOOT.getTextureIds(i % 3);
+			texturesPlayerFeet[2][i] = PlayerTextures.PLAYER_FEET_WALK.getTextureIds(i);
+			
+			texturesPlayer[0][i] = PlayerTextures.PLAYER_FLASHLIGHT_IDLE.getTextureIds(i);
+			texturesPlayer[1][i] = PlayerTextures.PLAYER_FLASHLIGHT_MELEEATTACK.getTextureIds(i % 15);
+			texturesPlayer[2][i] = PlayerTextures.PLAYER_FLASHLIGHT_MOVE.getTextureIds(i);
+			
+			texturesPlayer[3][i] = PlayerTextures.PLAYER_HANDGUN_IDLE.getTextureIds(i);
+			texturesPlayer[4][i] = PlayerTextures.PLAYER_HANDGUN_MOVE.getTextureIds(i);
+			texturesPlayer[5][i] = PlayerTextures.PLAYER_HANDGUN_RELOAD.getTextureIds(i % 15);
+			texturesPlayer[6][i] = PlayerTextures.PLAYER_HANDGUN_SHOOT.getTextureIds(i % 3);
+			
+			texturesPlayer[7][i] = PlayerTextures.PLAYER_KNIFE_IDLE.getTextureIds(i);
+			texturesPlayer[8][i] = PlayerTextures.PLAYER_KNIFE_MELEEATTACK.getTextureIds(i % 15);
+			texturesPlayer[9][i] = PlayerTextures.PLAYER_KNIFE_MOVE.getTextureIds(i);
+			
+			texturesPlayer[10][i] = PlayerTextures.PLAYER_RIFLE_IDLE.getTextureIds(i);
+			texturesPlayer[11][i] = PlayerTextures.PLAYER_RIFLE_MOVE.getTextureIds(i);
+			texturesPlayer[12][i] = PlayerTextures.PLAYER_RIFLE_SHOOT.getTextureIds(i % 3);
+			texturesPlayer[13][i] = PlayerTextures.PLAYER_RIFLE_RELOAD.getTextureIds(i);
+			
+			texturesPlayer[14][i] = PlayerTextures.PLAYER_SHOTGUN_IDLE.getTextureIds(i);
+			texturesPlayer[15][i] = PlayerTextures.PLAYER_SHOTGUN_MOVE.getTextureIds(i);
+			texturesPlayer[16][i] = PlayerTextures.PLAYER_SHOTGUN_RELOAD.getTextureIds(i);
+			texturesPlayer[17][i] = PlayerTextures.PLAYER_SHOTGUN_SHOOT.getTextureIds(i % 3);
 		}
-		
+
 		feet = new SwitchableAnimatedRectangle2D(x, y, 102, 62, -5f, texturesPlayerFeet);
 		body = new SwitchableAnimatedRectangle2D(x, y, 126, 107, -6f, texturesPlayer);
-				
+
 		addDrawable(feet);
 		addDrawable(body);
 
@@ -55,9 +78,9 @@ public class Player extends Entity {
 
 		feet.setTextureGroupe(1);
 		body.setTextureGroupe(1);
-		
+
 		translate(delta * MOVEMENT_SPEED, 0);
-		
+
 		walking = true;
 	}
 
@@ -82,16 +105,24 @@ public class Player extends Entity {
 	public void use() {
 		if (using > 0)
 			return;
-		Item.items[inventory.getSlot(getActualWeapon()).getItemId()].use(this);
+		Item.items[inventory.getSlot(actualWeapon).getItemId()].use(this);
 	}
-	
-	public int getActualWeapon(){
-		return slot;
+
+	public void changeWeapon(int key) {
+		System.out.println(key);
+		if (Item.items[inventory.getSlot(key).getItemId()] != null
+				&& Item.items[inventory.getSlot(key).getItemId()] instanceof Weapon) {
+			actualWeapon = key;
+		}
+	}
+
+	public int getActualWeapon() {
+		return actualWeapon;
 	}
 
 	public void fire() {
 		feet.setTextureGroupe(0);
-		body.setTextureGroupe(2);
+		body.setTextureGroupe(1);
 		using = 150;
 	}
 

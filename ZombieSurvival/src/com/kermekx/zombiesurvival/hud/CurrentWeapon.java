@@ -4,8 +4,6 @@ import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.hud.HUD;
 import com.kermekx.engine.mouse.MouseEvent;
 import com.kermekx.zombiesurvival.entity.Player;
-import com.kermekx.zombiesurvival.inventory.Inventory;
-import com.kermekx.zombiesurvival.inventory.ItemStack;
 import com.kermekx.zombiesurvival.item.Item;
 import com.kermekx.zombiesurvival.item.Weapon;
 import com.kermekx.zombiesurvival.texture.HudTextures;

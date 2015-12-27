@@ -6,20 +6,19 @@ import java.util.List;
 
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
-import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
-import com.kermekx.zombiesurvival.entity.Decoration;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
-import com.kermekx.zombiesurvival.hud.CurrentWeapon;
+import com.kermekx.zombiesurvival.entity.loader.DecorationLoader;
 import com.kermekx.zombiesurvival.hud.Life;
 import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
-import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
+
+	private static Scene INSTANCE;
 
 	private Player player;
 
@@ -28,6 +27,8 @@ public class GameScene extends Scene {
 
 	public GameScene() {
 		super();
+
+		INSTANCE = this;
 
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
@@ -53,14 +54,11 @@ public class GameScene extends Scene {
 			e.printStackTrace();
 		}
 
-		for (int i = -5; i < 6; i++) {
-			addEntity(new Decoration(this, new Vector(64 * i, -512), new Vector(64, 64), 50,
-					TerrainTextures.STONE_BRICK_WHITE.getTextureId()));
-		}
+		DecorationLoader.load(this, 0, 0);
+		DecorationLoader.load(this, 0, 1);
 
 		addHud(new Life(player));
-		//addHud(new ShortInventory(player.getInventory()));
-		addHud(new CurrentWeapon(player));
+		addHud(new ShortInventory(player.getInventory()));
 
 	}
 
@@ -74,11 +72,9 @@ public class GameScene extends Scene {
 	}
 
 	@Override
-	public void update(int delta) {
+	public synchronized void update(int delta) {
 		super.update(delta);
 
-		getHuds().get(0).update(delta);
-		//getHuds().get(1).update(delta);
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
 			if (entity.isAlive())
@@ -86,7 +82,7 @@ public class GameScene extends Scene {
 			else {
 				for (Drawable drawable : entity.getDrawables())
 					removeDrawable(drawable);
-				entity.update(delta);
+				entity.updateAI(delta);
 				deadEntities.add(entity);
 			}
 		}
@@ -104,8 +100,16 @@ public class GameScene extends Scene {
 				player.walk(delta);
 			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
 				player.walk(-delta);
+
 			if (keyPressed(Key.KEY_UP))
 				player.damage(1);
+
+			if (keyPressed(Key.KEY_0))
+				player.changeWeapon(0);
+			if (keyPressed(Key.KEY_1))
+				player.changeWeapon(1);
+
+			getCamera().setPosition(player.getPosition());
 		} else {
 			// afficher le monsieur mort
 		}
@@ -113,4 +117,15 @@ public class GameScene extends Scene {
 		entities.addAll(entityTmp);
 		entityTmp = new ArrayList<Entity>();
 	}
+
+	@Override
+	public synchronized void updateAI(int delta) {
+		for (Entity entity : entities)
+			entity.updateAI(delta);
+	}
+
+	public static Scene getContext() {
+		return INSTANCE;
+	}
+
 }

@@ -51,4 +51,22 @@ public class Key {
 	 * Touche F5
 	 */
 	public static final int KEY_F5 = Keyboard.KEY_F5;
+
+	// Numpad
+	/**
+	 * Touche 0 arme
+	 */
+	public static final int KEY_0 = Keyboard.KEY_NUMPAD0;
+	/**
+	 * Touche 1 arme
+	 */
+	public static final int KEY_1 = Keyboard.KEY_NUMPAD1;
+	/**
+	 * Touche 2 arme
+	 */
+	public static final int KEY_2 = Keyboard.KEY_NUMPAD2;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_3 = Keyboard.KEY_NUMPAD3;
 }
