@@ -11,6 +11,7 @@ public class Chunk extends Terrain {
 	private static final String CHUNK_PATH = "assets/chunk/";
 	private static final String CSV_FORMAT = ".csv";
 	private static final String XY_SEPARATOR = ",";
+
 	public final static int width = 16;
 	public final static int height = 16;
 

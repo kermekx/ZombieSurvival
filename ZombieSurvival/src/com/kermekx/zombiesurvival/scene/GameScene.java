@@ -6,20 +6,20 @@ import java.util.List;
 
 import com.kermekx.engine.drawable.Drawable;
 import com.kermekx.engine.keyboard.Key;
-import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
-import com.kermekx.zombiesurvival.entity.Decoration;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
+import com.kermekx.zombiesurvival.entity.loader.DecorationLoader;
 import com.kermekx.zombiesurvival.hud.Life;
 import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
-import com.kermekx.zombiesurvival.texture.TerrainTextures;
 
 public class GameScene extends Scene {
 
+	private static Scene INSTANCE;
+	
 	private Player player;
 
 	private List<Entity> entities = new ArrayList<Entity>();
@@ -27,6 +27,8 @@ public class GameScene extends Scene {
 
 	public GameScene() {
 		super();
+		
+		INSTANCE = this;
 
 		World world = new World(0, 0, 3, 3);
 		addDisplayList(world.getDisplayList());
@@ -52,11 +54,9 @@ public class GameScene extends Scene {
 			e.printStackTrace();
 		}
 
-		for (int i = -5; i < 6; i++) {
-			addEntity(new Decoration(this, new Vector(64 * i, -512), new Vector(64, 64), 50,
-					TerrainTextures.STONE_BRICK_WHITE.getTextureId()));
-		}
-
+		DecorationLoader.load(this, 0, 0);
+		DecorationLoader.load(this, 0, 1);
+		
 		addHud(new Life(player));
 		addHud(new ShortInventory(player.getInventory()));
 
@@ -116,4 +116,9 @@ public class GameScene extends Scene {
 		for (Entity entity : entities)
 			entity.updateAI(delta);
 	}
+
+	public static Scene getContext() {
+		return INSTANCE;
+	}
+
 }
