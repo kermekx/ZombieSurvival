@@ -25,10 +25,6 @@ public class Camera {
 	 * fenêtre
 	 */
 	private Vector size;
-	/**
-	 * Vrai si la camera est changée (taille et/ou position) Faux sinon
-	 */
-	private boolean update = true;
 
 	/**
 	 * Crée une camera de position (0;0) et de la taille de la fenêtre
@@ -71,7 +67,6 @@ public class Camera {
 		glOrtho(position.getX() - size.getX() / 2, position.getX() + size.getX() / 2, position.getY() + size.getY() / 2,
 				position.getY() - size.getY() / 2, 10, -10);
 		glMatrixMode(GL_MODELVIEW);
-		update = false;
 	}
 
 	public void setViewModelHUD() {
@@ -111,7 +106,6 @@ public class Camera {
 	 */
 	public void setPosition(Vector position) {
 		this.position = position;
-		update = true;
 	}
 
 	/**
@@ -133,7 +127,6 @@ public class Camera {
 	 */
 	public void translate(float tx, float ty) {
 		position = Matrix.translation(position, tx, ty);
-		update = true;
 	}
 
 }

@@ -26,14 +26,10 @@ import com.kermekx.engine.position.Vector;
 
 public class DisplayList {
 
-	private final Vector position;
-	private final Vector size;
 	private final Rectangle bounds;
 	private int listID;
 
 	public DisplayList(Collection<Drawable> drawables, Vector position, Vector size) {
-		this.position = position;
-		this.size = size;
 		bounds = new Rectangle((int) (position.getX() - size.getX() / 2), (int) (position.getY() - size.getY() / 2), (int) size.getX(), (int) size.getY());
 		init(drawables);
 	}

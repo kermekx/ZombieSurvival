@@ -21,7 +21,8 @@ public abstract class Scene {
 	/**
 	 * liste des drawable de la scene à afficher
 	 */
-	private List<Drawable>[] drawables = new List[20];
+	@SuppressWarnings("unchecked")
+	private List<Drawable>[] drawables = (List<Drawable>[]) new List<?>[20];
 
 	/**
 	 * liste des display de la scene à afficher
