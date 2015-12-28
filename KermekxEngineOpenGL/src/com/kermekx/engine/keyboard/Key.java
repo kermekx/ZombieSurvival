@@ -45,6 +45,11 @@ public class Key {
 	 * Touche entrer
 	 */
 	public static final int KEY_ENTER = 28;
+	
+	/**
+	 * Touche shift
+	 */
+	public static final int KEY_SHIFT = Keyboard.KEY_LSHIFT ;
 
 	// Function
 	/**

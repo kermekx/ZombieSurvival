@@ -96,8 +96,14 @@ public class GameScene extends Scene {
 				player.rotate(-delta);
 			if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
 				player.rotate(delta);
-			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
-				player.walk(delta);
+			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP)) {
+				if (keyPressed(Key.KEY_SHIFT)){
+					System.out.println("coucou");
+					player.run(delta);
+				}
+				else
+					player.walk(delta);
+			}
 			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
 				player.walk(-delta);
 

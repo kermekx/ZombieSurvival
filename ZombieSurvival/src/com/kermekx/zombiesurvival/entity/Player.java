@@ -79,7 +79,7 @@ public class Player extends Entity {
 			return;
 
 		feet.setTextureGroupe(1);
-		body.setTextureGroupe(getTextureGroupe(actualWeapon, "move"));
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, 2));
 
 		translate(delta * MOVEMENT_SPEED, 0);
 
@@ -91,9 +91,9 @@ public class Player extends Entity {
 			return;
 
 		feet.setTextureGroupe(1);
-		body.setTextureGroupe(1);
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, 2));
 
-		translate(delta * MOVEMENT_SPEED + 0.1f, 0);
+		translate(delta * (MOVEMENT_SPEED + 0.1f), 0);
 
 		run = true;
 	}
@@ -108,11 +108,13 @@ public class Player extends Entity {
 		super.update(delta);
 		if (walking)
 			walking = false;
+		else if(run)
+			run = false;
 		else if (using >= 0)
 			using -= delta;
 		else {
 			feet.setTextureGroupe(0);
-			body.setTextureGroupe(getTextureGroupe(actualWeapon, "idle"));
+			body.setTextureGroupe(getTextureGroupe(actualWeapon, 0));
 		}
 	}
 
@@ -123,39 +125,38 @@ public class Player extends Entity {
 	}
 
 	public void changeWeapon(int key) {
-		System.out.println(key);
 		if (Item.items[inventory.getSlot(key).getItemId()] != null
 				&& Item.items[inventory.getSlot(key).getItemId()] instanceof Weapon) {
 			actualWeapon = key;
 		}
 	}
 
-	public int getTextureGroupe(int slot, String action) {
+	public int getTextureGroupe(int slot, int action) {
 		// handgun - 11
 		// ak 47 - 13
 		Item is = Item.items[inventory.getSlot(slot).getItemId()];
 		switch (action) {
-		case "idle":
+		case 0:
 			if (is.getId() == 11)
 				return 3;
 			if (is.getId() == 13)
 				return 10;
 			break;
-		case "meleeatack":
+		case 1:
 			break;
-		case "move":
+		case 2:
 			if (is.getId() == 11)
 				return 4;
 			if (is.getId() == 13)
 				return 11;
 			break;
-		case "reload":
+		case 3:
 			if (is.getId() == 11)
 				return 5;
 			if (is.getId() == 13)
 				return 12;
 			break;
-		case "shoot":
+		case 4:
 			if (is.getId() == 11)
 				return 6;
 			if (is.getId() == 13)
@@ -171,7 +172,7 @@ public class Player extends Entity {
 
 	public void fire() {
 		feet.setTextureGroupe(0);
-		body.setTextureGroupe(getTextureGroupe(actualWeapon, "shoot"));
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, 4));
 		using = 150;
 	}
 
