@@ -78,4 +78,8 @@ public class Hitbox {
 	public Vector getSize() {
 		return size;
 	}
+
+	public Area getBounds() {
+		return this.bounds;
+	}
 }

@@ -9,7 +9,7 @@ public class Item {
 	
 	public enum ItemList {
 		VOID(new Item(0, ItemTextures.VOID)),
-		AMMO(new Item(10, ItemTextures.AMMO)),
+		AMMO(new Item(1, ItemTextures.AMMO)),
 		KNIFE(new SecondaryWeapon(10,ItemTextures.KNIFE)),
 		HANDGUN(new Weapon(11, ItemTextures.HANDGUN)),
 		SAWEDOFF(new Weapon(12, ItemTextures.SAWEDOFF)),
@@ -61,7 +61,6 @@ public class Item {
 	}
 
 	public void use(Player player) {
-		
 	}
 
 }

@@ -71,7 +71,9 @@ public class Player extends Entity {
 		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.HANDGUN.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.KNIFE.getItem().getId()));
-		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 30));
+		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 16));
+		
+		System.out.println(inventory.getSlot(0).getItemId());
 
 		this.addAI(new DropOnDeath(this, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
 	}
@@ -124,21 +126,20 @@ public class Player extends Entity {
 		if (using > 0)
 			return;
 		Item.items[inventory.getSlot(actualWeapon).getItemId()].use(this);
-
 	}
 
 	public void changeWeapon(int key) {
-		if (Item.items[inventory.getSlot(key).getItemId()] != null
-				&& (Item.items[inventory.getSlot(key).getItemId()] instanceof Weapon
-						|| Item.items[inventory.getSlot(key).getItemId()] instanceof SecondaryWeapon)) {
+		System.out.println(key);
+		if (inventory.getSlot(key) != null && (Item.items[inventory.getSlot(key).getItemId()] instanceof Weapon
+				|| Item.items[inventory.getSlot(key).getItemId()] instanceof SecondaryWeapon)) {
 			actualWeapon = key;
 		}
 	}
 
 	public int getTextureGroupe(int slot, int action) {
+		// knife - 10
 		// handgun - 11
 		// ak 47 - 13
-		System.out.println(action);
 		Item is = Item.items[inventory.getSlot(slot).getItemId()];
 		switch (action) {
 		case 0:
@@ -184,7 +185,7 @@ public class Player extends Entity {
 	public void battle() {
 		feet.setTextureGroupe(0);
 		body.setTextureGroupe(getTextureGroupe(actualWeapon, 1));
-		using = 250;
+		using = 700;
 	}
 
 	public void fire() {

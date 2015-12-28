@@ -147,8 +147,10 @@ public abstract class Entity {
 		if (life == -1)
 			return;
 
-		if ((life -= damage) <= 0)
+		if ((life -= damage) <= 0) {
 			kill();
+			System.out.println("Entity death");
+		}
 	}
 
 	public void kill() {
@@ -156,9 +158,9 @@ public abstract class Entity {
 	}
 
 	public void update(int delta) {
-		
+
 	}
-	
+
 	public void updateAI(int delta) {
 		for (AI ai : ais)
 			ai.update(delta);

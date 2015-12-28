@@ -12,8 +12,8 @@ import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.entity.loader.DecorationLoader;
+import com.kermekx.zombiesurvival.hud.CurrentWeapon;
 import com.kermekx.zombiesurvival.hud.Life;
-import com.kermekx.zombiesurvival.hud.ShortInventory;
 import com.kermekx.zombiesurvival.terrain.World;
 
 public class GameScene extends Scene {
@@ -58,7 +58,8 @@ public class GameScene extends Scene {
 		DecorationLoader.load(this, 0, 1);
 
 		addHud(new Life(player));
-		addHud(new ShortInventory(player.getInventory()));
+		addHud(new CurrentWeapon(player));
+		// addHud(new ShortInventory(player.getInventory()));
 
 	}
 
@@ -74,6 +75,7 @@ public class GameScene extends Scene {
 	@Override
 	public synchronized void update(int delta) {
 		super.update(delta);
+		// getHuds().get(1).update(delta);
 
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
@@ -96,18 +98,17 @@ public class GameScene extends Scene {
 				player.rotate(-delta);
 			if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
 				player.rotate(delta);
-			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP)) {
-				if (keyPressed(Key.KEY_LSHIFT)) {
-					System.out.println("coucou");
+			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
+				if (keyPressed(Key.KEY_LSHIFT))
 					player.run(delta);
-				} else
+				else
 					player.walk(delta);
-			}
+
 			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
 				player.walk(-delta);
 
-			if (keyPressed(Key.KEY_UP))
-				player.damage(1);
+			// if (keyPressed(Key.KEY_UP))
+			// player.damage(1);
 
 			if (keyPressed(Key.KEY_0))
 				player.changeWeapon(0);
