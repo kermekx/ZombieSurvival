@@ -97,11 +97,10 @@ public class GameScene extends Scene {
 			if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
 				player.rotate(delta);
 			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP)) {
-				if (keyPressed(Key.KEY_SHIFT)){
+				if (keyPressed(Key.KEY_LSHIFT)) {
 					System.out.println("coucou");
 					player.run(delta);
-				}
-				else
+				} else
 					player.walk(delta);
 			}
 			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
@@ -114,6 +113,22 @@ public class GameScene extends Scene {
 				player.changeWeapon(0);
 			if (keyPressed(Key.KEY_1))
 				player.changeWeapon(1);
+			if (keyPressed(Key.KEY_2))
+				player.changeWeapon(2);
+			if (keyPressed(Key.KEY_3))
+				player.changeWeapon(3);
+			if (keyPressed(Key.KEY_4))
+				player.changeWeapon(4);
+			if (keyPressed(Key.KEY_5))
+				player.changeWeapon(5);
+			if (keyPressed(Key.KEY_6))
+				player.changeWeapon(6);
+			if (keyPressed(Key.KEY_7))
+				player.changeWeapon(7);
+			if (keyPressed(Key.KEY_8))
+				player.changeWeapon(8);
+			if (keyPressed(Key.KEY_9))
+				player.changeWeapon(9);
 
 			getCamera().setPosition(player.getPosition());
 		} else {

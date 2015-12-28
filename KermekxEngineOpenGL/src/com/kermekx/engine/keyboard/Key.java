@@ -45,11 +45,11 @@ public class Key {
 	 * Touche entrer
 	 */
 	public static final int KEY_ENTER = 28;
-	
+
 	/**
 	 * Touche shift
 	 */
-	public static final int KEY_SHIFT = Keyboard.KEY_LSHIFT ;
+	public static final int KEY_LSHIFT = Keyboard.KEY_LSHIFT;
 
 	// Function
 	/**
@@ -74,4 +74,28 @@ public class Key {
 	 * Touche 3 arme
 	 */
 	public static final int KEY_3 = Keyboard.KEY_NUMPAD3;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_4 = Keyboard.KEY_NUMPAD4;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_5 = Keyboard.KEY_NUMPAD5;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_6 = Keyboard.KEY_NUMPAD6;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_7 = Keyboard.KEY_NUMPAD7;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_8 = Keyboard.KEY_NUMPAD8;
+	/**
+	 * Touche 3 arme
+	 */
+	public static final int KEY_9 = Keyboard.KEY_NUMPAD9;
 }

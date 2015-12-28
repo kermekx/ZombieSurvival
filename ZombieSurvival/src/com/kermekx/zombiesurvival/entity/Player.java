@@ -10,6 +10,7 @@ import com.kermekx.zombiesurvival.inventory.ItemStack;
 import com.kermekx.zombiesurvival.item.Item;
 import com.kermekx.zombiesurvival.item.Weapon;
 import com.kermekx.zombiesurvival.item.Item.ItemList;
+import com.kermekx.zombiesurvival.item.SecondaryWeapon;
 import com.kermekx.zombiesurvival.texture.PlayerTextures;
 
 public class Player extends Entity {
@@ -69,6 +70,7 @@ public class Player extends Entity {
 
 		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.HANDGUN.getItem().getId()));
+		inventory.addItem(new ItemStack(ItemList.KNIFE.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 30));
 
 		this.addAI(new DropOnDeath(this, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
@@ -78,7 +80,7 @@ public class Player extends Entity {
 		if (using > 0)
 			return;
 
-		feet.setTextureGroupe(1);
+		feet.setTextureGroupe(2);
 		body.setTextureGroupe(getTextureGroupe(actualWeapon, 2));
 
 		translate(delta * MOVEMENT_SPEED, 0);
@@ -108,7 +110,7 @@ public class Player extends Entity {
 		super.update(delta);
 		if (walking)
 			walking = false;
-		else if(run)
+		else if (run)
 			run = false;
 		else if (using >= 0)
 			using -= delta;
@@ -122,11 +124,13 @@ public class Player extends Entity {
 		if (using > 0)
 			return;
 		Item.items[inventory.getSlot(actualWeapon).getItemId()].use(this);
+
 	}
 
 	public void changeWeapon(int key) {
 		if (Item.items[inventory.getSlot(key).getItemId()] != null
-				&& Item.items[inventory.getSlot(key).getItemId()] instanceof Weapon) {
+				&& (Item.items[inventory.getSlot(key).getItemId()] instanceof Weapon
+						|| Item.items[inventory.getSlot(key).getItemId()] instanceof SecondaryWeapon)) {
 			actualWeapon = key;
 		}
 	}
@@ -134,17 +138,24 @@ public class Player extends Entity {
 	public int getTextureGroupe(int slot, int action) {
 		// handgun - 11
 		// ak 47 - 13
+		System.out.println(action);
 		Item is = Item.items[inventory.getSlot(slot).getItemId()];
 		switch (action) {
 		case 0:
+			if (is.getId() == 10)
+				return 7;
 			if (is.getId() == 11)
 				return 3;
 			if (is.getId() == 13)
 				return 10;
 			break;
 		case 1:
+			if (is.getId() == 10)
+				return 8;
 			break;
 		case 2:
+			if (is.getId() == 10)
+				return 9;
 			if (is.getId() == 11)
 				return 4;
 			if (is.getId() == 13)
@@ -168,6 +179,12 @@ public class Player extends Entity {
 
 	public int getSlotActualWeapon() {
 		return actualWeapon;
+	}
+
+	public void battle() {
+		feet.setTextureGroupe(0);
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, 1));
+		using = 250;
 	}
 
 	public void fire() {
