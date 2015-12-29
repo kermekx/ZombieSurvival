@@ -21,7 +21,7 @@ public class SecondaryWeapon extends Item {
 	}
 
 	public void use(Player p) {
-		p.battle();
+		p.meleeAtack();
 		hitbox = new Hitbox(new Vector(p.getPosition().getX()+60, p.getPosition().getY()+40), new Vector(40, 40));
 		
 		hitbox.rotate(p.getRotation());

@@ -1,16 +1,16 @@
 package com.kermekx.zombiesurvival.entity;
 
 import com.kermekx.engine.drawable.SwitchableAnimatedRectangle2D;
-import com.kermekx.engine.keyboard.Key;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.zombiesurvival.ai.DropOnDeath;
 import com.kermekx.zombiesurvival.inventory.Inventory;
 import com.kermekx.zombiesurvival.inventory.ItemStack;
 import com.kermekx.zombiesurvival.item.Item;
-import com.kermekx.zombiesurvival.item.Weapon;
 import com.kermekx.zombiesurvival.item.Item.ItemList;
 import com.kermekx.zombiesurvival.item.SecondaryWeapon;
+import com.kermekx.zombiesurvival.item.Weapon;
+import com.kermekx.zombiesurvival.sound.Sounds;
 import com.kermekx.zombiesurvival.texture.PlayerTextures;
 
 public class Player extends Entity {
@@ -71,8 +71,8 @@ public class Player extends Entity {
 		inventory.addItem(new ItemStack(ItemList.AK47.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.HANDGUN.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.KNIFE.getItem().getId()));
-		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 16));
-		
+		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 32));
+
 		System.out.println(inventory.getSlot(0).getItemId());
 
 		this.addAI(new DropOnDeath(this, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
@@ -97,7 +97,7 @@ public class Player extends Entity {
 		feet.setTextureGroupe(1);
 		body.setTextureGroupe(getTextureGroupe(actualWeapon, 2));
 
-		translate(delta * (MOVEMENT_SPEED + 0.1f), 0);
+		translate(delta * (MOVEMENT_SPEED + 0.2f), 0);
 
 		run = true;
 	}
@@ -182,7 +182,7 @@ public class Player extends Entity {
 		return actualWeapon;
 	}
 
-	public void battle() {
+	public void meleeAtack() {
 		feet.setTextureGroupe(0);
 		body.setTextureGroupe(getTextureGroupe(actualWeapon, 1));
 		using = 700;
@@ -192,6 +192,14 @@ public class Player extends Entity {
 		feet.setTextureGroupe(0);
 		body.setTextureGroupe(getTextureGroupe(actualWeapon, 4));
 		using = 150;
+	}
+
+	public void reload() {
+		Weapon w = (Weapon) inventory.getSlot(actualWeapon).getItem();
+		w.setCountShot(0);
+		feet.setTextureGroupe(0);
+		body.setTextureGroupe(getTextureGroupe(actualWeapon, 3));
+		using = 600;
 	}
 
 	public Inventory getInventory() {

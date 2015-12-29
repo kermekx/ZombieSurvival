@@ -37,11 +37,11 @@ public class GameScene extends Scene {
 		entities.add(player);
 
 		Zombie paul = new Zombie(this, 500, 0);
-		Player kevin = new Player(this, 200, 200, "Kevin");
+		// Player kevin = new Player(this, 200, 200, "Kevin");
 		entities.add(paul);
-		entities.add(kevin);
+		// entities.add(kevin);
 		addDrawable(paul.getDrawables());
-		addDrawable(kevin.getDrawables());
+		// addDrawable(kevin.getDrawables());
 		// paul.addAI(new AIZombie(this, paul));
 
 		for (Drawable d : player.getDrawables())
@@ -107,8 +107,8 @@ public class GameScene extends Scene {
 			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
 				player.walk(-delta);
 
-			// if (keyPressed(Key.KEY_UP))
-			// player.damage(1);
+			if (keyPressed(Key.KEY_R))
+				player.reload();
 
 			if (keyPressed(Key.KEY_0))
 				player.changeWeapon(0);

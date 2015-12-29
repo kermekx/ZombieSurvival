@@ -14,6 +14,10 @@ public class Key {
 	 */
 	public final static int KEY_Q = Keyboard.KEY_Q;
 	/**
+	 * Touche R
+	 */
+	public final static int KEY_R = Keyboard.KEY_R;
+	/**
 	 * Touche S
 	 */
 	public final static int KEY_S = Keyboard.KEY_S;

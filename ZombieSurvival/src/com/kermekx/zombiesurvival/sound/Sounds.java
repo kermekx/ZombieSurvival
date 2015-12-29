@@ -5,7 +5,7 @@ import com.kermekx.engine.sound.SoundManager;
 
 public enum Sounds {
 
-	GUNSHOT(10, "gunshot"), TRIGGER(11, "trigger");
+	GUNSHOT(10, "gunshot"), TRIGGER(11, "trigger"), GLOCK_FIRE(12, "glock_fire"), GLOCK_RELOAD(13, "glock_reload");
 
 	private static final String SOUNDS_PATH = "assets/fx/";
 	private static final String SOUND_FORMAT = ".wav";
@@ -38,7 +38,7 @@ public enum Sounds {
 		progress = 1;
 		return fail / size;
 	}
-	
+
 	public void play() {
 		SoundManager.play(soundId, new Vector());
 	}
