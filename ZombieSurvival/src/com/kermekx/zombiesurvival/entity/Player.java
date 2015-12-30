@@ -10,7 +10,6 @@ import com.kermekx.zombiesurvival.item.Item;
 import com.kermekx.zombiesurvival.item.Item.ItemList;
 import com.kermekx.zombiesurvival.item.SecondaryWeapon;
 import com.kermekx.zombiesurvival.item.Weapon;
-import com.kermekx.zombiesurvival.sound.Sounds;
 import com.kermekx.zombiesurvival.texture.PlayerTextures;
 
 public class Player extends Entity {

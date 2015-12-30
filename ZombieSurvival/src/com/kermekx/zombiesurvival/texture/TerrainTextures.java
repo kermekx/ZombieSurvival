@@ -7,8 +7,8 @@ import com.kermekx.engine.texture.TextureManager;
 
 public enum TerrainTextures implements LoadableTexturePack {
 
-	GRASS(2, "grass"), DIRT(3, "dirt"), PATH(10, "path"),
-	STONE_BRICK_WHITE(42, "stone_brick_white");
+	GRASS(2, "grass"), DIRT(3, "dirt"), PATH(10, "path"), TREE(11, "tree"), TRUNK(12, "trunk"), STONE_BRICK_WHITE(42,
+			"stone_brick_white");
 
 	private static final String TEXTURES_PATH = "assets/textures/";
 	private static final String IMAGE_FORMAT = ".png";
@@ -48,7 +48,7 @@ public enum TerrainTextures implements LoadableTexturePack {
 		progress = 1;
 		return fail / size;
 	}
-	
+
 	@Override
 	public double getProgress() {
 		return progress;

@@ -36,6 +36,8 @@ public class Weapon extends Item {
 			}
 
 		} else {
+			p.reload();
+			countShot = 0;
 			Sounds.TRIGGER.play();
 		}
 	}
