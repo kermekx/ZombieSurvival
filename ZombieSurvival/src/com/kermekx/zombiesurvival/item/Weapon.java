@@ -1,6 +1,5 @@
 package com.kermekx.zombiesurvival.item;
 
-
 import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.entity.Bullet;
 import com.kermekx.zombiesurvival.entity.Player;
@@ -11,11 +10,12 @@ import com.kermekx.zombiesurvival.texture.ItemTextures;
 
 public class Weapon extends Item {
 
-	private final int ballNumbers = 4;
+	private final int charger;
 	private int countShot = 0;
 
-	public Weapon(int id, ItemTextures texture) {
+	public Weapon(int id, ItemTextures texture, int charger) {
 		super(id, texture, false);
+		this.charger = charger;
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class Weapon extends Item {
 		if (p.getInventory().getSlot(p.getSlotActualWeapon()) == null)
 			return;
 
-		if (countShot < ballNumbers) {
+		if (countShot < charger) {
 			if (p.getInventory().removeItem(new ItemStack(ItemList.AMMO.getItem().getId())) == null) {
 				p.fire();
 				Bullet b = new Bullet(p.getContext(), p.getPosition(), p.getRotation());
@@ -40,6 +40,10 @@ public class Weapon extends Item {
 			countShot = 0;
 			Sounds.TRIGGER.play();
 		}
+	}
+
+	public int getCharger() {
+		return charger;
 	}
 
 	public void setCountShot(int countShot) {

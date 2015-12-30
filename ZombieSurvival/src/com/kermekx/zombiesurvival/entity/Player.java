@@ -193,10 +193,12 @@ public class Player extends Entity {
 
 	public void reload() {
 		Weapon w = (Weapon) inventory.getSlot(actualWeapon).getItem();
-		w.setCountShot(0);
-		feet.setTextureGroupe(0);
-		body.setTextureGroupe(getTextureGroupe(actualWeapon, 3));
-		using = 600;
+		if (inventory.removeItem(new ItemStack(ItemList.AMMO.getItem().getId())) == null) {
+			w.setCountShot(0);
+			feet.setTextureGroupe(0);
+			body.setTextureGroupe(getTextureGroupe(actualWeapon, 3));
+			using = 600;
+		}
 	}
 
 	public Inventory getInventory() {

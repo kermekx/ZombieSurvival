@@ -76,7 +76,6 @@ public class GameScene extends Scene {
 	@Override
 	public synchronized void update(int delta) {
 		super.update(delta);
-		// getHuds().get(1).update(delta);
 
 		List<Entity> deadEntities = new ArrayList<Entity>();
 		for (Entity entity : entities) {
@@ -99,12 +98,13 @@ public class GameScene extends Scene {
 				player.rotate(-delta);
 			if (keyPressed(Key.KEY_D) || keyPressed(Key.KEY_RIGHT))
 				player.rotate(delta);
-			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP))
+			if (keyPressed(Key.KEY_Z) || keyPressed(Key.KEY_UP)) {
 				if (keyPressed(Key.KEY_LSHIFT))
 					player.run(delta);
 				else
 					player.walk(delta);
-
+			}
+			
 			if (keyPressed(Key.KEY_S) || keyPressed(Key.KEY_DOWN))
 				player.walk(-delta);
 
@@ -133,8 +133,6 @@ public class GameScene extends Scene {
 				player.changeWeapon(9);
 
 			getCamera().setPosition(player.getPosition());
-		} else {
-			// afficher le monsieur mort
 		}
 
 		entities.addAll(entityTmp);
