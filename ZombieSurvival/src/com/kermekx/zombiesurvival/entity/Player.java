@@ -72,9 +72,7 @@ public class Player extends Entity {
 		inventory.addItem(new ItemStack(ItemList.KNIFE.getItem().getId()));
 		inventory.addItem(new ItemStack(ItemList.AMMO.getItem().getId(), 32));
 
-		System.out.println(inventory.getSlot(0).getItemId());
-
-		this.addAI(new DropOnDeath(this, PlayerTextures.PLAYER_DEATH.getTextureIds(0)));
+		this.addAI(new DropOnDeath(this, PlayerTextures.PLAYER_DEATH.getTextureIds(0), new Vector(100, 100)));
 	}
 
 	public void walk(float delta) {

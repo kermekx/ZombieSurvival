@@ -24,7 +24,6 @@ public class DecorationLoader {
 
 			while (scanner.hasNext()) {
 				data = scanner.next();
-				System.out.println(data);
 				String[] datas = data.split(":");
 				int id = Integer.parseInt(datas[0]);
 				datas = datas[1].split(",");

@@ -1,5 +1,7 @@
 package com.kermekx.engine.position;
 
+import java.awt.Point;
+
 import org.lwjgl.util.vector.Vector3f;
 
 public class Vector {
@@ -75,6 +77,10 @@ public class Vector {
 			return false;
 		Vector vector = (Vector) object;
 		return this.vector.equals(vector.vector);
+	}
+
+	public Point toPoint() {
+		return new Point((int) getX(), (int) getY());
 	}
 
 }

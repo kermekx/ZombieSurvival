@@ -6,7 +6,8 @@ import com.kermekx.engine.texture.LoadableTexturePack;
 import com.kermekx.engine.texture.TextureManager;
 
 public enum HudTextures implements LoadableTexturePack {
-	WEAPON_WITHOUT_AMMO(0, "weapon_without_ammo"), WEAPON_WITH_AMMO(1, "weapon_with_ammo"), AMMO(2, "ammo");
+	WEAPON_WITHOUT_AMMO(0, "weapon_without_ammo"), WEAPON_WITH_AMMO(1, "weapon_with_ammo"), AMMO(2, "ammo"), BAG(3,
+			"bag");
 
 	private static final String TEXTURES_PATH = "assets/hud/";
 	private static final String IMAGE_FORMAT = ".png";

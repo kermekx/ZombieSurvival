@@ -14,6 +14,7 @@ import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.entity.loader.DecorationLoader;
 import com.kermekx.zombiesurvival.hud.CurrentWeapon;
 import com.kermekx.zombiesurvival.hud.Life;
+import com.kermekx.zombiesurvival.hud.OpenInventoryHUD;
 import com.kermekx.zombiesurvival.terrain.World;
 
 public class GameScene extends Scene {
@@ -59,7 +60,7 @@ public class GameScene extends Scene {
 
 		addHud(new Life(player));
 		addHud(new CurrentWeapon(player));
-		// addHud(new ShortInventory(player.getInventory()));
+		addHud(new OpenInventoryHUD(player.getInventory()));
 
 	}
 

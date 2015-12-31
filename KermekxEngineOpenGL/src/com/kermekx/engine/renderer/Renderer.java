@@ -21,6 +21,7 @@ import static org.lwjgl.opengl.GL11.glVertex3f;
 import java.awt.Rectangle;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
 import com.kermekx.engine.camera.Camera;
 import com.kermekx.engine.drawable.Drawable;
@@ -147,6 +148,8 @@ public class Renderer {
 		this.scene = scene;
 	}
 
+	private boolean click = false;
+
 	/**
 	 * Mise à jour de la scene (éléments de la scene)
 	 * 
@@ -156,13 +159,22 @@ public class Renderer {
 	public synchronized void update(int delta) {
 		if (scene != null)
 			scene.update(delta);
-		MouseEvent me = new MouseEvent(new Vector(Mouse.getX(), Mouse.getY()),
+		
+		MouseEvent me = new MouseEvent(
+				new Vector(Mouse.getX() * 1920 / Display.getWidth(),
+						(Display.getHeight() - Mouse.getY()) * 1080 / Display.getHeight()),
 				(Mouse.isButtonDown(0) ? MouseEvent.LEFT_BUTTON : 0)
 						| (Mouse.isButtonDown(1) ? MouseEvent.RIGHT_CLICK : 0));
-		if (me.getClick() == 0)
+		
+		if (me.getClick() == 0) {
+			click = false;
 			return;
-		for (HUD hud : scene.getHuds())
-			hud.mouseEvent(me);
+		}
+		
+		if (!click)
+			for (HUD hud : scene.getHuds())
+				hud.mouseEvent(me);
+		click = true;
 	}
 
 	public synchronized void updateAI(int delta) {
