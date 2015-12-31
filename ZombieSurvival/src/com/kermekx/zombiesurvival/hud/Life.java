@@ -30,8 +30,8 @@ public class Life extends HUD {
 		addDisplayList(new DisplayList(drawables, new Vector(0, 0), new Vector(1920, 1080)));
 		addDrawable(lifeBar);
 
-		this.startLife = player.getLife();
-		this.life = player.getLife();
+		this.startLife = (int) player.getLife();
+		this.life = (int) player.getLife();
 		this.player = player;
 	}
 
@@ -39,7 +39,7 @@ public class Life extends HUD {
 	public void update(int delta) {
 		if (player.getLife() != life) {
 			int percentLife = 100 * life / startLife;
-			life = player.getLife();
+			life = (int) player.getLife();
 			getDrawables().remove(lifeBar);
 			lifeBar = new Rectangle2D(percentLife, 14, (2 * percentLife), 17,
 					ColorBuilder.createColor(percentLife / 100f, 0, 0));

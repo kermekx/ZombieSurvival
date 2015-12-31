@@ -20,7 +20,7 @@ public abstract class Entity {
 	private Vector position;
 	private float rotation;
 	private boolean alive = true;
-	private int life = -1;
+	private float life = -1;
 	private List<Drawable> drawables = new ArrayList<Drawable>();
 	private List<AI> ais = new ArrayList<AI>();
 
@@ -122,7 +122,7 @@ public abstract class Entity {
 		return true;
 	}
 
-	public int getLife() {
+	public float getLife() {
 		return this.life;
 	}
 
@@ -143,7 +143,7 @@ public abstract class Entity {
 		return this.hitbox;
 	}
 
-	public void damage(int damage) {
+	public void damage(float damage) {
 		if (life == -1)
 			return;
 
