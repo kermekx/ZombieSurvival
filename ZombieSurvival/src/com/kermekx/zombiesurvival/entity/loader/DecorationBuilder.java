@@ -59,5 +59,11 @@ public class DecorationBuilder {
 	public static Entity createDecoration(int id, Vector position) {
 		return createDecoration(decorations[id], position);
 	}
+	
+	public static Entity createDecoration(int id, Vector position, int rotation) {
+		Entity entity = createDecoration(decorations[id], position);
+		entity.setRotation(rotation);
+		return entity;
+	}
 
 }

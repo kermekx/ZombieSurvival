@@ -29,7 +29,7 @@ public class DecorationLoader {
 				int id = Integer.parseInt(datas[0]);
 				datas = datas[1].split(",");
 				Vector position = new Vector(x * 16 * 128 + Integer.parseInt(datas[0]), y * 16 * 128 + Integer.parseInt(datas[1]));
-				scene.addEntity(DecorationBuilder.createDecoration(id, position));
+				scene.addEntity(DecorationBuilder.createDecoration(id, position, Integer.parseInt(datas[2])));
 			}
 
 			scanner.close();
