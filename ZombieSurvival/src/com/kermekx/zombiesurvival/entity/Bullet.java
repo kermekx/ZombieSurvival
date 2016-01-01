@@ -6,6 +6,8 @@ import com.kermekx.engine.drawable.Rectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.engine.texture.TextureManager;
+import com.kermekx.zombiesurvival.damage.Damage;
+import com.kermekx.zombiesurvival.damage.DamageSource;
 
 public class Bullet extends Entity {
 
@@ -36,7 +38,7 @@ public class Bullet extends Entity {
 
 		Entity target = translate(delta, 0f);
 		if (target != null) {
-			target.damage(DAMAGE);
+			target.damage(new Damage(this, DamageSource.BULLET, DAMAGE));
 			this.kill();
 		}
 	}

@@ -5,6 +5,8 @@ import java.util.List;
 import com.kermekx.engine.drawable.EmptyRectangle2D;
 import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.ZombieSurvival;
+import com.kermekx.zombiesurvival.damage.Damage;
+import com.kermekx.zombiesurvival.damage.DamageSource;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
@@ -33,7 +35,7 @@ public class SecondaryWeapon extends Item {
 
 		for (Entity entity : entities) {
 			if (hitbox.contains(entity.getHitbox()) && entity != player) {
-				entity.damage(50);
+				entity.damage(new Damage(player, DamageSource.CUT, 50));
 			}
 		}
 		

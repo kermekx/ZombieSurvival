@@ -10,23 +10,27 @@ import com.kermekx.engine.position.Vector;
 import com.kermekx.engine.scene.Scene;
 import com.kermekx.zombiesurvival.ZombieSurvival;
 import com.kermekx.zombiesurvival.ai.AI;
+import com.kermekx.zombiesurvival.damage.Damage;
+import com.kermekx.zombiesurvival.damage.Resistance;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
 import com.kermekx.zombiesurvival.scene.GameScene;
 
 public abstract class Entity {
 
 	private final Scene context;
+	private final Resistance resistance;
 	private Hitbox hitbox;
 	private Vector position;
 	private float rotation;
 	private boolean alive = true;
-	private float life = -1;
+	private float life = 1;
 	private List<Drawable> drawables = new ArrayList<Drawable>();
 	private List<AI> ais = new ArrayList<AI>();
 
 	public Entity(Scene context, Vector position, Vector size) {
 		this.context = context;
 		setPosition(position);
+		resistance = Resistance.INVISIBLE;
 		hitbox = new Hitbox(position, size);
 		if (ZombieSurvival.DEBUG)
 			addDrawable(new EmptyRectangle2D(position.getX(), position.getY(), size.getX(), size.getY()));
@@ -35,6 +39,7 @@ public abstract class Entity {
 	public Entity(Scene context, Vector position, Vector size, int life) {
 		this.context = context;
 		setPosition(position);
+		resistance = Resistance.NORMAL;
 		hitbox = new Hitbox(position, size);
 		if (ZombieSurvival.DEBUG)
 			addDrawable(new EmptyRectangle2D(getHitbox().getPosition().getX(), getHitbox().getPosition().getY(),
@@ -143,14 +148,9 @@ public abstract class Entity {
 		return this.hitbox;
 	}
 
-	public void damage(float damage) {
-		if (life == -1)
-			return;
-
-		if ((life -= damage) <= 0) {
+	public void damage(Damage damage) {
+		if ((life -= resistance.getDamage(damage)) <= 0)
 			kill();
-			System.out.println("Entity death");
-		}
 	}
 
 	public void kill() {
