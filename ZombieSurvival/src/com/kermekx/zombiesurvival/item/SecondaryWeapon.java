@@ -7,7 +7,6 @@ import com.kermekx.engine.position.Vector;
 import com.kermekx.zombiesurvival.ZombieSurvival;
 import com.kermekx.zombiesurvival.entity.Entity;
 import com.kermekx.zombiesurvival.entity.Player;
-import com.kermekx.zombiesurvival.entity.Zombie;
 import com.kermekx.zombiesurvival.hitbox.Hitbox;
 import com.kermekx.zombiesurvival.scene.GameScene;
 import com.kermekx.zombiesurvival.texture.ItemTextures;
@@ -20,24 +19,26 @@ public class SecondaryWeapon extends Item {
 		super(id, texture, false);
 	}
 
-	public void use(Player p) {
-		p.meleeAtack();
-		hitbox = new Hitbox(new Vector(p.getPosition().getX()+60, p.getPosition().getY()+40), new Vector(40, 40));
+	public void use(Player player) {
+		player.meleeAtack();
+		hitbox = new Hitbox(new Vector(player.getPosition().getX(), player.getPosition().getY()), new Vector(60, 60));
 		
-		hitbox.rotate(p.getRotation());
+		hitbox.rotate(player.getRotation());
+		hitbox.translate(40, 0);
 		hitbox.setBounds();
 
-		GameScene context = ((GameScene) p.getContext());
+		GameScene context = ((GameScene) player.getContext());
+		
 		List<Entity> entities = context.getEntities();
 
 		for (Entity entity : entities) {
-			if (hitbox.contains(entity.getHitbox()) && entity instanceof Zombie) {
+			if (hitbox.contains(entity.getHitbox()) && entity != player) {
 				entity.damage(50);
-				System.out.println(Zombie.class.getSimpleName() + ", vie : " + entity.getLife());
 			}
 		}
+		
 		if (ZombieSurvival.DEBUG)
-			p.getContext().addDrawable(
+			context.addDrawable(
 					new EmptyRectangle2D(hitbox.getBounds().getBounds().x, hitbox.getBounds().getBounds().y,
 							hitbox.getBounds().getBounds().width, hitbox.getBounds().getBounds().height));
 
